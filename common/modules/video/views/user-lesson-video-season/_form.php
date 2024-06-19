@@ -1,0 +1,34 @@
+<?php
+
+use soft\helpers\Html;
+use soft\widget\kartik\ActiveForm;
+use soft\widget\kartik\Form;
+
+/* @var $this soft\web\View */
+/* @var $model common\modules\video\models\UserLessonVideoSeason */
+
+?>
+
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= Form::widget([
+        'model' => $model,
+        'form' => $form,
+        'attributes' => [
+                  'parent_video_id',
+              'user_id',
+              'season_id',
+              'copmleted_count',
+              'lesson_count',
+              'completed_percent',
+              'created_by',
+              'updated_by',
+        ]
+    ]); ?>
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax ] ) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
