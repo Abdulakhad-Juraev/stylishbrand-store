@@ -1,0 +1,300 @@
+.tran{
+    &:hover{
+        svg{
+            transform: translate(0);
+        }
+    }
+}
+
+.bg-menu{
+    position: fixed;
+    pointer-events: none;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    transition: .2s ease;
+    background: rgba(29, 46, 52, 0.5);
+    backdrop-filter: blur(5px);
+    &.active{
+        opacity: 1;
+        pointer-events: visible;
+    }
+}
+
+
+
+//modal
+
+.modal{
+    background: rgba(29, 46, 52, 0.5) !important;
+    backdrop-filter: blur(5px) !important;
+    
+    .modal-content{
+        border-radius: 18px;
+        @include media(650px){
+            border-radius: 18px;
+         }
+        overflow: hidden;
+        border: none;
+        .modal-body{
+            background: #FFFFFF;
+            backdrop-filter: blur(50px);
+            padding: 40px;
+            @include media(950px){
+                padding: 24px;
+             }
+            @include media(650px){
+                padding: 18px;
+             }
+            position: relative;
+            .close-btn{
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 30px;
+                height: 30px;
+                @include media(650px){
+                    top: 8px;
+                    right:8px;
+                    width: 30px;
+                    height: 30px;
+                    background: #FFFFFF;
+                    border: 1px solid #ECEFF1;
+                 }
+                background: #F3F5F9;
+                color: #000;
+                transition: .2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                outline: none;
+                font-size: 12px;
+                border-radius: 50%;
+                i{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                }
+                &:hover{
+                    opacity: .7;
+                }
+            }
+            .modal-in{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                .nav-text{
+                    text-align: start;
+                    width: 100%;
+                }
+
+            }
+        }
+    }
+}
+
+
+
+.my-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    gap: 24px;
+    margin-top: 30px;
+}
+.my-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
+}
+.label{
+    font-weight: 400;
+    color: #8E8E93;
+}
+.input{
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 11px 23px;
+    height: 46px;
+    @include font14x21xfw600;
+    color: #fff;
+    &:active{
+        border: 1px solid $mainColor;
+    }
+    &:focus{
+        border: 1px solid $mainColor;
+        outline: none;
+    }
+    &::placeholder{
+        color: #D1D6DE;
+        font-weight: 400;
+    }
+}
+
+.my-chek{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.file-input{
+    width: max-content;
+    input{
+        display: none;
+    }
+    .green-btn{
+        width: max-content;
+    }
+}
+//mobile-menu
+
+.mobile-menu{
+    width: 348px;
+    height: 100vh;
+    position: fixed;
+    transition: .3s ease;
+    background: #fff;
+    padding: 18px 12px;
+    z-index: 3;
+    top: 0;
+    left: -100%;
+    &.active{
+        left: 0;
+    }
+    .back-btn{
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        transition: .2s;
+        &:hover{
+            opacity: .7;
+            cursor: pointer;
+        }
+    }
+    .logo{
+        width: max-content;
+        img{
+          width: 130px;
+        }
+      }
+    .menus{
+        display: flex;
+        align-items: flex-start;
+        margin-top: 30px;
+        padding: 0;
+        flex-direction: column;
+        li{
+            
+            &.active{
+            .menus-item{
+                font-weight: 600;
+            }
+            }
+            margin-top: 30px;
+            &:first-child{
+                margin-top: 0;
+            }
+            
+            .menus-item{
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: .2s ease;
+            gap: 8px;
+            color:#474E57;
+            padding:0;
+            &:hover{
+                opacity: .8;
+              
+            }
+            
+            svg{
+                transition: .2s ease;
+                path{
+                fill: #474E57;
+                }
+            }
+            }
+        }
+    }
+    .my-btn{
+        font-weight: 400;
+        padding: 10px 30px;
+        width: 100%;
+        margin-top: 30px;
+    }
+    .language {
+        background: transparent;
+        box-shadow: none;
+        position: relative;
+        margin-top: 40px;
+        width: max-content;
+        &-in {
+          padding      : 10px 10px;
+          @include media(750px){
+            padding: 8px 12px;
+          }
+          border-radius: 50px;
+          border: 1px solid #A3B1BB;
+          display      : flex;
+          cursor: pointer;
+          align-items  : center;
+          gap: 10px;
+          .txt-16{
+            color: #282E35;
+            text-transform: uppercase;
+            font-weight: 500;
+          }
+          &:after {
+            display: none;
+          }
+          i{
+            color: #282E35;
+            transition: .2s;
+            font-size: 14px;
+          }
+        }
+      
+        &-menu {
+          min-width    : 100%;
+          background: #FFFFFF;
+          box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+          border-radius: 18px;
+          flex-direction: column;
+          align-items: center;
+          &.menu-account{
+            width: 347px;
+            @include media(750px){
+              width: 335px;
+            }
+          }
+          .txt-16{
+            text-align: center;
+          }
+          a:hover {
+            opacity: .8;
+            background: transparent;
+          }
+      
+          a:active {
+            opacity: .8;
+            background: transparent;
+          }
+      
+          a:focus {
+            opacity: .8;
+            background: transparent;
+          }
+        }
+      
+    }
+}

@@ -1,0 +1,169 @@
+@mixin media($width) {
+   @media (max-width: $width) {
+      @content;
+   }
+}
+
+@mixin font16x23xfw400 {
+   font-size: 16px;
+   line-height: 23px;
+   font-weight: 400;
+   @include media(650px){
+      font-size: 16px;
+      line-height: 24px;
+   }
+}
+
+@mixin font14x21xfw600 {
+   font-size: 14px;
+   line-height: 19px;
+   font-weight: 400;
+   @include media(650px){
+      font-size: 12px;
+      line-height: 18px;
+   }
+}
+@mixin font50x64xfw700 {
+   font-size: 50px;
+   line-height: 64px;
+   font-weight: 700;
+   @include media(650px){
+      font-size: 33px;
+      line-height: 38px;
+   }
+}
+
+@mixin font60x64xfw700 {
+   font-size: 60px;
+   line-height: 64px;
+   font-weight: 700;
+   @include media(650px){
+      font-size: 24px;
+      line-height: 28px;
+   }
+}
+
+
+@mixin font95x123xfw800 {
+   font-style: normal;
+   font-weight: 600;
+   font-size: 90px;
+   line-height: 108px;
+   @include media(650px){
+      font-size:24px;
+      line-height: 28px;
+   }
+}
+
+
+@mixin font42x58xfw700 {
+   font-style: normal;
+   font-weight: 700;
+   font-size: 42px;
+   line-height: 58px;
+   @include media(650px){
+      font-size: 21px;
+      line-height: 28px;
+   }
+}
+
+
+@mixin font48x58xfw700 {
+   font-style: normal;
+   font-weight: 700;
+   font-size: 48px;
+   line-height: 58px;
+   @include media(650px){
+      font-size: 20px;
+      line-height: 24px;
+   }
+}
+
+
+@mixin font12x17xfw500 {
+   font-size: 12px;
+   line-height: 17px;
+   font-weight: 500;
+   @include media(650px){
+      font-size: 12px;
+      line-height: 18px;
+   }
+}
+
+@mixin font19x23xfw500 {
+   font-size: 19px;
+   line-height: 23px;
+   font-weight: 500;
+   @include media(650px){
+      font-size: 16px;
+      line-height: 18px;
+   }
+}
+
+@mixin font20x30xfw400 {
+   font-size: 20px;
+   line-height: 30px;
+   font-weight: 700;
+
+   @include media(650px){
+      font-size: 16px;
+      line-height: 140% !important;
+   }
+}
+
+@mixin font21x27xfw600 {
+   font-size: 21px;
+   line-height: 27px;
+   font-weight: 600;
+   @include media(650px){
+      font-size: 18px;
+   }
+}
+
+@mixin font18x21xfw500 {
+   font-size: 18px;
+   line-height: 27px;
+   font-weight: 400;
+   @include media(650px){
+      font-size: 18px;
+      line-height: 27px;
+   }
+}
+
+@mixin font33x47xfw500 {
+   font-size: 33px;
+   line-height: 47px;
+   font-weight: 500;
+   @include media(650px){
+      font-size: 18px;
+      line-height: 23px;
+   }
+}
+
+@mixin font24x32xfw400 {
+   font-weight: 400;
+   font-size: 24px;
+   line-height: 32px;
+   @include media(650px){
+      font-size: 22px;
+      line-height: 28px;
+   }
+}
+@mixin font28x38xfw600 {
+   font-weight: 600;
+   font-size: 28px;
+   line-height: 38px;
+   @include media(650px){
+      font-size: 23px;
+      line-height: 28px;
+   }
+}
+@mixin fontbtn {
+   font-weight: 600;
+   font-size: 16px;
+   line-height: 22px;
+   @include media(650px){
+      font-size: 14px;
+      line-height: 17px;
+   }
+}

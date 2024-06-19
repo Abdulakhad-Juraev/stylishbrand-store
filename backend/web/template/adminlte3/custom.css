@@ -1,0 +1,7 @@
+#my-list-group .list-group-item{
+
+    border-right: none !important;
+    border-left: none !important;
+    border-radius: 0 !important;
+
+}

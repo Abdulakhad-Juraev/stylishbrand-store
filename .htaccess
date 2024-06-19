@@ -1,0 +1,23 @@
+Options -Indexes
+IndexIgnore */*
+
+Options FollowSymLinks
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteEngine On
+
+RewriteRule ^api(/.+)?$ api/web/$1 [L,PT]
+RewriteRule ^api/(.+)?$ api/web/$1 [L,PT]
+
+RewriteRule ^controlp(/.+)?$ backend/web/$1 [L,PT]
+RewriteRule ^controlp/(.+)?$ backend/web/$1 [L,PT]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin *
+</IfModule>
+
+RewriteRule ^template(/.+)?$ frontend/web/template/$1 [L]
+
+RewriteRule ^(.+)?$ frontend/web/$1
