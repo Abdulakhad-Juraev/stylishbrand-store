@@ -14,6 +14,7 @@ class SubCategorySearch extends SubCategory
     {
         return [
             [['id', 'category_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 

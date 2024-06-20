@@ -3,40 +3,14 @@
 namespace common\modules\product\controllers;
 
 use Yii;
-use common\modules\product\models\Category;
-use common\modules\product\models\search\CategorySearch;
+use yii\web\Response;
 use soft\web\SoftController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use common\modules\product\models\Category;
+use common\modules\product\models\search\CategorySearch;
 
 class CategoryController extends SoftController
 {
-
-    /**
-    * {@inheritdoc}
-    */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                    'bulk-delete' => ['POST'],
-                ],
-            ],
-            /*'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                ],
-            ]*/
-        ];
-    }
-
     /**
     * @return mixed
     */
@@ -67,7 +41,9 @@ class CategoryController extends SoftController
     */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Category([
+            'status' => Category::STATUS_ACTIVE
+        ]);
         return $this->ajaxCrud($model)->createAction();
     }
 
@@ -112,5 +88,28 @@ class CategoryController extends SoftController
             not_found();
         }
         return $model;
+    }
+
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     */
+    public function actionChange($id)
+    {
+        $model = $this->findModel($id);
+
+        // Toggle status
+        $model->status = ($model->status == Category::STATUS_ACTIVE)
+            ? Category::STATUS_INACTIVE
+            : Category::STATUS_ACTIVE;
+
+        // Save without validation to avoid extra database queries
+        if (!$model->save(false)) {
+            throw new \RuntimeException('Failed to save the model');
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

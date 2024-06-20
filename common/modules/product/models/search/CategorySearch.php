@@ -14,6 +14,7 @@ class CategorySearch extends Category
     {
         return [
             [['id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 

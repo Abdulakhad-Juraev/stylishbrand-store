@@ -10,21 +10,20 @@ use soft\widget\kartik\Form;
 ?>
 
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= Form::widget([
-        'model' => $model,
-        'form' => $form,
-        'attributes' => [
-                  'category_id',
-              'status',
-              'created_by',
-              'updated_by',
-        ]
-    ]); ?>
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax ] ) ?>
-    </div>
+<?= Form::widget([
+    'model' => $model,
+    'form' => $form,
+    'attributes' => [
+        'name',
+        'category_id',
+        'status:status',
+    ]
+]); ?>
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax]) ?>
+</div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 

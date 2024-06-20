@@ -7,39 +7,14 @@ use common\modules\product\models\SubCategory;
 use common\modules\product\models\search\SubCategorySearch;
 use soft\web\SoftController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 class SubCategoryController extends SoftController
 {
 
     /**
-    * {@inheritdoc}
-    */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                    'bulk-delete' => ['POST'],
-                ],
-            ],
-            /*'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                ],
-            ]*/
-        ];
-    }
-
-    /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new SubCategorySearch();
@@ -52,10 +27,10 @@ class SubCategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -63,8 +38,8 @@ class SubCategoryController extends SoftController
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function actionCreate()
     {
         $model = new SubCategory();
@@ -72,10 +47,10 @@ class SubCategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -86,10 +61,10 @@ class SubCategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -101,16 +76,38 @@ class SubCategoryController extends SoftController
     }
 
     /**
-    * @param $id
-    * @return SubCategory
-    * @throws yii\web\NotFoundHttpException
-    */
+     * @param $id
+     * @return SubCategory
+     * @throws yii\web\NotFoundHttpException
+     */
     public function findModel($id)
     {
         $model = SubCategory::find()->andWhere(['id' => $id])->one();
-        if ($model == null){
+        if ($model == null) {
             not_found();
         }
         return $model;
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     */
+    public function actionChange($id)
+    {
+        $model = $this->findModel($id);
+
+        // Toggle status
+        $model->status = ($model->status == SubCategory::STATUS_ACTIVE)
+            ? SubCategory::STATUS_INACTIVE
+            : SubCategory::STATUS_ACTIVE;
+
+        // Save without validation to avoid extra database queries
+        if (!$model->save(false)) {
+            throw new \RuntimeException('Failed to save the model');
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

@@ -19,12 +19,17 @@ $menuItems = [
     [
         'label' => "Category",
         'url' => ['/product-manager/category/index'],
-        'icon' => 'users',
+        'icon' => 'list',
     ],
     [
         'label' => "SubCategory",
         'url' => ['/product-manager/sub-category/index'],
-        'icon' => 'users',
+        'icon' => 'list',
+    ],
+    [
+        'label' => "Product",
+        'url' => ['/product-manager/product/index'],
+        'icon' => 'box-open',
     ],
 
     [

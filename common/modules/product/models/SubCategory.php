@@ -3,12 +3,16 @@
 namespace common\modules\product\models;
 
 use common\modules\user\models\User;
+use odilov\multilingual\behaviors\MultilingualBehavior;
+use soft\db\ActiveQuery;
+use soft\helpers\ArrayHelper;
 use Yii;
 
 /**
  * This is the model class for table "sub_category".
  *
  * @property int $id
+ * @property string $name
  * @property int|null $category_id
  * @property int|null $status
  * @property int|null $created_by
@@ -38,6 +42,8 @@ class SubCategory extends \soft\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'string'],
+            [['name'], 'required'],
             [['category_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
@@ -53,9 +59,23 @@ class SubCategory extends \soft\db\ActiveRecord
         return [
             'yii\behaviors\TimestampBehavior',
             'yii\behaviors\BlameableBehavior',
+            'multilingual' => [
+                'class' => MultilingualBehavior::class,
+                'attributes' => [
+                    'name'
+                ],
+                'languages' => $this->languages(),
+            ],
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public static function find()
+    {
+        return parent::find()->multilingual();
+    }
     /**
     * {@inheritdoc}
     */
@@ -98,7 +118,14 @@ class SubCategory extends \soft\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
-    
+
+    /**
+     * @return array
+     */
+    public static function map(): array
+    {
+        return ArrayHelper::map(self::find()->andWhere(['status' => self::STATUS_ACTIVE])->all(), 'id', 'name');
+    }
 
     //</editor-fold>
 }
