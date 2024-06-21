@@ -43,7 +43,7 @@ class SubCategory extends \soft\db\ActiveRecord
     {
         return [
             [['name'], 'string'],
-            [['name'], 'required'],
+            [['name','category_id'], 'required'],
             [['category_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],

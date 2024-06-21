@@ -117,4 +117,9 @@ class Category extends \soft\db\ActiveRecord
     {
         return ArrayHelper::map(self::find()->andWhere(['status' => self::STATUS_ACTIVE])->all(), 'id', 'name');
     }
+
+    public function getSubCategories()
+    {
+        return $this->hasMany(SubCategory::className(), ['category_id' => 'id']);
+    }
 }

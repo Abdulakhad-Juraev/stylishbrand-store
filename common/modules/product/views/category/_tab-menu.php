@@ -22,7 +22,7 @@ use common\modules\product\models\Category;
         ],
         [
             'label' => 'Sub Category',
-            'url' => ['product/category/add-sub-category', 'id' => $model->id],
+            'url' => ['/product-manager/category/sub-category', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],
     ]

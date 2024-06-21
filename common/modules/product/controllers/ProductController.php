@@ -3,6 +3,7 @@
 namespace common\modules\product\controllers;
 
 use common\modules\galleryManager\GalleryManagerAction;
+use DateTime;
 use Yii;
 use common\modules\product\models\Product;
 use common\modules\product\models\search\ProductSearch;
@@ -61,8 +62,11 @@ class ProductController extends SoftController
      */
     public function actionCreate()
     {
+        date_default_timezone_set('Asia/Tashkent');
         $model = new Product([
-            'status' => Product::STATUS_ACTIVE
+            'status' => Product::STATUS_ACTIVE,
+            'published_at' => date('Y-m-d H:i'),
+            'expired_at' => (new DateTime(date('Y-m-d H:i')))->modify('+3 month')->format('Y-m-d H:i')
         ]);
         return $this->ajaxCrud($model)->createAction();
     }
@@ -120,24 +124,6 @@ class ProductController extends SoftController
         $model = $this->findModel($id);
         return $this->render('image', [
             'model' => $model,
-        ]);
-    }
-
-    /**
-     * @param $id
-     * @return string
-     * @throws NotFoundHttpException
-     */
-    public function actionAddSubCategory($id)
-    {
-        $model = $this->findModel($id);
-        $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search($model->getAdvantageBookReads());
-
-        return $this->render('advantage_book_reads', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'model' => $model
         ]);
     }
 

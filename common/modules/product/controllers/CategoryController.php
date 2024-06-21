@@ -2,7 +2,11 @@
 
 namespace common\modules\product\controllers;
 
+use common\modules\product\models\search\ProductSearch;
+use common\modules\product\models\search\SubCategorySearch;
+use common\modules\product\models\SubCategory;
 use Yii;
+use Yii\base\InvalidConfigException;
 use yii\web\Response;
 use soft\web\SoftController;
 use yii\web\NotFoundHttpException;
@@ -12,8 +16,8 @@ use common\modules\product\models\search\CategorySearch;
 class CategoryController extends SoftController
 {
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new CategorySearch();
@@ -26,10 +30,10 @@ class CategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -37,8 +41,8 @@ class CategoryController extends SoftController
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function actionCreate()
     {
         $model = new Category([
@@ -48,10 +52,10 @@ class CategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -62,10 +66,10 @@ class CategoryController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -77,14 +81,14 @@ class CategoryController extends SoftController
     }
 
     /**
-    * @param $id
-    * @return Category
-    * @throws yii\web\NotFoundHttpException
-    */
+     * @param $id
+     * @return Category
+     * @throws yii\web\NotFoundHttpException
+     */
     public function findModel($id)
     {
         $model = Category::find()->andWhere(['id' => $id])->one();
-        if ($model == null){
+        if ($model == null) {
             not_found();
         }
         return $model;
@@ -112,4 +116,21 @@ class CategoryController extends SoftController
 
         return $this->redirect(Yii::$app->request->referrer);
     }
+
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionSubCategory($id): string
+    {
+        $model = $this->findModel($id);
+        $searchModel = new SubCategorySearch();
+        $dataProvider = $searchModel->search($model->getSubCategories());
+
+        return $this->render('sub-category', [
+           'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+           'model' => $model
+        ]);
+    }
+
 }

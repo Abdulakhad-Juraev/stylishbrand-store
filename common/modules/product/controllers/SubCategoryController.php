@@ -46,6 +46,23 @@ class SubCategoryController extends SoftController
         return $this->ajaxCrud($model)->createAction();
     }
 
+    public function actionCreate2($category_id)
+    {
+
+        $model = new SubCategory([
+            'status' => SubCategory::STATUS_ACTIVE
+        ]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->category_id = $category_id;
+            $model->save();
+        }
+
+        return $this->ajaxCrud($model, [
+            'view' =>'create2'
+        ])->createAction();
+    }
+
     /**
      * @param integer $id
      * @return string

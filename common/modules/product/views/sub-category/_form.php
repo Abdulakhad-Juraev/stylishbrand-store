@@ -1,5 +1,6 @@
 <?php
 
+use common\modules\product\models\Category;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\Form;
@@ -17,7 +18,12 @@ use soft\widget\kartik\Form;
     'form' => $form,
     'attributes' => [
         'name',
-        'category_id',
+        'category_id:dropdownList'=>[
+                'items' => Category::map(),
+                'options' => [
+                    'prompt' => 'Tanlang...'
+                ]
+        ],
         'status:status',
     ]
 ]); ?>
