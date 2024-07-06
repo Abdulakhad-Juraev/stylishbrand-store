@@ -5,6 +5,7 @@ use common\modules\product\models\search\ProductSearch;
 use common\modules\product\models\SubCategory;
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
+use soft\grid\ViewLinkColumn;
 use soft\helpers\Html;
 
 /* @var $this soft\web\View */
@@ -27,7 +28,10 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
-        'name',
+        [
+            'class' => ViewLinkColumn::class,
+            'attribute' => 'name',
+        ],
         'price:sum',
         'percentage',
         [

@@ -7,8 +7,12 @@
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 
+
+<?= $this->render('_tab-menu', ['model' => $model]) ?>
     <?= \soft\widget\bs4\DetailView::widget([
         'model' => $model,
         'attributes' => [

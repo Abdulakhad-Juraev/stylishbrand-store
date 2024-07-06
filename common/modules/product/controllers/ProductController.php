@@ -2,14 +2,20 @@
 
 namespace common\modules\product\controllers;
 
-use common\modules\galleryManager\GalleryManagerAction;
-use DateTime;
 use Yii;
-use common\modules\product\models\Product;
-use common\modules\product\models\search\ProductSearch;
+use yii\web\Response;
+use yii\db\Exception;
+use yii\db\ActiveRecord;
 use soft\web\SoftController;
+use soft\helpers\ArrayHelper;
+use yii\db\StaleObjectException;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
+use Yii\base\InvalidConfigException;
+use common\modules\product\models\Product;
+use common\modules\galleryManager\GalleryManagerAction;
+use common\modules\product\models\search\ProductSearch;
+use common\modules\product\models\search\AssignProductSizeSearch;
 
 class ProductController extends SoftController
 {
@@ -57,24 +63,35 @@ class ProductController extends SoftController
         return $this->ajaxCrud($model)->viewAction();
     }
 
-    /**
-     * @return string
-     */
+
     public function actionCreate()
     {
-        date_default_timezone_set('Asia/Tashkent');
-        $model = new Product([
-            'status' => Product::STATUS_ACTIVE,
-            'published_at' => date('Y-m-d H:i'),
-            'expired_at' => (new DateTime(date('Y-m-d H:i')))->modify('+3 month')->format('Y-m-d H:i')
-        ]);
-        return $this->ajaxCrud($model)->createAction();
+//        date_default_timezone_set('Asia/Tashkent');
+//        $model = new Product([
+//            'status' => Product::STATUS_ACTIVE,
+//            'published_at' => date('Y-m-d H:i'),
+//            'expired_at' => (new DateTime(date('Y-m-d H:i')))->modify('+3 month')->format('Y-m-d H:i')
+//        ]);
+//        $model->createProductSizeAssigns();
+//        return $this->ajaxCrud($model)->createAction();
+
+
+        $model = new Product();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $model->createProductSizeAssigns();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+        return $this->render('create', ['model' => $model]);
     }
 
     /**
-     * @param integer $id
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return string|Response
+     * @throws Exception
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -82,13 +99,35 @@ class ProductController extends SoftController
         if (!$model->getIsUpdatable()) {
             forbidden();
         }
-        return $this->ajaxCrud($model)->updateAction();
+
+        $model->product_sizes = ArrayHelper::getColumn($model->sizes, 'id');
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $transaction = Yii::$app->db->beginTransaction();
+
+            if ($model->save(false) && $model->updateProductSizeAssign()) {
+                $transaction->commit();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            $transaction->rollBack();
+        }
+        return $this->render('update', ['model' => $model]);
     }
 
+
+//return $this->ajaxCrud($model)->updateAction();
+//    }
+
     /**
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return array
+     * @throws NotFoundHttpException
+     * @throws InvalidConfigException
+     * @throws \Throwable
+     * @throws StaleObjectException
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
@@ -102,8 +141,8 @@ class ProductController extends SoftController
 
     /**
      * @param $id
-     * @return Product
-     * @throws yii\web\NotFoundHttpException
+     * @return array|ActiveRecord|null
+     * @throws NotFoundHttpException
      */
     public function findModel($id)
     {
@@ -127,4 +166,21 @@ class ProductController extends SoftController
         ]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionProductSize($id): string
+    {
+        $model = $this->findModel($id);
+        $query = $model->getProductSizeAssign();
+        $searchModel = new AssignProductSizeSearch();
+        $dataProvider = $searchModel->search($query);
+        return $this->render('product-size', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model
+        ]);
+    }
 }

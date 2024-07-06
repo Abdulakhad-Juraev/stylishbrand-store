@@ -2,6 +2,7 @@
 
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
+use soft\widget\kartik\file\SingleImageFileInput;
 use soft\widget\kartik\Form;
 
 /* @var $this soft\web\View */
@@ -9,13 +10,20 @@ use soft\widget\kartik\Form;
 ?>
 
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 <?= Form::widget([
     'model' => $model,
     'form' => $form,
     'attributes' => [
         'name',
+        'image:widget' => [
+            'widgetClass' => SingleImageFileInput::class,
+
+            'options' => [
+                'initialPreviewUrl' => $model->imageUrl
+            ]
+        ],
         'status:status',
     ]
 ]); ?>

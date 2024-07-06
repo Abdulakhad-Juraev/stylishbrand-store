@@ -2,6 +2,7 @@
 
 namespace common\modules\order\controllers;
 
+use common\modules\order\models\search\OrderItemSearch;
 use Yii;
 use common\modules\order\models\Order;
 use common\modules\order\models\search\OrderSearch;
@@ -12,30 +13,6 @@ use yii\filters\VerbFilter;
 class OrderController extends SoftController
 {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                    'bulk-delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                ],
-            ]
-        ];
-    }
 
     /**
      * @return mixed
@@ -43,10 +20,7 @@ class OrderController extends SoftController
     public function actionIndex()
     {
         $searchModel = new OrderSearch();
-        $query = Order::find()
-            ->orderBy(['created_at' => SORT_DESC]);
-
-        $dataProvider = $searchModel->search($query);
+        $dataProvider = $searchModel->search();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -70,7 +44,9 @@ class OrderController extends SoftController
      */
     public function actionCreate()
     {
-        $model = new Order();
+        $model = new Order(
+            ['status' => Order::STATUS_ACTIVE]
+        );
         return $this->ajaxCrud($model)->createAction();
     }
 
@@ -81,7 +57,6 @@ class OrderController extends SoftController
      */
     public function actionUpdate($id)
     {
-        forbidden();
         $model = $this->findModel($id);
         if (!$model->getIsUpdatable()) {
             forbidden();
@@ -116,5 +91,21 @@ class OrderController extends SoftController
             not_found();
         }
         return $model;
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionOrderItem($id)
+    {
+        $model = $this->findModel($id);
+        $searchModel = new OrderItemSearch();
+        $dataProvider = $searchModel->search($model->getOrderItems());
+
+        return $this->render('order-items', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model
+        ]);
     }
 }

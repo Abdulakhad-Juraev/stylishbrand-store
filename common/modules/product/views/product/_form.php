@@ -5,6 +5,7 @@ use common\modules\product\models\SubCategory;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\Form;
+use soft\widget\kartik\Select2;
 
 /* @var $this soft\web\View */
 /* @var $model common\modules\product\models\Product */
@@ -16,11 +17,12 @@ if ($model->isNewRecord || !$model->published_at) {
 //    $model->published_at = date('Y-m-d H:i');
 //    $model->expired_at = date('Y-m-d H:i');
 }
-if (is_integer($model->published_at)) {
-//    $model->published_at = date('Y-m-d H:i', $model->published_at);
-//    $model->expired_at = date('Y-m-d H:i', $model->expired_at);
-}
 
+if (is_integer($model->published_at)) {
+    $model->published_at = date('Y-m-d H:i', $model->published_at);
+}
+if (is_integer($model->expired_at))
+    $model->expired_at = date('Y-m-d H:i', $model->expired_at);
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -50,6 +52,20 @@ if (is_integer($model->published_at)) {
         'status:status',
     ]
 ]); ?>
+
+<?= $form->field($model, 'product_sizes')->widget(Select2::classname(), [
+    'data' => \common\modules\product\models\ProductSize::map(),
+    'size' => Select2::MEDIUM,
+    'options' => [
+        'placeholder' => 'Mahsulot uchun sub kategoriyasini tanlang ...',
+        'multiple' => true,
+    ],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],
+]);
+?>
+
 <div class="form-group">
     <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax]) ?>
 </div>

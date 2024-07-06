@@ -2,23 +2,20 @@
 
 namespace common\modules\product\controllers;
 
-use common\modules\product\models\search\ProductSearch;
-use common\modules\product\models\search\SubCategorySearch;
-use common\modules\product\models\SubCategory;
 use Yii;
-use Yii\base\InvalidConfigException;
 use yii\web\Response;
 use soft\web\SoftController;
 use yii\web\NotFoundHttpException;
 use common\modules\product\models\Category;
 use common\modules\product\models\search\CategorySearch;
+use common\modules\product\models\search\SubCategorySearch;
 
 class CategoryController extends SoftController
 {
     /**
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex(): mixed
     {
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search();

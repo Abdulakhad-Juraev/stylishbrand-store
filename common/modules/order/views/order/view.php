@@ -5,29 +5,21 @@
 /* @var $model common\modules\order\models\Order */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Buyurtmalar', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<?= $this->render('_tab-menu', ['model' => $model]) ?>
 <?= \soft\widget\bs4\DetailView::widget([
     'model' => $model,
     'attributes' => [
-//        'id',
+        'id',
         'user_id',
-        'price',
-        'type_id',
-        'video_id',
-        'tariff_id',
-        'book_id',
-        'payment_type_id',
-        'status',
-//        'created_by',
-//        'updated_by',
-//        'created_at',
-//        'updated_at',
+        'order_type',
+        'payment_type',
+        'total_price:sum',
+        'statusBadge:raw',
         'created_at',
         'createdBy.fullname',
         'updated_at',
-        'updatedBy.fullname'
-    ],
+        'updatedBy.fullname'],
 ]) ?>

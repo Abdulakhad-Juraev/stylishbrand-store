@@ -31,6 +31,44 @@ $menuItems = [
         'url' => ['/product-manager/product/index'],
         'icon' => 'box-open',
     ],
+    [
+        'label' => "Order",
+        'url' => ['/order-manager/order/index'],
+        'icon' => 'box-open',
+    ],
+    [
+        'label' => "Order Item",
+        'url' => ['/order-manager/order-item/index'],
+        'icon' => 'box-open',
+    ],
+
+    [
+        'label' => "Banner",
+        'url' => ['/banner-manager/banner/index'],
+        'icon' => 'box-open',
+    ],
+
+    [
+        'label' => "product-size",
+        'url' => ['/product-manager/product-size/index'],
+        'icon' => 'box-open',
+    ],
+    [
+        'label' => "product-color",
+        'url' => ['/product-manager/product-color/index'],
+        'icon' => 'box-open',
+    ],
+    [
+        'label' => "product-image",
+        'url' => ['/product-manager/product-image/index'],
+        'icon' => 'box-open',
+    ],
+    [
+        'label' => "Brand",
+        'url' => ['/product-manager/brand/index'],
+        'icon' => 'box-open',
+    ],
+
 
     [
         'label' => "Sozlamalar",

@@ -1,77 +1,58 @@
 <?php
 
+use common\models\User;
 use common\modules\order\models\Order;
+use soft\grid\GridView;
+use soft\grid\StatusColumn;
+use soft\grid\ViewLinkColumn;
 
 /* @var $this soft\web\View */
 /* @var $searchModel common\modules\order\models\search\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Buyurtmalar';
+$this->title = Yii::t('app', 'Orders');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
-<?= \soft\grid\GridView::widget([
+<?= GridView::widget([
     'id' => 'crud-datatable',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
-        'create' => false
+        'create' => [
+            'modal' => true,
+        ]
     ],
     'columns' => [
-//        'id',
         [
+            'class' => ViewLinkColumn::class,
             'attribute' => 'user_id',
-            'format' => 'raw',
+            'filter' => User::map(),
             'value' => function (Order $model) {
-                return $model->user ? $model->user->getFullname() : '';
-            }
-        ],
-        'price:sum',
-        [
-            'attribute' => 'type_id',
-            'format' => 'raw',
-            'filter' => Order::tariffCourseBooktypes(),
-            'value' => function (Order $model) {
-                return $model->getTariffCourseBookTypeName();
+                return $model->user->username ?? '';
             }
         ],
         [
-            'attribute' => 'video_id',
-            'format' => 'raw',
+            'attribute' => 'order_type',
+            'filter' => Order::orderTypes(),
             'value' => function (Order $model) {
-                return $model->video ? $model->video->name : '';
+                return $model->getOrderTypeName() ?? '';
             }
         ],
         [
-            'attribute' => 'tariff_id',
-            'format' => 'raw',
-            'value' => function (Order $model) {
-                return $model->tariff ? $model->tariff->name : '';
-            }
-        ],
-        [
-            'attribute' => 'book_id',
-            'format' => 'raw',
-            'value' => function (Order $model) {
-                return $model->book ? $model->book->name : '';
-            }
-        ],
-        [
-            'attribute' => 'payment_type_id',
-            'format' => 'raw',
+            'attribute' => 'payment_type',
             'filter' => Order::types(),
             'value' => function (Order $model) {
-                return $model->getTypeName();
+                return $model->getTypeName() ?? '';
             }
         ],
-        'status',
-        //'created_by',
-        //'updated_by',
-        'created_at',
-        //'updated_at',
+        'total_price:sum',
+        [
+            'class' => StatusColumn::class
+        ],
+
         'actionColumn' => [
-            "template" => '{view}',
             'viewOptions' => [
                 'role' => 'modal-remote',
             ],

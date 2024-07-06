@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
               'id',
               'name',
+            [
+                'attribute' => 'imageUrl',
+                'label' => "Rasm",
+                'format' => ['image', ['width' => '40px']]
+            ],
             'statusBadge:raw',
 'created_at',
 'createdBy.fullname',

@@ -1,9 +1,8 @@
 <?php
 
-use common\modules\product\models\Category;
-use common\modules\product\StatusActiveColumn;
 use soft\grid\StatusColumn;
 use soft\grid\ViewLinkColumn;
+use common\modules\product\StatusActiveColumn;
 
 /* @var $this soft\web\View */
 /* @var $searchModel common\modules\product\models\search\CategorySearch */
@@ -25,6 +24,11 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
+        [
+            'attribute' => 'imageUrl',
+            'label' => "Rasm",
+            'format' => ['image', ['width' => '40px']]
+        ],
         [
             'class' => ViewLinkColumn::class,
             'attribute' => 'name',

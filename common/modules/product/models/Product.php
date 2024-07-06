@@ -40,9 +40,13 @@ use yii\behaviors\TimestampBehavior;
  * @property User $createdBy
  * @property SubCategory $subCategory
  * @property User $updatedBy
+ * @property ProductSize[] $sizes
  */
 class Product extends ActiveRecord
 {
+
+    public $product_sizes;
+
     //<editor-fold desc="Parent" defaultstate="collapsed">
 
     /**
@@ -53,18 +57,20 @@ class Product extends ActiveRecord
         return 'product';
     }
 
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['name', 'description','price'], 'string'],
+            [['name', 'description', 'price'], 'string'],
             [['name', 'description'], 'required'],
             [['category_id', 'sub_category_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],
             [['image'], 'file'],
+            [['product_sizes'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['sub_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubCategory::className(), 'targetAttribute' => ['sub_category_id' => 'id']],
@@ -246,4 +252,60 @@ class Product extends ActiveRecord
         }
         return $images[0] ?? '';
     }
+
+
+    public function createProductSizeAssigns()
+    {
+        $sizes = (array)$this->product_sizes;
+        if (empty($sizes)) {
+            return true;
+        }
+
+        foreach ($sizes as $size) {
+            $productSizeModel = new AssignProductSize();
+            $productSizeModel->product_id = $this->id;
+            $productSizeModel->size_id = $size;
+            $productSizeModel->save();
+        }
+        return true;
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductSizeAssign()
+    {
+        return $this->hasMany(AssignProductSize::class, ['product_id' => 'id']);
+    }
+
+
+    /**
+     * @return true
+     */
+    public function updateProductSizeAssign()
+    {
+        AssignProductSize::deleteAll(['product_id' => $this->id]);
+        return $this->createProductSizeAssigns();
+    }
+
+
+    /**
+     * @return \soft\db\ActiveQuery
+     */
+    public function getAssignProductSizes()
+    {
+        return $this->hasMany(AssignProductSize::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \soft\db\ActiveQuery
+     */
+    public function getSizes()
+    {
+//        dd($this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes'));
+
+        return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
+    }
+
+
 }

@@ -2,7 +2,6 @@
 
 namespace soft\widget\kartik\file;
 
-use soft\helpers\ArrayHelper;
 use soft\helpers\Html;
 
 class SingleImageFileInput extends FileInput

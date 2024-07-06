@@ -13,7 +13,9 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'user_id', 'price', 'type_id', 'video_id', 'tariff_id', 'book_id', 'payment_type_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'user_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['order_type', 'payment_type'], 'safe'],
+            [['total_price'], 'number'],
         ];
     }
 
@@ -49,18 +51,16 @@ class OrderSearch extends Order
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'price' => $this->price,
-            'type_id' => $this->type_id,
-            'video_id' => $this->video_id,
-            'tariff_id' => $this->tariff_id,
-            'book_id' => $this->book_id,
-            'payment_type_id' => $this->payment_type_id,
+            'total_price' => $this->total_price,
             'status' => $this->status,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andFilterWhere(['like', 'order_type', $this->order_type])
+            ->andFilterWhere(['like', 'payment_type', $this->payment_type]);
 
         return $dataProvider;
     }

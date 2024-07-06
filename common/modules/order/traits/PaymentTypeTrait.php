@@ -61,7 +61,7 @@ trait PaymentTypeTrait
      */
     public function getTypeName()
     {
-        return self::types()[$this->payment_type_id] ?? $this->payment_type_id;
+        return self::types()[$this->payment_type] ?? $this->payment_type;
     }
 
     /**

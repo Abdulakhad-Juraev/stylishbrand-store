@@ -5,7 +5,7 @@
 /* @var $model common\modules\order\models\Order */
 
 $this->title = Yii::t('site', 'Create a new');
-$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
