@@ -12,8 +12,8 @@ use yii\filters\VerbFilter;
 class BannerController extends SoftController
 {
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new BannerSearch();
@@ -26,10 +26,10 @@ class BannerController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -37,19 +37,21 @@ class BannerController extends SoftController
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function actionCreate()
     {
-        $model = new Banner();
+        $model = new Banner([
+            'status' => Banner::STATUS_ACTIVE
+        ]);
         return $this->ajaxCrud($model)->createAction();
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -60,10 +62,10 @@ class BannerController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -75,14 +77,14 @@ class BannerController extends SoftController
     }
 
     /**
-    * @param $id
-    * @return Banner
-    * @throws yii\web\NotFoundHttpException
-    */
+     * @param $id
+     * @return Banner
+     * @throws yii\web\NotFoundHttpException
+     */
     public function findModel($id)
     {
         $model = Banner::find()->andWhere(['id' => $id])->one();
-        if ($model == null){
+        if ($model == null) {
             not_found();
         }
         return $model;

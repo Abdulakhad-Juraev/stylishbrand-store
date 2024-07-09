@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'count',
         'button_url',
-        'status',
+        'statusBadge:raw',
         'created_at',
         'createdBy.fullname',
         'updated_at',

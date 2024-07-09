@@ -23,10 +23,10 @@ use soft\widget\kartik\Form;
             'widgetClass' => SingleImageFileInput::class,
 
             'options' => [
-                    'initialPreviewUrl' => $model->imageUrl
+                'initialPreviewUrl' => $model->imageUrl
             ]
         ],
-        'count',
+        'count:number',
         'button_url',
         'status:status',
 

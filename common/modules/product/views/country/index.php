@@ -1,13 +1,14 @@
 <?php
 
+use common\modules\product\models\Country;
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
 
 /* @var $this soft\web\View */
-/* @var $searchModel common\modules\product\models\search\ProductImageSearch */
+/* @var $searchModel common\modules\product\models\search\CountrySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Product Images');
+$this->title = Yii::t('app', 'Countries');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
@@ -18,28 +19,13 @@ $this->registerAjaxCrudAssets();
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
+            /** @see soft\widget\button\Button for other configurations */
             'modal' => true,
         ]
     ],
     'columns' => [
-        [
-            'attribute' => 'imageUrl',
-            'label' => "Rasm",
-            'format' => ['image', ['width' => '40px']]
-        ],
-        [
-            'attribute' => 'product_id',
-            'value' => function ($model) {
-                return $model->product->name ?? '';
-            }
-        ],
+        'name',
         ['class' => StatusColumn::class],
-        [
-            'attribute' => 'color_id',
-            'value' => function ($model) {
-                return $model->color->name ?? '';
-            }
-        ],
         'actionColumn' => [
             'viewOptions' => [
                 'role' => 'modal-remote',
@@ -49,5 +35,5 @@ $this->registerAjaxCrudAssets();
             ],
         ],
     ],
-]) ?>
+]); ?>
     

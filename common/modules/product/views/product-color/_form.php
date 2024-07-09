@@ -16,10 +16,15 @@ use soft\widget\kartik\Form;
     'model' => $model,
     'form' => $form,
     'attributes' => [
-        'color',
+        'name',
+//        'color',
         'status:status',
     ]
-]); ?>
+]);
+$form->field($model, 'color', [
+    'template' => "{input}"
+])->input('color', ['class' => "input_class"])
+?>
 <div class="form-group">
     <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax]) ?>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
-use soft\widget\adminlte3\Menu;
 use yii\helpers\Url;
+use soft\widget\adminlte3\Menu;
 
 
 $menuItems = [
@@ -17,58 +17,58 @@ $menuItems = [
     ],
 
     [
-        'label' => "Category",
+        'label' => "Kategoriyalar",
         'url' => ['/product-manager/category/index'],
         'icon' => 'list',
     ],
     [
-        'label' => "SubCategory",
-        'url' => ['/product-manager/sub-category/index'],
-        'icon' => 'list',
-    ],
-    [
-        'label' => "Product",
+        'label' => "Maxsulotlar",
         'url' => ['/product-manager/product/index'],
-        'icon' => 'box-open',
+        'icon' => 'tshirt',
     ],
     [
-        'label' => "Order",
+        'label' => "Buyurtmalar",
         'url' => ['/order-manager/order/index'],
-        'icon' => 'box-open',
+        'icon' => 'cart-arrow-down',
     ],
-    [
-        'label' => "Order Item",
-        'url' => ['/order-manager/order-item/index'],
-        'icon' => 'box-open',
-    ],
-
     [
         'label' => "Banner",
         'url' => ['/banner-manager/banner/index'],
-        'icon' => 'box-open',
+        'icon' => 'window-restore',
     ],
 
     [
-        'label' => "product-size",
+        'label' => "O'lchamlar",
         'url' => ['/product-manager/product-size/index'],
-        'icon' => 'box-open',
+        'icon' => 'ruler-combined',
     ],
     [
-        'label' => "product-color",
+        'label' => "Ranglar",
         'url' => ['/product-manager/product-color/index'],
-        'icon' => 'box-open',
+        'icon' => 'palette',
     ],
     [
-        'label' => "product-image",
-        'url' => ['/product-manager/product-image/index'],
-        'icon' => 'box-open',
-    ],
-    [
-        'label' => "Brand",
+        'label' => "Brendlar",
         'url' => ['/product-manager/brand/index'],
-        'icon' => 'box-open',
+        'icon' => 'copyright',
+    ],
+    [
+        'label' => "Davlatlar",
+        'url' => ['/product-manager/country/index'],
+        'icon' => 'globe',
     ],
 
+
+    [
+        'label' => "category-character",
+        'url' => ['/product-manager/category-character/index'],
+        'icon' => 'globe',
+    ],
+    [
+        'label' => "product-character",
+        'url' => ['/product-manager/product-character/index'],
+        'icon' => 'globe',
+    ],
 
     [
         'label' => "Sozlamalar",

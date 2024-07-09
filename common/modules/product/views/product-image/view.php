@@ -9,19 +9,29 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Images'), 'u
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <?= \soft\widget\bs4\DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-              'id', 
-              'color_id', 
-              'image', 
-              'product_id', 
-              'created_by', 
-              'updated_by', 
-              'created_at', 
-              'updated_at', 
-'created_at',
-'createdBy.fullname',
-'updated_at',
-'updatedBy.fullname'        ],
-    ]) ?>
+<?= \soft\widget\bs4\DetailView::widget([
+    'model' => $model,
+    'attributes' => [
+        [
+            'attribute' => 'imageUrl',
+            'label' => "Rasm",
+            'format' => ['image', ['width' => '40px']]
+        ],
+        [
+            'attribute' => 'color_id',
+            'value' => function ($model)  {
+                    return $model->color->name ?? '';
+            }
+        ],
+        [
+            'attribute' => 'product_id',
+            'value' => function ($model)  {
+                    return $model->product->name ?? '';
+            }
+        ],
+        'statusBadge:raw',
+        'created_at',
+        'createdBy.fullname',
+        'updated_at',
+        'updatedBy.fullname'],
+]) ?>

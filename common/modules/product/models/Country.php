@@ -3,25 +3,27 @@
 namespace common\modules\product\models;
 
 use common\modules\user\models\User;
+use odilov\multilingual\behaviors\MultilingualBehavior;
 use soft\db\ActiveQuery;
+use soft\helpers\ArrayHelper;
 use Yii;
 
 /**
- * This is the model class for table "assign_product_size".
+ * This is the model class for table "country".
  *
  * @property int $id
- * @property string|null $product_id
- * @property string|null $size_id
+ * @property string|null $name
  * @property int|null $status
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null $country_id
  *
  * @property User $createdBy
  * @property User $updatedBy
  */
-class AssignProductSize extends \soft\db\ActiveRecord
+class Country extends \soft\db\ActiveRecord
 {
     //<editor-fold desc="Parent" defaultstate="collapsed">
 
@@ -30,7 +32,7 @@ class AssignProductSize extends \soft\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'assign_product_size';
+        return 'country';
     }
 
     /**
@@ -39,11 +41,11 @@ class AssignProductSize extends \soft\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'string'],
+            [['name'], 'required'],
             [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['product_id', 'size_id'], 'integer'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
-            [['product_id', 'size_id'], 'unique', 'targetAttribute' => ['product_id', 'size_id'],'skipOnEmpty' => false, 'skipOnError' => false,'message'=>'The combination of Product ID and Size ID has already been taken.'],
         ];
     }
 
@@ -55,9 +57,23 @@ class AssignProductSize extends \soft\db\ActiveRecord
         return [
             'yii\behaviors\TimestampBehavior',
             'yii\behaviors\BlameableBehavior',
+            'multilingual' => [
+                'class' => MultilingualBehavior::class,
+                'attributes' => [
+                    'name'
+                ],
+                'languages' => $this->languages(),
+            ],
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public static function find()
+    {
+        return parent::find()->multilingual();
+    }
     /**
      * {@inheritdoc}
      */
@@ -65,8 +81,6 @@ class AssignProductSize extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'product_id' => Yii::t('app', 'Product ID'),
-            'size_id' => Yii::t('app', 'Size ID'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
@@ -94,21 +108,13 @@ class AssignProductSize extends \soft\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getSizes()
-    {
-        return $this->hasOne(ProductSize::class, ['id' => 'size_id']);
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getProducts()
-    {
-        return $this->hasOne(Product::class, ['id' => 'product_id']);
-    }
-
     //</editor-fold>
+
+    /**
+     * @return array
+     */
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->andWhere(['status' => self::STATUS_ACTIVE])->all(), 'id', 'name');
+    }
 }

@@ -25,6 +25,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $description
  * @property string|null $slug
  * @property string|null $image
+ * @property int|null $country_id
  * @property int|null $category_id
  * @property int|null $sub_category_id
  * @property int|null $percentage
@@ -66,15 +67,15 @@ class Product extends ActiveRecord
         return [
             [['name', 'description', 'price'], 'string'],
             [['name', 'description'], 'required'],
-            [['category_id', 'sub_category_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sub_category_id', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],
             [['image'], 'file'],
             [['product_sizes'], 'safe'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['sub_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubCategory::className(), 'targetAttribute' => ['sub_category_id' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['sub_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubCategory::class, 'targetAttribute' => ['sub_category_id' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
@@ -154,6 +155,7 @@ class Product extends ActiveRecord
             'expired_at' => Yii::t('app', 'Expired At'),
             'status' => Yii::t('app', 'Status'),
             'price' => Yii::t('app', 'Price'),
+            'country_id' => Yii::t('app', 'Country'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -196,6 +198,13 @@ class Product extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getCountry()
+    {
+        return $this->hasOne(Country::class, ['id' => 'country_id']);
+    }
     //</editor-fold>
 
     /**
@@ -276,6 +285,14 @@ class Product extends ActiveRecord
     public function getProductSizeAssign()
     {
         return $this->hasMany(AssignProductSize::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductImageColor()
+    {
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 
 

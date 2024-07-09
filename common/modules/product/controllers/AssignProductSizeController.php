@@ -42,10 +42,12 @@ class AssignProductSizeController extends SoftController
      */
     public function actionCreate($product_id)
     {
+
         $model = new AssignProductSize([
             'status' => AssignProductSize::STATUS_ACTIVE,
             'product_id' => $product_id
         ]);
+
         return $this->ajaxCrud($model)->createAction();
     }
 

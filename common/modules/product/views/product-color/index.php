@@ -1,6 +1,7 @@
 <?php
 
-use common\modules\product\models\ProductColor;
+use soft\grid\GridView;
+use soft\grid\StatusColumn;
 
 /* @var $this soft\web\View */
 /* @var $searchModel common\modules\product\models\search\ProductColorSearch */
@@ -10,33 +11,28 @@ $this->title = Yii::t('app', 'Product Colors');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
-    <?= \soft\grid\GridView::widget([
-        'id' => 'crud-datatable',
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel, 
-        'toolbarTemplate' => '{create}{refresh}',
-        'toolbarButtons' => [
-            'create' => [
-                /** @see soft\widget\button\Button for other configurations */
-                'modal' => true,
-            ]
-        ],
-        'columns' => [
-                    'id',
-            'color',
-            'status',
-            'created_by',
-            'updated_by',
-            //'created_at',
-            //'updated_at',
-            'actionColumn' => [
-                'viewOptions' => [
-                    'role' => 'modal-remote',
-                ],
-                'updateOptions' => [
-                    'role' => 'modal-remote',
-                ],
+<?= GridView::widget([
+    'id' => 'crud-datatable',
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'toolbarTemplate' => '{create}{refresh}',
+    'toolbarButtons' => [
+        'create' => [
+            'modal' => true,
+        ]
+    ],
+    'columns' => [
+        'name',
+//        'color',
+        ['class' => StatusColumn::class],
+        'actionColumn' => [
+            'viewOptions' => [
+                'role' => 'modal-remote',
+            ],
+            'updateOptions' => [
+                'role' => 'modal-remote',
             ],
         ],
-        ]); ?>
+    ],
+]); ?>
     

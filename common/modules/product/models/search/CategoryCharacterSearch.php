@@ -2,19 +2,18 @@
 
 namespace common\modules\product\models\search;
 
-use common\modules\product\models\Product;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\modules\product\models\CategoryCharacter;
 
-class ProductSearch extends Product
+class CategoryCharacterSearch extends CategoryCharacter
 {
 
     public function rules()
     {
         return [
-            [['id', 'category_id', 'sub_category_id', 'percentage', 'published_at', 'expired_at', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['slug', 'image','name','description','price','country_id'], 'safe'],
+            [['id', 'category_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -24,14 +23,14 @@ class ProductSearch extends Product
         return Model::scenarios();
     }
 
-    public function search($query = null, $defaultPageSize = 20, $params = null)
+    public function search($query=null, $defaultPageSize = 20, $params=null)
     {
 
-        if ($params === null) {
+        if($params === null){
             $params = Yii::$app->request->queryParams;
         }
-        if ($query == null) {
-            $query = Product::find()->joinWith('translation');
+        if($query == null){
+            $query = CategoryCharacter::find();
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -50,23 +49,12 @@ class ProductSearch extends Product
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
-            'sub_category_id' => $this->sub_category_id,
-            'percentage' => $this->percentage,
-            'published_at' => $this->published_at,
-            'expired_at' => $this->expired_at,
             'status' => $this->status,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'price', $this->price])
-            ->andFilterWhere(['like', 'country_id', $this->country_id])
-        ;
 
         return $dataProvider;
     }

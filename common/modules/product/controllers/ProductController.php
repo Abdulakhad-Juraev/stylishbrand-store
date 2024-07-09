@@ -2,6 +2,7 @@
 
 namespace common\modules\product\controllers;
 
+use common\modules\product\models\search\ProductImageSearch;
 use Yii;
 use yii\web\Response;
 use yii\db\Exception;
@@ -178,6 +179,24 @@ class ProductController extends SoftController
         $searchModel = new AssignProductSizeSearch();
         $dataProvider = $searchModel->search($query);
         return $this->render('product-size', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionProductImage($id): string
+    {
+        $model = $this->findModel($id);
+        $query = $model->getProductImageColor();
+        $searchModel = new ProductImageSearch();
+        $dataProvider = $searchModel->search($query);
+        return $this->render('product-image', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'model' => $model

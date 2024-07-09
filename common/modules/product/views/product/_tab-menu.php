@@ -25,5 +25,10 @@ use common\modules\product\models\Category;
             'url' => ['/product-manager/product/product-size', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],
+        [
+            'label' => 'Product Image Color',
+            'url' => ['/product-manager/product/product-image', 'id' => $model->id],
+            'icon' => 'tasks,fas',
+        ],
     ]
 ]) ?>

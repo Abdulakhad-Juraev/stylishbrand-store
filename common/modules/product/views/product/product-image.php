@@ -1,16 +1,29 @@
 <?php
 
+
+use common\modules\product\models\AssignProductSize;
+use common\modules\product\models\Product;
+use common\modules\product\models\search\AssignProductSizeSearch;
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
 
+
+/* @var $model Product */
 /* @var $this soft\web\View */
-/* @var $searchModel common\modules\product\models\search\ProductImageSearch */
+/* @var $searchModel AssignProductSizeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Product Images');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Product Size ' . $model->name;
+$this->addBreadCrumb('Category', ['category/index']);
+$this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
+$this->addBreadCrumb('Sub Category');
 $this->registerAjaxCrudAssets();
+
+
 ?>
+
+<?= $this->render('_tab-menu', ['model' => $model]) ?>
+
 <?= GridView::widget([
     'id' => 'crud-datatable',
     'dataProvider' => $dataProvider,
@@ -19,28 +32,24 @@ $this->registerAjaxCrudAssets();
     'toolbarButtons' => [
         'create' => [
             'modal' => true,
+            'url' => ['product-image/create', 'product_id' => $model->id],
         ]
     ],
     'columns' => [
-        [
-            'attribute' => 'imageUrl',
-            'label' => "Rasm",
-            'format' => ['image', ['width' => '40px']]
-        ],
-        [
-            'attribute' => 'product_id',
-            'value' => function ($model) {
-                return $model->product->name ?? '';
-            }
-        ],
-        ['class' => StatusColumn::class],
         [
             'attribute' => 'color_id',
             'value' => function ($model) {
                 return $model->color->name ?? '';
             }
         ],
+        [
+            'attribute' => 'imageUrl',
+            'label' => "Rasm",
+            'format' => ['image', ['width' => '40px']]
+        ],
+        ['class' => StatusColumn::class],
         'actionColumn' => [
+            'controller' => 'product-image',
             'viewOptions' => [
                 'role' => 'modal-remote',
             ],
@@ -49,5 +58,4 @@ $this->registerAjaxCrudAssets();
             ],
         ],
     ],
-]) ?>
-    
+]); ?>

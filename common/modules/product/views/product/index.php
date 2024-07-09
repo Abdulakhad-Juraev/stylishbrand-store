@@ -1,5 +1,6 @@
 <?php
 
+use common\modules\product\models\Country;
 use common\modules\product\models\Product;
 use common\modules\product\models\search\ProductSearch;
 use common\modules\product\models\SubCategory;
@@ -24,7 +25,7 @@ $this->registerAjaxCrudAssets();
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
-            'modal' => true,
+            'modal' => false,
         ]
     ],
     'columns' => [
@@ -41,11 +42,19 @@ $this->registerAjaxCrudAssets();
                 return $model->subCategory->name ?? '';
             }
         ],
+        [
+            'attribute' => 'country_id',
+            'filter' => Country::map(),
+            'value' => function (Product $model) {
+                return $model->country->name ?? '';
+            }
+        ],
         'published_at:datetime',
         'expired_at:datetime',
         [
             'class' => StatusColumn::class
         ],
+
         'actionColumn' => [
             'template' => '{image} {view} {update} {delete} ',
             'buttons' => [

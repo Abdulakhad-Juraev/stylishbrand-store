@@ -1,6 +1,8 @@
 <?php
 
 use common\modules\product\models\Category;
+use common\modules\product\models\Country;
+use common\modules\product\models\ProductSize;
 use common\modules\product\models\SubCategory;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
@@ -46,6 +48,12 @@ if (is_integer($model->expired_at))
                 'prompt' => 'Tanlang...'
             ]
         ],
+        'country_id:dropdownList' => [
+            'items' => Country::map(),
+            'options' => [
+                'prompt' => 'Tanlang...'
+            ]
+        ],
         'percentage',
         'published_at:datetime',
         'expired_at:datetime',
@@ -54,7 +62,7 @@ if (is_integer($model->expired_at))
 ]); ?>
 
 <?= $form->field($model, 'product_sizes')->widget(Select2::classname(), [
-    'data' => \common\modules\product\models\ProductSize::map(),
+    'data' => ProductSize::map(),
     'size' => Select2::MEDIUM,
     'options' => [
         'placeholder' => 'Mahsulot uchun sub kategoriyasini tanlang ...',

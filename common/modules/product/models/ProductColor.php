@@ -3,12 +3,16 @@
 namespace common\modules\product\models;
 
 use common\models\User;
+use odilov\multilingual\behaviors\MultilingualBehavior;
+use soft\db\ActiveQuery;
+use soft\helpers\ArrayHelper;
 use Yii;
 
 /**
  * This is the model class for table "product_color".
  *
  * @property int $id
+ * @property string|null $name
  * @property string|null $color
  * @property int|null $status
  * @property int|null $created_by
@@ -18,47 +22,65 @@ use Yii;
  *
  * @property User $createdBy
  * @property User $updatedBy
- * @property ProductColorLang[] $productColorLangs
  */
 class ProductColor extends \soft\db\ActiveRecord
 {
     //<editor-fold desc="Parent" defaultstate="collapsed">
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'product_color';
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 255],
             [['color'], 'string', 'max' => 255],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
+            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
             'yii\behaviors\TimestampBehavior',
             'yii\behaviors\BlameableBehavior',
+            'multilingual' => [
+                'class' => MultilingualBehavior::class,
+                'attributes' => [
+                    'name'
+                ],
+                'languages' => $this->languages(),
+            ],
         ];
     }
 
+
     /**
-    * {@inheritdoc}
-    */
+     * @return ActiveQuery
+     */
+    public static function find()
+    {
+        return parent::find()->multilingual();
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function labels()
     {
         return [
@@ -74,30 +96,27 @@ class ProductColor extends \soft\db\ActiveRecord
     //</editor-fold>
 
     //<editor-fold desc="Relations" defaultstate="collapsed">
-    
+
     /**
-    * @return \yii\db\ActiveQuery
-    */
+     * @return \yii\db\ActiveQuery
+     */
     public function getCreatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
-    
+
     /**
-    * @return \yii\db\ActiveQuery
-    */
+     * @return \yii\db\ActiveQuery
+     */
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
-    
-    /**
-    * @return \yii\db\ActiveQuery
-    */
-    public function getProductColorLangs()
-    {
-        return $this->hasMany(ProductColorLang::className(), ['owner_id' => 'id']);
-    }
-    
+
     //</editor-fold>
+
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
+    }
 }
