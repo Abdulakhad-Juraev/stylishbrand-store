@@ -14,6 +14,7 @@ class CountrySearch extends Country
     {
         return [
             [['id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -30,7 +31,7 @@ class CountrySearch extends Country
             $params = Yii::$app->request->queryParams;
         }
         if($query == null){
-            $query = Country::find();
+            $query = Country::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -55,6 +56,7 @@ class CountrySearch extends Country
             'updated_at' => $this->updated_at,
         ]);
 
+        $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

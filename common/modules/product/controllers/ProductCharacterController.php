@@ -12,34 +12,10 @@ use yii\filters\VerbFilter;
 class ProductCharacterController extends SoftController
 {
 
-    /**
-    * {@inheritdoc}
-    */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                    'bulk-delete' => ['POST'],
-                ],
-            ],
-            /*'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                ],
-            ]*/
-        ];
-    }
 
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function actionIndex()
     {
         $searchModel = new ProductCharacterSearch();
@@ -52,10 +28,10 @@ class ProductCharacterController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -63,19 +39,23 @@ class ProductCharacterController extends SoftController
     }
 
     /**
-    * @return string
-    */
-    public function actionCreate()
+     * @return string
+     */
+    public function actionCreate($product_id)
     {
-        $model = new ProductCharacter();
+        $model = new ProductCharacter([
+            'status' =>ProductCharacter::STATUS_ACTIVE,
+            'with_check_icon' =>ProductCharacter::STATUS_ACTIVE,
+            'product_id' => $product_id,
+        ]);
         return $this->ajaxCrud($model)->createAction();
     }
 
     /**
-    * @param integer $id
-    * @return string
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -86,10 +66,10 @@ class ProductCharacterController extends SoftController
     }
 
     /**
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -101,14 +81,14 @@ class ProductCharacterController extends SoftController
     }
 
     /**
-    * @param $id
-    * @return ProductCharacter
-    * @throws yii\web\NotFoundHttpException
-    */
+     * @param $id
+     * @return ProductCharacter
+     * @throws yii\web\NotFoundHttpException
+     */
     public function findModel($id)
     {
         $model = ProductCharacter::find()->andWhere(['id' => $id])->one();
-        if ($model == null){
+        if ($model == null) {
             not_found();
         }
         return $model;

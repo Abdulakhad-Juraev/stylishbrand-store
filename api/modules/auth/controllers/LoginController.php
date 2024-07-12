@@ -28,11 +28,7 @@ class LoginController extends ApiBaseController
                 'imageUrl' => $user->getImageUrl(),
                 'status' => $user->status,
                 'statusName' => $user->statusName,
-                'auth_key' => $model->device->token ?? '',
-                'allowed_devices_count' => $user->allowedActiveDevicesCount,
-                'activeTariff' => $model->user->lastActiveUserTariff ? $model->user->lastActiveUserTariff->tariff->name : 'FREE',
-                'activeTariffId' => $model->user->lastActiveUserTariff ? $model->user->lastActiveUserTariff->tariff->id : null,
-                'expiredAt' => $model->user->lastActiveUserTariff ? date('d.m.Y', $model->user->lastActiveUserTariff->expired_at) : '',
+                'auth_key' => $user->auth_key,
             ]);
         }
 

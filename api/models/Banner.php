@@ -21,11 +21,14 @@ class Banner extends \common\modules\banner\models\Banner
         return [
             'id',
             'title',
+            'title_uz',
+            'title_ru',
             'description',
-            'imageUrl',
+            'image'=>'imageUrl',
             'count',
             'button_url',
         ];
+
 
     }
 
@@ -36,4 +39,6 @@ class Banner extends \common\modules\banner\models\Banner
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
+
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use common\modules\product\models\Category;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\Form;
@@ -10,21 +11,20 @@ use soft\widget\kartik\Form;
 ?>
 
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= Form::widget([
-        'model' => $model,
-        'form' => $form,
-        'attributes' => [
-                  'category_id',
-              'status',
-              'created_by',
-              'updated_by',
-        ]
-    ]); ?>
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax ] ) ?>
-    </div>
+<?= Form::widget([
+    'model' => $model,
+    'form' => $form,
+    'attributes' => [
+        'name',
 
-    <?php ActiveForm::end(); ?>
+        'status:status',
+    ]
+]); ?>
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax]) ?>
+</div>
+
+<?php ActiveForm::end(); ?>
 

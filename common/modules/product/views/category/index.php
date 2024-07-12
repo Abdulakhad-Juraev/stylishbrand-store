@@ -1,8 +1,8 @@
 <?php
 
+use soft\grid\GridView;
 use soft\grid\StatusColumn;
 use soft\grid\ViewLinkColumn;
-use common\modules\product\StatusActiveColumn;
 
 /* @var $this soft\web\View */
 /* @var $searchModel common\modules\product\models\search\CategorySearch */
@@ -12,45 +12,28 @@ $this->title = Yii::t('app', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
-<?= \soft\grid\GridView::widget([
+<?= GridView::widget([
     'id' => 'crud-datatable',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
-            /** @see soft\widget\button\Button for other configurations */
             'modal' => true,
         ]
     ],
     'columns' => [
         [
             'attribute' => 'imageUrl',
-            'label' => "Rasm",
+            'label' => t('Image'),
             'format' => ['image', ['width' => '40px']]
         ],
         [
             'class' => ViewLinkColumn::class,
             'attribute' => 'name',
         ],
-        [
-            'class' => StatusColumn::class
-        ],
-        'actionColumn' => [
-            'template' => '{view} {update} {delete} {active} ',
-            'buttons' => [
-
-                'active' => function ($url, $model, $key) {
-                    return StatusActiveColumn::getStatuses($model, 'category');
-                }
-            ],
-            'viewOptions' => [
-                'role' => 'modal-remote',
-            ],
-            'updateOptions' => [
-                'role' => 'modal-remote',
-            ],
-        ],
+        ['class' => StatusColumn::class],
+        'actionColumn',
     ],
 ]); ?>
     

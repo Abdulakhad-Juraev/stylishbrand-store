@@ -4,6 +4,8 @@
 /* @var $this soft\web\View */
 /* @var $model common\modules\product\models\Product */
 
+use soft\widget\bs4\DetailView;
+
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -13,24 +15,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?= $this->render('_tab-menu', ['model' => $model]) ?>
-    <?= \soft\widget\bs4\DetailView::widget([
+    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
               'id', 
-              'slug', 
-              'image', 
               'price:sum',
-              'category_id',
-              'sub_category_id', 
-              'percentage', 
-              'published_at', 
-              'country_id',
-              'expired_at',
-              'status', 
-              'created_by', 
-              'updated_by', 
-              'created_at', 
-              'updated_at', 
+            [
+                'attribute' => 'country_id',
+                'value' => function ($model) {
+                    return $model->country->name ?? '';
+                }
+            ],
+            [
+                'attribute' => 'category_id',
+                'value' => function ($model) {
+                    return $model->category->name ?? '';
+                }
+            ],
+            [
+                'attribute' => 'sub_category_id',
+                'value' => function ($model) {
+                    return $model->subCategory->name ?? '';
+                }
+            ],
+              'percentage',
+              'published_at:datetime',
+              'expired_at:datetime',
+              'statusBadge:raw',
+              'is_stock',
 'created_at',
 'createdBy.fullname',
 'updated_at',

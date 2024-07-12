@@ -3,11 +3,7 @@
 namespace common\modules\product\models;
 
 use common\components\CyrillicSlugBehavior;
-use common\modules\galleryManager\GalleryBehavior;
-use common\modules\galleryManager\GalleryImage;
 use common\modules\user\models\User;
-use Imagine\Image\Box;
-use Imagine\Image\ImageInterface;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use soft\behaviors\TimestampConvertorBehavior;
 use soft\db\ActiveQuery;
@@ -24,7 +20,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string|null $price
  * @property string|null $description
  * @property string|null $slug
- * @property string|null $image
  * @property int|null $country_id
  * @property int|null $category_id
  * @property int|null $sub_category_id
@@ -32,6 +27,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $published_at
  * @property int|null $expired_at
  * @property int|null $status
+ * @property int|null $is_stock
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $created_at
@@ -67,10 +63,9 @@ class Product extends ActiveRecord
         return [
             [['name', 'description', 'price'], 'string'],
             [['name', 'description'], 'required'],
-            [['category_id', 'sub_category_id', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sub_category_id','is_stock','most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],
-            [['image'], 'file'],
             [['product_sizes'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
@@ -93,32 +88,6 @@ class Product extends ActiveRecord
                     'name', 'description'
                 ],
                 'languages' => $this->languages(),
-            ],
-            'galleryBehavior' => [
-                'class' => GalleryBehavior::className(),
-                'type' => 'product',
-                'extension' => 'jpg',
-                'directory' => Yii::getAlias('@frontend/web') . '/uploads/product/gallery',
-                'url' => '/uploads/product/gallery',
-                'versions' => [
-                    'small' => function ($img) {
-                        /** @var ImageInterface $img */
-                        return $img
-                            ->copy()
-                            ->thumbnail(new Box(200, 200));
-                    },
-                    'medium' => function ($img) {
-                        /** @var ImageInterface $img */
-                        $dstSize = $img->getSize();
-                        $maxWidth = 800;
-                        if ($dstSize->getWidth() > $maxWidth) {
-                            $dstSize = $dstSize->widen($maxWidth);
-                        }
-                        return $img
-                            ->copy()
-                            ->resize($dstSize);
-                    },
-                ]
             ],
             [
                 'class' => TimestampConvertorBehavior::class,
@@ -147,15 +116,16 @@ class Product extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'slug' => Yii::t('app', 'Slug'),
-            'image' => Yii::t('app', 'Image'),
-            'category_id' => Yii::t('app', 'Category ID'),
-            'sub_category_id' => Yii::t('app', 'Sub Category ID'),
+            'category_id' => Yii::t('app', 'Kategoriya'),
+            'sub_category_id' => Yii::t('app', 'Pod Kategoriya'),
             'percentage' => Yii::t('app', 'Foiz %'),
-            'published_at' => Yii::t('app', 'Published At'),
-            'expired_at' => Yii::t('app', 'Expired At'),
-            'status' => Yii::t('app', 'Status'),
-            'price' => Yii::t('app', 'Price'),
-            'country_id' => Yii::t('app', 'Country'),
+            'published_at' => Yii::t('app', 'Elon qilish sanasi'),
+            'expired_at' => Yii::t('app', 'Olib tashlash vaqti'),
+            'status' => Yii::t('app', 'Xolat'),
+            'is_stock' => Yii::t('app', 'Mavjud'),
+            'price' => Yii::t('app', 'Narxi'),
+            'most_popular' => Yii::t('app', 'most_popular'),
+            'country_id' => Yii::t('app', 'Davlat'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -216,51 +186,8 @@ class Product extends ActiveRecord
     }
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGalleryImages(): \yii\db\ActiveQuery
-    {
-        return $this->hasMany(GalleryImage::class, ['ownerId' => 'id'])
-            ->andWhere(['type' => 'product'])
-            ->orderBy('rank ASC');
-    }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGalleryImagesAsArray(): \yii\db\ActiveQuery
-    {
-        return $this->getGalleryImages()->asArray();
-    }
 
-    /**
-     * All images of the product
-     * @return array
-     */
-    public function getImages($type = 'preview'): array
-    {
-        $images = $this->galleryImagesAsArray;
-        $result = [];
-        foreach ($images as $image) {
-            $result[] = "/uploads/product/gallery/$this->id/" . $image['id'] . "/$type.jpg";
-        }
-        return $result;
-
-    }
-
-    /**
-     * Main image of the product
-     * @return string
-     */
-    public function getImage($type = 'preview'): string
-    {
-        $images = $this->getImages($type);
-        if (empty($images)) {
-            return "/images/no-image-png";
-        }
-        return $images[0] ?? '';
-    }
 
 
     public function createProductSizeAssigns()
@@ -295,6 +222,14 @@ class Product extends ActiveRecord
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductCharacters()
+    {
+        return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
+    }
+
 
     /**
      * @return true
@@ -319,8 +254,6 @@ class Product extends ActiveRecord
      */
     public function getSizes()
     {
-//        dd($this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes'));
-
         return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
 

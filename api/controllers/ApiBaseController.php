@@ -11,7 +11,7 @@ use yii\web\ErrorAction;
 /**
  * Site controller
  *
- * @property-read null|\common\models\User $user
+ * @property-read null|\common\modelxs\User $user
  * @property-read bool $hasUser
  */
 class ApiBaseController extends Controller

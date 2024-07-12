@@ -1,17 +1,28 @@
 <?php
 
-use common\modules\product\models\Category;
+
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
+use common\modules\product\models\Category;
+use common\modules\product\models\search\CategoryCharacterSearch;
 
+
+/* @var $model Category */
 /* @var $this soft\web\View */
-/* @var $searchModel common\modules\product\models\search\CategoryCharacterSearch */
+/* @var $searchModel CategoryCharacterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Category Characters');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Category ' . $model->name;
+$this->addBreadCrumb('Category', ['category/index']);
+$this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
+$this->addBreadCrumb('Sub Category');
 $this->registerAjaxCrudAssets();
+
+
 ?>
+
+<?= $this->render('_tab-menu', ['model' => $model]) ?>
+
 <?= GridView::widget([
     'id' => 'crud-datatable',
     'dataProvider' => $dataProvider,
@@ -20,18 +31,16 @@ $this->registerAjaxCrudAssets();
     'toolbarButtons' => [
         'create' => [
             'modal' => true,
+            'url' => ['category-character/create', 'category_id' => $model->id],
         ]
     ],
     'columns' => [
         'name',
-        ['attribute' => 'category_id',
-            'filter'=> Category::map(),
-            'value' => function ($model) {
-                return $model->category->name ?? '';
-            }
+        [
+            'class' => StatusColumn::class,
         ],
-        ['class' => StatusColumn::class],
         'actionColumn' => [
+            'controller' => 'category-character',
             'viewOptions' => [
                 'role' => 'modal-remote',
             ],
@@ -41,4 +50,3 @@ $this->registerAjaxCrudAssets();
         ],
     ],
 ]); ?>
-    

@@ -57,7 +57,6 @@ class RegisterController extends ApiBaseController
         $model = new RegisterForm([
             'scenario' => RegisterForm::SCENARIO_REGISTER,
         ]);
-
         if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
 
             $result = $model->register();
@@ -66,9 +65,9 @@ class RegisterController extends ApiBaseController
 
                 /** @var User $user */
                 $user = $result['user'];
-
-                /** @var UserDevice $device */
-                $device = $result['device'];
+//
+//                /** @var UserDevice $device */
+//                $device = $result['device'];
 
 
                 $data = [
@@ -77,13 +76,9 @@ class RegisterController extends ApiBaseController
                     'firstname' => Html::encode($user->firstname),
                     'lastname' => Html::encode($user->lastname),
                     'status' => $user->status,
-                    'auth_key' => $device->token,
                     'statusName' => $user->statusName,
-                    'imageUrl' => $user->getImageUrl(),
-                    'allowed_devices_count' => $user->allowedActiveDevicesCount,
-                    'activeTariff' => $user->lastActiveUserTariff ? $user->lastActiveUserTariff->tariff->name : 'FREE',
-                    'activeTariffId' => $user->lastActiveUserTariff ? $user->lastActiveUserTariff->tariff->id : null,
-                    'expiredAt' => $user->lastActiveUserTariff ? date('d.m.Y', $user->lastActiveUserTariff->expired_at) : '',
+                    'auth_key' => $user->auth_key
+
                 ];
 
                 return $this->success($data);

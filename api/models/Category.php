@@ -3,6 +3,7 @@
 namespace api\models;
 
 use soft\helpers\Url;
+use soft\db\ActiveQuery;
 
 class Category extends \common\modules\product\models\Category
 {
@@ -20,8 +21,9 @@ class Category extends \common\modules\product\models\Category
         return [
             'id',
             'name',
-            'imageUrl',
+            'image' => 'imageUrl',
         ];
+
 
     }
 
@@ -31,5 +33,26 @@ class Category extends \common\modules\product\models\Category
     public function getImageUrl()
     {
         return Url::withHostInfo(parent::getImageUrl());
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getSubCategories()
+    {
+        return $this->hasMany(SubCategory::class, ['category_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCharacters()
+    {
+        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
+    }
+
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
 }

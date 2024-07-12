@@ -1,9 +1,9 @@
 <?php
 
 use soft\helpers\Html;
+use soft\widget\kartik\Form;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\file\SingleImageFileInput;
-use soft\widget\kartik\Form;
 
 /* @var $this soft\web\View */
 /* @var $model common\modules\product\models\Category */

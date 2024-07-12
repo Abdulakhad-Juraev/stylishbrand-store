@@ -92,8 +92,8 @@ class RegisterForm extends SoftModel
             ['code', 'integer'],
             ['code', 'checkCode', 'on' => self::SCENARIO_VERIFY],
             [['device_id', 'device_name', 'device_token', 'signature'], 'string'],
-            [['device_id', 'device_name'], 'required'],
-            [['device_id'], 'required'],
+//            [['device_id', 'device_name'], 'required'],
+//            [['device_id'], 'required'],
             [['img'], 'image'],
 
         ];
@@ -125,7 +125,7 @@ class RegisterForm extends SoftModel
         $scenarios = parent::scenarios();
         $scenarios[self::SCENARIO_PHONE] = ['phone', 'signature'];
         $scenarios[self::SCENARIO_VERIFY] = ['code', 'phone'];
-        $scenarios[self::SCENARIO_REGISTER] = ['firstname', 'lastname', 'password', 'password_repeat', 'code', 'phone', 'img', 'device_id', 'device_name', 'device_token'];
+        $scenarios[self::SCENARIO_REGISTER] = ['firstname', 'lastname', 'password', 'password_repeat', 'code', 'phone'];
         return $scenarios;
     }
     // </editor-fold>
@@ -324,6 +324,7 @@ class RegisterForm extends SoftModel
             ->one();
 
         if (!$tempUser) {
+
             $this->addError('firstname', t('An error occurred'));
 //            TelegramService::log('Register form::register() - TempUser not found' . PHP_EOL . "Phone: {$this->getClearPhone()}" . PHP_EOL . "Code: {$this->code}");
             return false;
@@ -340,7 +341,7 @@ class RegisterForm extends SoftModel
         $user->lastname = strip_tags($this->lastname);
         $user->status = User::STATUS_ACTIVE;
         $user->generateAuthKey();
-        $user->image = $this->registerUploadImg();
+//        $user->image = $this->registerUploadImg();
 
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -358,24 +359,24 @@ class RegisterForm extends SoftModel
             return false;
         }
 
-        $userDevice = new UserDevice();
-        $userDevice->user_id = $user->id;
-        $userDevice->device_id = $this->device_id;
-        $userDevice->device_name = $this->device_name;
-        $userDevice->firebase_token = $this->device_token;
-        $userDevice->status = UserDevice::STATUS_ACTIVE;
-        $userDevice->generateToken();
-        if (!$userDevice->save()) {
-            $transaction->rollBack();
-            $this->addError('firstname', $userDevice->getFirstErrorMessage());
-            return false;
-        }
+//        $userDevice = new UserDevice();
+//        $userDevice->user_id = $user->id;
+//        $userDevice->device_id = $this->device_id;
+//        $userDevice->device_name = $this->device_name;
+//        $userDevice->firebase_token = $this->device_token;
+//        $userDevice->status = UserDevice::STATUS_ACTIVE;
+//        $userDevice->generateToken();
+//        if (!$userDevice->save()) {
+//            $transaction->rollBack();
+//            $this->addError('firstname', $userDevice->getFirstErrorMessage());
+//            return false;
+//        }
 
         $transaction->commit();
 
         return [
             'user' => $user,
-            'device' => $userDevice
+//            'device' => $userDevice
         ];
 
     }

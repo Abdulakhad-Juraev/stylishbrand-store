@@ -2,7 +2,9 @@
 
 namespace common\modules\product\controllers;
 
+use common\modules\product\models\search\ProductCharacterSearch;
 use common\modules\product\models\search\ProductImageSearch;
+use DateTime;
 use Yii;
 use yii\web\Response;
 use yii\db\Exception;
@@ -67,17 +69,13 @@ class ProductController extends SoftController
 
     public function actionCreate()
     {
-//        date_default_timezone_set('Asia/Tashkent');
-//        $model = new Product([
-//            'status' => Product::STATUS_ACTIVE,
-//            'published_at' => date('Y-m-d H:i'),
-//            'expired_at' => (new DateTime(date('Y-m-d H:i')))->modify('+3 month')->format('Y-m-d H:i')
-//        ]);
-//        $model->createProductSizeAssigns();
-//        return $this->ajaxCrud($model)->createAction();
-
-
-        $model = new Product();
+        date_default_timezone_set('Asia/Tashkent');
+        $model = new Product([
+            'status' => Product::STATUS_ACTIVE,
+            'is_stock' => Product::STATUS_ACTIVE,
+            'published_at' => date('Y-m-d H:i'),
+            'expired_at' => (new DateTime(date('Y-m-d H:i')))->modify('+3 month')->format('Y-m-d H:i')
+        ]);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 $model->createProductSizeAssigns();
@@ -118,9 +116,6 @@ class ProductController extends SoftController
     }
 
 
-//return $this->ajaxCrud($model)->updateAction();
-//    }
-
     /**
      * @param $id
      * @return array
@@ -154,18 +149,6 @@ class ProductController extends SoftController
         return $model;
     }
 
-    /**
-     * @param $id
-     * @return string
-     * @throws NotFoundHttpException
-     */
-    public function actionImage($id): string
-    {
-        $model = $this->findModel($id);
-        return $this->render('image', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * @param $id
@@ -202,4 +185,22 @@ class ProductController extends SoftController
             'model' => $model
         ]);
     }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionCharacter($id): string
+    {
+        $model = $this->findModel($id);
+        $searchModel = new ProductCharacterSearch();
+        $dataProvider = $searchModel->search($model->getProductCharacters());
+        return $this->render('character', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model
+        ]);
+    }
+
 }

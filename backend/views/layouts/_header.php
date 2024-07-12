@@ -1,7 +1,5 @@
 <?php
 
-use common\models\DollarSetting;
-use soft\helpers\ArrayHelper;
 use soft\helpers\Html;
 use yii\helpers\Url;
 
@@ -35,7 +33,6 @@ if (!array_key_exists($activeLanguage, $params['languages'])) {
                 <li class="nav-item active">
                     <a class="nav-link"> <i class="fas fa-check"></i> <?= $label ?></a>
                 </li>
-
 
             <?php else: ?>
 <!--                <li class="nav-item active">-->

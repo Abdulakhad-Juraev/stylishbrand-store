@@ -14,7 +14,6 @@ class ProductCharacterSearch extends ProductCharacter
     {
         return [
             [['id', 'category_character_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['title'], 'safe'],
         ];
     }
 
@@ -56,8 +55,6 @@ class ProductCharacterSearch extends ProductCharacter
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

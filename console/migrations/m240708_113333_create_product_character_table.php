@@ -16,6 +16,7 @@ class m240708_113333_create_product_character_table extends Migration
 
     public $status = true;
 
+    public $multilingiualAttributes = ['title'];
     public $foreignKeys = [
         [
             'columns' => 'category_character_id',

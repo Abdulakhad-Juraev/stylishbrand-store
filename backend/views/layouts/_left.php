@@ -15,7 +15,11 @@ $menuItems = [
         'url' => ['/user-manager/user/index'],
         'icon' => 'users',
     ],
-
+    [
+        'label' => "Banner",
+        'url' => ['/banner-manager/banner/index'],
+        'icon' => 'window-restore',
+    ],
     [
         'label' => "Kategoriyalar",
         'url' => ['/product-manager/category/index'],
@@ -31,45 +35,37 @@ $menuItems = [
         'url' => ['/order-manager/order/index'],
         'icon' => 'cart-arrow-down',
     ],
-    [
-        'label' => "Banner",
-        'url' => ['/banner-manager/banner/index'],
-        'icon' => 'window-restore',
-    ],
 
-    [
-        'label' => "O'lchamlar",
-        'url' => ['/product-manager/product-size/index'],
-        'icon' => 'ruler-combined',
-    ],
-    [
-        'label' => "Ranglar",
-        'url' => ['/product-manager/product-color/index'],
-        'icon' => 'palette',
-    ],
-    [
-        'label' => "Brendlar",
-        'url' => ['/product-manager/brand/index'],
-        'icon' => 'copyright',
-    ],
-    [
-        'label' => "Davlatlar",
-        'url' => ['/product-manager/country/index'],
-        'icon' => 'globe',
-    ],
+
 
 
     [
-        'label' => "category-character",
-        'url' => ['/product-manager/category-character/index'],
-        'icon' => 'globe',
-    ],
-    [
-        'label' => "product-character",
-        'url' => ['/product-manager/product-character/index'],
-        'icon' => 'globe',
-    ],
+        'label' => "Qo'shimcha Ma'lumotlar",
+        'icon' => 'stream',
+        'items' => [
 
+            [
+                'label' => "O'lchamlar",
+                'url' => ['/product-manager/product-size/index'],
+                'icon' => 'ruler-combined',
+            ],
+            [
+                'label' => "Ranglar",
+                'url' => ['/product-manager/product-color/index'],
+                'icon' => 'palette',
+            ],
+            [
+                'label' => "Brendlar",
+                'url' => ['/product-manager/brand/index'],
+                'icon' => 'copyright',
+            ],
+            [
+                'label' => "Davlatlar",
+                'url' => ['/product-manager/country/index'],
+                'icon' => 'globe',
+            ],
+            ]
+    ],
     [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
@@ -78,7 +74,7 @@ $menuItems = [
         ]
     ],
     [
-        'label' => 'Keshni tozalash', 'url' => ['/site/cache-flush'], 'icon' => 'broom',
+        'label' => t('clear_cache'), 'url' => ['/site/cache-flush'], 'icon' => 'broom',
 
     ],
 ];

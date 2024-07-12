@@ -95,7 +95,9 @@ class Category extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
             'status' => Yii::t('app', 'Status'),
+            'image' => Yii::t('app', 'Image'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -140,6 +142,13 @@ class Category extends \soft\db\ActiveRecord
         return $this->hasMany(SubCategory::className(), ['category_id' => 'id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getCategoryCharacters()
+    {
+        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
+    }
 
     /**
      * @return string

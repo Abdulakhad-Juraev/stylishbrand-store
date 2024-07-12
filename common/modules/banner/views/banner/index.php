@@ -1,6 +1,8 @@
 <?php
 
 use common\modules\banner\models\Banner;
+use soft\grid\GridView;
+use soft\grid\StatusColumn;
 
 /* @var $this soft\web\View */
 /* @var $searchModel common\modules\banner\models\search\BannerSearch */
@@ -10,14 +12,13 @@ $this->title = Yii::t('app', 'Banners');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
-    <?= \soft\grid\GridView::widget([
+    <?= GridView::widget([
         'id' => 'crud-datatable',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel, 
         'toolbarTemplate' => '{create}{refresh}',
         'toolbarButtons' => [
             'create' => [
-                /** @see soft\widget\button\Button for other configurations */
                 'modal' => true,
             ]
         ],
@@ -30,8 +31,7 @@ $this->registerAjaxCrudAssets();
             'title',
             'count',
             'button_url:url',
-            'statusBadge:raw',
-            'created_at',
+            ['class'=> StatusColumn::class],
             'actionColumn' => [
                 'viewOptions' => [
                     'role' => 'modal-remote',

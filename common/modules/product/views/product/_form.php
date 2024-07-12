@@ -57,7 +57,9 @@ if (is_integer($model->expired_at))
         'percentage',
         'published_at:datetime',
         'expired_at:datetime',
+        'is_stock:status',
         'status:status',
+
     ]
 ]); ?>
 

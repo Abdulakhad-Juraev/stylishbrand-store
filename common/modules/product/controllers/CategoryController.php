@@ -2,6 +2,7 @@
 
 namespace common\modules\product\controllers;
 
+use common\modules\product\models\search\CategoryCharacterSearch;
 use Yii;
 use yii\web\Response;
 use soft\web\SoftController;
@@ -124,10 +125,22 @@ class CategoryController extends SoftController
         $dataProvider = $searchModel->search($model->getSubCategories());
 
         return $this->render('sub-category', [
-           'searchModel' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-           'model' => $model
+            'model' => $model
         ]);
     }
 
+    public function actionCharacter($id): string
+    {
+        $model = $this->findModel($id);
+        $searchModel = new CategoryCharacterSearch();
+        $dataProvider = $searchModel->search($model->getCategoryCharacters());
+
+        return $this->render('character', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model
+        ]);
+    }
 }

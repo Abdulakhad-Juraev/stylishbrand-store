@@ -19,7 +19,6 @@ $this->registerAjaxCrudAssets();
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
-            /** @see soft\widget\button\Button for other configurations */
             'modal' => true,
         ]
     ],

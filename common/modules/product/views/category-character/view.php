@@ -9,18 +9,19 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category Characters'
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <?= \soft\widget\bs4\DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-              'id', 
-              'category_id', 
-              'status', 
-              'created_by', 
-              'updated_by', 
-              'created_at', 
-              'updated_at', 
-'created_at',
-'createdBy.fullname',
-'updated_at',
-'updatedBy.fullname'        ],
-    ]) ?>
+<?= \soft\widget\bs4\DetailView::widget([
+    'model' => $model,
+    'attributes' => [
+        'id',
+        'name',
+        ['attribute' => 'category_id',
+            'value' => function ($model) {
+                return $model->category->name ?? '';
+            }
+        ],
+        'statusBadge:raw',
+        'created_at',
+        'createdBy.fullname',
+        'updated_at',
+        'updatedBy.fullname'],
+]) ?>

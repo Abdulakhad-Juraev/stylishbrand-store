@@ -16,13 +16,18 @@ use common\modules\product\models\Category;
     'items' => [
 
         [
-            'label' => 'Category haqida',
+            'label' => 'Kategoriya haqida',
             'url' => ['/product-manager/category/view', 'id' => $model->id],
             'icon' => 'question-circle,far',
         ],
         [
-            'label' => 'Sub Category',
+            'label' => 'Sub Kategoriya',
             'url' => ['/product-manager/category/sub-category', 'id' => $model->id],
+            'icon' => 'tasks,fas',
+        ],
+        [
+            'label' => 'Kategoriya Xarakteristikasi',
+            'url' => ['/product-manager/category/character', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],
     ]

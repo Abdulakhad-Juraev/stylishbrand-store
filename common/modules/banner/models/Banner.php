@@ -97,8 +97,8 @@ class Banner extends \soft\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'image' => Yii::t('app', 'Image'),
-            'count' => Yii::t('app', 'Count'),
-            'button_url' => Yii::t('app', 'Button Url'),
+            'count' => Yii::t('app', 'Tartib raqami'),
+            'button_url' => Yii::t('app', 'Sahifaga'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),

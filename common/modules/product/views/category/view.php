@@ -4,12 +4,14 @@
 /* @var $this soft\web\View */
 /* @var $model common\modules\product\models\Category */
 
+use soft\widget\bs4\DetailView;
+
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= $this->render('_tab-menu', ['model' => $model]) ?>
-    <?= \soft\widget\bs4\DetailView::widget([
+    <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
               'id',

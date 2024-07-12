@@ -51,28 +51,12 @@ $this->registerAjaxCrudAssets();
         ],
         'published_at:datetime',
         'expired_at:datetime',
+        'is_stock',
         [
             'class' => StatusColumn::class
         ],
 
-        'actionColumn' => [
-            'template' => '{image} {view} {update} {delete} ',
-            'buttons' => [
-                'image' => function ($url, $model, $key) {
-                    $icon = Html::tag('span', '', ['class' => 'fas fa-image']);
-
-                    return Html::a($icon, ['product/image', 'id' => $model->id], [
-                        'title' => Yii::t('yii', 'Upload'),
-                    ]);
-                },
-            ],
-            'viewOptions' => [
-                'role' => 'modal-remote',
-            ],
-            'updateOptions' => [
-                'role' => 'modal-remote',
-            ],
-        ],
+        'actionColumn',
     ],
 ]); ?>
     

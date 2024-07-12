@@ -16,18 +16,23 @@ use common\modules\product\models\Category;
     'items' => [
 
         [
-            'label' => 'Product haqida',
+            'label' => 'Mahsulot haqida',
             'url' => ['/product-manager/product/view', 'id' => $model->id],
             'icon' => 'question-circle,far',
         ],
         [
-            'label' => 'Product Size',
+            'label' => 'Razmerlar',
             'url' => ['/product-manager/product/product-size', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],
         [
-            'label' => 'Product Image Color',
+            'label' => 'Rasm va Rang',
             'url' => ['/product-manager/product/product-image', 'id' => $model->id],
+            'icon' => 'tasks,fas',
+        ],
+        [
+            'label' => 'Qo\'shimcha malumotlar',
+            'url' => ['/product-manager/product/character', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],
     ]

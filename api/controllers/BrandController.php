@@ -5,8 +5,9 @@ namespace api\controllers;
 
 use api\models\Banner;
 use api\utils\MessageConst;
+use common\modules\product\models\Brand;
 
-class BannerController extends ApiBaseController
+class BrandController extends ApiBaseController
 {
     /**
      * @return array
