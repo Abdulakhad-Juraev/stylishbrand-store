@@ -40,8 +40,10 @@ class ProductImage extends \common\modules\product\models\ProductImage
         }
 
         return [
-//            'id',
-            'image' => 'imageUrl',
+            'id',
+            'color_id',
+            'product_id',
+            'imageUrl',
         ];
     }
 
@@ -50,7 +52,7 @@ class ProductImage extends \common\modules\product\models\ProductImage
      */
     public function getImageUrl()
     {
-        return Url::withHostInfo(parent::getImageUrl());
+        return $this->image  ? Url::withHostInfo(parent::getImageUrl()) : '';
     }
 
 

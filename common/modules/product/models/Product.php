@@ -38,6 +38,8 @@ use yii\behaviors\TimestampBehavior;
  * @property SubCategory $subCategory
  * @property User $updatedBy
  * @property ProductSize[] $sizes
+ * @property ProductImage $image
+ * @property ProductImage[] $images
  */
 class Product extends ActiveRecord
 {
@@ -63,7 +65,7 @@ class Product extends ActiveRecord
         return [
             [['name', 'description', 'price'], 'string'],
             [['name', 'description'], 'required'],
-            [['category_id', 'sub_category_id','is_stock','most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sub_category_id', 'is_stock', 'most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],
             [['product_sizes'], 'safe'],
@@ -185,11 +187,6 @@ class Product extends ActiveRecord
         return ArrayHelper::map(self::find()->andWhere(['status' => self::STATUS_ACTIVE])->all(), 'id', 'name');
     }
 
-
-
-
-
-
     public function createProductSizeAssigns()
     {
         $sizes = (array)$this->product_sizes;
@@ -218,6 +215,22 @@ class Product extends ActiveRecord
      * @return ActiveQuery
      */
     public function getProductImageColor()
+    {
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getImage()
+    {
+        return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getImages()
     {
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
@@ -257,5 +270,12 @@ class Product extends ActiveRecord
         return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getBrands()
+    {
+        return $this->hasMany(Brand::class, ['id' => 'brand_id'])->via('productBrands');
+    }
 
 }

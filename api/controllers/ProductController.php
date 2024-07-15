@@ -20,6 +20,7 @@ class ProductController extends ApiBaseController
     public function actionIndex()
     {
         $products = Product::find()->orderBy(['id' => SORT_ASC])->active();
+
         $productsDataProvider = new ActiveDataProvider([
             'query' => $products
         ]);

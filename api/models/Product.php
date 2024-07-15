@@ -1,6 +1,10 @@
 <?php
 
 namespace api\models;
+
+use api\models\ProductImage;
+use soft\db\ActiveQuery;
+
 class Product extends \common\modules\product\models\Product
 {
     /**
@@ -24,17 +28,29 @@ class Product extends \common\modules\product\models\Product
             'percentage',
             'published_at',
             'expired_at',
-            'price'=>'sum',
+            'price',
+            'discount_price' => 'sum',
             'brand_id',
             'content',
             'country_id',
             'is_stock',
             'most_popular',
-            'image'
+            'image',
         ];
     }
 
+    /**
+     * @return ActiveQuery
+     */
     public function getImage()
+    {
+        return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getImages()
     {
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }

@@ -5,7 +5,7 @@ namespace api\models;
 use soft\helpers\Url;
 use soft\db\ActiveQuery;
 
-class Banner extends \common\modules\banner\models\Banner
+class AssignProductSize extends \common\modules\product\models\AssignProductSize
 {
     /**
      * @return array|string[]
@@ -20,23 +20,6 @@ class Banner extends \common\modules\banner\models\Banner
 
         return [
             'id',
-            'title',
-            'description',
-            'image'=>'imageUrl',
-            'count',
-            'button_url',
         ];
-
-
     }
-
-    /**
-     * @return mixed|string|null
-     */
-    public function getImageUrl()
-    {
-        return Url::withHostInfo(parent::getImageUrl());
-    }
-
-
 }

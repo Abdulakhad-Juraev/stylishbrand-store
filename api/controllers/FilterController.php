@@ -3,42 +3,72 @@
 namespace api\controllers;
 
 
+use api\models\Brand;
 use api\models\Category;
+use api\models\Product;
+use api\models\ProductColor;
 use api\models\ProductSize;
 use api\utils\MessageConst;
-use common\modules\product\models\Brand;
 
 class FilterController extends ApiBaseController
 {
+
     /**
      * @return array
      */
-    public function actionBrandName(): array
+    public function actionCategories(): array
     {
-        Brand::setFields(['name']);
-        $brands = Brand::find()->active()->all();
+        Category::setFields([
+            'id',
+            'name',
+        ]);
+        $category = Category::find()
+            ->joinWith('translations')
+            ->orderBy(['category_lang.name' => SORT_ASC])->active()->all();
+
+        return $this->success($category, MessageConst::GET_SUCCESS);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionSizes(): array
+    {
+        $query = ProductSize::find()->orderBy(['sort_order' => SORT_ASC])->active()->all();
+        return $this->success($query, MessageConst::GET_SUCCESS);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionBrands(): array
+    {
+        $brands = Brand::find()->orderBy(['name' => SORT_ASC])->active()->all();
         return $this->success($brands, MessageConst::GET_SUCCESS);
     }
 
     /**
      * @return array
      */
-    public function actionCategoryName(): array
+    public function actionColors(): array
     {
-        Category::setFields([
-            'name',
+        $colors = ProductColor::find()
+            ->joinWith('translations')
+            ->orderBy(['name' => SORT_ASC])
+            ->active()->all();
+        return $this->success($colors, MessageConst::GET_SUCCESS);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionPrices(): array
+    {
+        Product::setFields([
+            'id',
+            'price'
         ]);
-        $category = Category::find()->active()->all();
-        return $this->success($category, MessageConst::GET_SUCCESS);
+        $prices = Product::find()->active()->all();
+        return $this->success($prices, MessageConst::GET_SUCCESS);
     }
-
-    public function actionSizes()
-    {
-//        ProductSize::setFields([
-//            'id'
-//        ]);
-        $query = ProductSize::find()->active()->all();
-        return $this->success($query, MessageConst::GET_SUCCESS);
-    }
-
 }

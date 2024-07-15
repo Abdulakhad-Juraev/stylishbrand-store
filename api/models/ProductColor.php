@@ -1,9 +1,8 @@
 <?php
 
 namespace api\models;
+class ProductColor extends \common\modules\product\models\ProductColor
 
-
-class Brand extends \common\modules\product\models\Brand
 {
     /**
      * @return array|string[]
@@ -18,7 +17,9 @@ class Brand extends \common\modules\product\models\Brand
 
         return [
             'id',
+            'color',
             'name',
         ];
     }
+
 }
