@@ -14,6 +14,7 @@ use api\models\ProductColor;
 use yii\data\ActiveDataProvider;
 use api\models\AssignProductSize;
 use yii\web\NotFoundHttpException;
+
 class CategoryController extends ApiBaseController
 {
     public $serializer = [
@@ -70,6 +71,7 @@ class CategoryController extends ApiBaseController
         ]);
 
         $category = Category::findActiveModel($category_id);
+
         $query = $category->getProducts();
 
         if ($searchKey) {
@@ -108,15 +110,13 @@ class CategoryController extends ApiBaseController
         }
 
         /** Get Random Interesting Categories */
-        /*
         $interestingCategories = Category::find()
             ->andWhere(['!=', 'id', $category_id])
             ->orderBy(new Expression('rand()'))
             ->limit(3)
             ->active()
             ->all();
-        $category->getInterestingCategories($category);
-        */
+
         $productIds = $query->column();
 
         $productSizeAssignSizeIds = AssignProductSize::find()
@@ -150,18 +150,27 @@ class CategoryController extends ApiBaseController
             ->andWhere(['in', 'id', $productImage])
             ->all();
 
+
+        $minPrice = Product::find()
+            ->andWhere(['in', 'id', $productIds])
+            ->min('price');
+
+        $maxPrice = Product::find()
+            ->andWhere(['in', 'id', $productIds])
+            ->max('price');
+
         $data = [
             'products' => $dataProvider,
             'subCategories' => $category->subCategories,
             'category' => $category,
-            'interestingCategories' => $category->getInterestingCategories($category_id),
+            'interestingCategories' => $interestingCategories,
             'characters' => [
                 'sizes' => $productSizes,
                 'brands' => $brands,
                 'colors' => $productColor,
                 'productPrices' => [
-                    'min' => $category->getMinPrice($productIds),
-                    'max' => $category->getMaxPrice($productIds),
+                    'min' => $minPrice,
+                    'max' => $maxPrice,
                 ],
             ],
         ];

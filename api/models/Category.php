@@ -4,7 +4,6 @@ namespace api\models;
 
 use soft\helpers\Url;
 use soft\db\ActiveQuery;
-use yii\db\Expression;
 
 class Category extends \common\modules\product\models\Category
 {
@@ -57,32 +56,4 @@ class Category extends \common\modules\product\models\Category
         return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
 
-
-    /**
-     * @param $id
-     * @return bool|mixed|string|null
-     */
-    public function getMaxPrice($id)
-    {
-        return $this->getProducts()->max('price');
-    }
-
-    /**
-     * @param $id
-     * @return bool|mixed|string|null
-     */
-    public function getMinPrice($id): mixed
-    {
-        return $this->getProducts()->min('price');
-    }
-
-    public function getInterestingCategories($category_id)
-    {
-        return Category::find()
-            ->andWhere(['!=', 'id', $category_id])
-            ->orderBy(new Expression('rand()'))
-            ->limit(3)
-            ->active()
-            ->all();
-    }
 }
