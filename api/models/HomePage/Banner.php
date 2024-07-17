@@ -1,10 +1,9 @@
 <?php
 
-namespace api\models;
+namespace api\models\HomePage;
 
 use common\modules\banner\traits\BannerTypeTrait;
 use soft\helpers\Url;
-use soft\db\ActiveQuery;
 
 class Banner extends \common\modules\banner\models\Banner
 {
@@ -36,6 +35,4 @@ class Banner extends \common\modules\banner\models\Banner
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
-
-
 }

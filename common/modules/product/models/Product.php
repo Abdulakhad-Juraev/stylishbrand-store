@@ -32,6 +32,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null $brand_id
  *
  * @property Category $category
  * @property User $createdBy

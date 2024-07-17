@@ -1,7 +1,8 @@
 <?php
 
-namespace api\models;
+namespace api\models\HomePage;
 
+use api\models\ProductColor;
 use common\models\User;
 use common\modules\product\models\Product;
 use soft\db\ActiveQuery;
@@ -38,9 +39,6 @@ class ProductImage extends \common\modules\product\models\ProductImage
         }
 
         return [
-            'id',
-            'color_id',
-            'color',
             'imageUrl'
         ];
     }

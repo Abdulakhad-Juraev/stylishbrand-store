@@ -25,6 +25,7 @@ use soft\widget\kartik\file\SingleImageFileInput;
             ]
         ],
         'status:status',
+        'home_page:checkbox',
     ]
 ]); ?>
 <div class="form-group">

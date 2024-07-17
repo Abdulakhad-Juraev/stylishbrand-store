@@ -13,7 +13,7 @@ class BannerSearch extends Banner
     public function rules()
     {
         return [
-            [['id', 'count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at','type'], 'integer'],
             [['image', 'button_url'], 'safe'],
         ];
     }
@@ -49,6 +49,7 @@ class BannerSearch extends Banner
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'type' => $this->type,
             'count' => $this->count,
             'status' => $this->status,
             'created_by' => $this->created_by,

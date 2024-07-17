@@ -5,7 +5,7 @@ namespace api\models;
 use api\models\ProductImage;
 use soft\db\ActiveQuery;
 
-class Product extends \common\modules\product\models\Product
+class RecommendedProduct extends Product
 {
     /**
      * @return array|string[]
@@ -95,13 +95,4 @@ class Product extends \common\modules\product\models\Product
         return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
     }
 
-
-    public static function getRecommendedProducts($product)
-    {
-        return Product::find()
-            ->select(['id'])
-            ->where(['brand_id' => $product->brand_id])
-            ->active()
-            ->all();
-    }
 }

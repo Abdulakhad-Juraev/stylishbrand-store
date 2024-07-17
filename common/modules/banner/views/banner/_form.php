@@ -1,5 +1,7 @@
 <?php
 
+use common\modules\banner\models\Banner;
+use common\modules\product\models\Category;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\file\SingleImageFileInput;
@@ -27,7 +29,18 @@ use soft\widget\kartik\Form;
             ]
         ],
         'count:number',
-        'button_url',
+        'button_url:dropdownList' => [
+            'items' => Category::map(),
+            'options' => [
+            'prompt' => 'Tanlang...',
+            ],
+        ],
+        'type:dropdownList' => [
+            'items' => Banner::types(),
+            'options' => [
+                'prompt' => 'Tanlang...'
+            ]
+        ],
         'status:status',
 
     ]

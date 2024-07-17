@@ -20,6 +20,7 @@ use odilov\multilingual\behaviors\MultilingualBehavior;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null $home_page
  *
  * @property User $createdBy
  * @property User $updatedBy
@@ -45,7 +46,7 @@ class Category extends \soft\db\ActiveRecord
             [['name'], 'string'],
             [['name'], 'required'],
             [['image'], 'image', 'maxSize' => 1024 * 1024 * 10],
-            [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'created_by', 'updated_by', 'home_page', 'created_at', 'updated_at'], 'integer'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];

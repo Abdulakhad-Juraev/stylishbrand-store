@@ -3,8 +3,13 @@
 namespace api\controllers;
 
 
+use api\models\AssignProductSize;
 use api\models\Product;
+use api\models\ProductColor;
+use api\models\ProductImage;
+use api\models\RecommendedProduct;
 use api\utils\MessageConst;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 
@@ -27,7 +32,7 @@ class ProductController extends ApiBaseController
             'name',
             'description',
             'category_id',
-            'category_id' => function (Product $model) {
+            'categoryName' => function (Product $model) {
                 return $model->category->name ?? '';
             },
             'sub_category_id',
@@ -54,21 +59,67 @@ class ProductController extends ApiBaseController
             'is_stock',
             'most_popular',
             'image',
-            'images'
-            ,
-            // SIZES
+            'images',
             'sizes',
-            'productImageColor',
+            'productColor',
             'productCharacters',
-
         ]);
+
+        $recommendedProducts = RecommendedProduct::find()
+            ->where(['brand_id' => $product->brand_id])
+            ->all();
+        RecommendedProduct::setFields([
+            "slug",
+            "name",
+            'category_id',
+            'category_id' => function (Product $model) {
+                return $model->category->name ?? '';
+            },
+            'percentage',
+            'price',
+            'discount_price' => 'sum',
+            'image',
+            'sizes',
+        ]);
+        $data = [
+            'product' => $product,
+            'recommendedProducts' => $recommendedProducts,
+        ];
 
         if ($product === null) {
             throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
         }
 
 
-        return $this->success($product, MessageConst::GET_SUCCESS);
+        return $this->success($data, MessageConst::GET_SUCCESS);
+    }
+
+
+    public function actionFavorites()
+    {
+        $slugs = Yii::$app->request->get('slug');
+        $recommendedProducts = Product::find()
+            ->where(['in', 'slug', $slugs])
+            ->all();
+        Product::setFields([
+            "slug",
+            "name",
+            'category_id',
+            'categoryName' => function (Product $model) {
+                return $model->category->name ?? '';
+            },
+            'percentage',
+            'price',
+            'discount_price' => 'sum',
+            'image',
+        ]);
+
+        if ($recommendedProducts === null) {
+            throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
+        }
+
+
+        return $this->success($recommendedProducts, MessageConst::GET_SUCCESS);
     }
 
 
@@ -97,7 +148,9 @@ class ProductController extends ApiBaseController
             'price',
             'category_id',
         ]);
+
         $category = Product::find()->andWhere(['most_popular' => Product::STATUS_ACTIVE])->orderBy(['id' => SORT_ASC])->active()->all();
+
         return $this->success($category, MessageConst::GET_SUCCESS);
     }
 

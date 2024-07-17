@@ -2,6 +2,8 @@
 
 namespace common\modules\banner\models;
 
+use common\modules\banner\traits\BannerTypeTrait;
+use common\modules\product\models\Category;
 use common\modules\user\models\User;
 use mohorev\file\UploadImageBehavior;
 use odilov\multilingual\behaviors\MultilingualBehavior;
@@ -21,32 +23,35 @@ use Yii;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null $type
  *
  * @property User $createdBy
  * @property User $updatedBy
  */
 class Banner extends \soft\db\ActiveRecord
 {
+    use BannerTypeTrait;
+
     //<editor-fold desc="Parent" defaultstate="collapsed">
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'banner';
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['title','description'], 'string'],
-            [['title','description'], 'required'],
+            [['title', 'description'], 'string'],
+            [['title', 'description'], 'required'],
             [['image'], 'image', 'maxSize' => 1024 * 1024 * 10],
-            [['count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at', 'type'], 'integer'],
             [['button_url'], 'string', 'max' => 1024],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -54,8 +59,8 @@ class Banner extends \soft\db\ActiveRecord
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function behaviors()
     {
         return [
@@ -90,8 +95,8 @@ class Banner extends \soft\db\ActiveRecord
 
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function labels()
     {
         return [
@@ -109,24 +114,27 @@ class Banner extends \soft\db\ActiveRecord
     //</editor-fold>
 
     //<editor-fold desc="Relations" defaultstate="collapsed">
-    
+
     /**
-    * @return \yii\db\ActiveQuery
-    */
+     * @return \yii\db\ActiveQuery
+     */
     public function getCreatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
-    
+
     /**
-    * @return \yii\db\ActiveQuery
-    */
+     * @return \yii\db\ActiveQuery
+     */
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
-    
 
+    public function getCategory()
+    {
+        return $this->hasOne(Category::class, ['id' => 'button_url']);
+    }
     //</editor-fold>
 
     /**
