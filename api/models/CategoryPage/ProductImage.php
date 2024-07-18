@@ -1,8 +1,7 @@
 <?php
 
-namespace api\models\HomePage;
+namespace api\models\CategoryPage;
 
-use api\models\ProductColor;
 use common\models\User;
 use common\modules\product\models\Product;
 use soft\db\ActiveQuery;
@@ -42,12 +41,23 @@ class ProductImage extends \common\modules\product\models\ProductImage
             'imageUrl'
         ];
     }
-
+    public function getColor(): ActiveQuery
+    {
+        return $this->hasOne(ProductColor::class, ['id' => 'color_id']);
+    }
     /**
-     * @return string|null
+     * @return mixed|string|null
      */
-    public function getImageUrl(): ?string
+    public function getImageUrl()
     {
         return Url::withHostInfo(parent::getImageUrl());
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProduct(): \soft\db\ActiveQuery
+    {
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 }

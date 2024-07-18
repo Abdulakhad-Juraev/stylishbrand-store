@@ -45,7 +45,7 @@ class BannerController extends ApiBaseController
             'name',
             'category_id',
             'categoryName',
-            'categoryName' => function (Product $model) {
+            'categoryName' => function ($model) {
                 return $model->category->name ?? '';
             },
             'price',
@@ -72,7 +72,7 @@ class BannerController extends ApiBaseController
             'slug',
             'name',
             'category_id',
-            'categoryName' => function (Product $model) {
+            'categoryName' => function ($model) {
                 return $model->category ? $model->category->name : '';
             },
             'price',
@@ -105,7 +105,7 @@ class BannerController extends ApiBaseController
             'slug',
             'name',
             'category_id',
-            'categoryName' => function (Product $model) {
+            'categoryName' => function ($model) {
                 return $model->category ? $model->category->name : '';
             },
             'price',

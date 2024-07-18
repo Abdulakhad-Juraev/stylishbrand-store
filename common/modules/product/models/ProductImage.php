@@ -130,7 +130,7 @@ class ProductImage extends \soft\db\ActiveRecord
      */
     public function getImageUrl()
     {
-        return $this->image ? $this->getBehavior('image')->getThumbUploadUrl('image', 'preview') : '';
+        return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
     }
 
 }

@@ -140,7 +140,7 @@ class Category extends \soft\db\ActiveRecord
      */
     public function getSubCategories()
     {
-        return $this->hasMany(SubCategory::className(), ['category_id' => 'id']);
+        return $this->hasMany(SubCategory::class, ['category_id' => 'id']);
     }
 
     /**
@@ -156,7 +156,16 @@ class Category extends \soft\db\ActiveRecord
      */
     public function getImageUrl()
     {
-        return $this->image ? $this->getBehavior('image')->getThumbUploadUrl('image', 'preview') : '';
+        return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
     }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['category_id' => 'id']);
+    }
+
 
 }

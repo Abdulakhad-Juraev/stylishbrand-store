@@ -223,6 +223,14 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
+    public function getProductsByColor()
+    {
+        return $this->hasMany(ProductImage::class, ['color_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
     public function getImage()
     {
         return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
@@ -279,4 +287,12 @@ class Product extends ActiveRecord
         return $this->hasMany(Brand::class, ['id' => 'brand_id'])->via('productBrands');
     }
 
+    /**
+     * @return float|int
+     */
+    public function getSum(): float|int
+    {
+        $percentage = ($this->price * $this->percentage) / 100;
+        return $this->price - $percentage;
+    }
 }

@@ -24,7 +24,7 @@ class Category extends \common\modules\product\models\Category
         return [
             'id',
             'name',
-            'image' => 'imageUrl',
+            'imageUrl',
         ];
 
 
@@ -37,26 +37,4 @@ class Category extends \common\modules\product\models\Category
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
-
-    /**
-     * @return ActiveQuery
-     */
-/*    public function getSubCategories()
-    {
-        return $this->hasMany(SubCategory::class, ['category_id' => 'id']);
-    }*/
-
-    /**
-     * @return ActiveQuery
-     */
-/*    public function getCharacters()
-    {
-        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
-    }*/
-
-    public function getProducts()
-    {
-        return $this->hasMany(Product::class, ['category_id' => 'id']);
-    }
-
 }

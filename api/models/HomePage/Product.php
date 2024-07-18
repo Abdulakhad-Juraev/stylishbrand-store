@@ -24,7 +24,7 @@ class Product extends \common\modules\product\models\Product
             'name',
             'description',
             'category_id',
-            'categoryName' => function (Product $model) {
+            'categoryName' => function ($model) {
                 return $model->category->name ?? '';
             },
             'sub_category_id',
@@ -49,74 +49,4 @@ class Product extends \common\modules\product\models\Product
     {
         return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
     }
-
-    public function getCategory()
-    {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
-    }
-
-    public static function getMostPopularProducts()
-    {
-        Product::setFields([
-            'slug',
-            'name',
-            'category_id',
-            'categoryName',
-            'price',
-            'discount_price' => 'sum',
-            'image',
-        ]);
-        return Product::find()->andWhere(['most_popular' => Product::STATUS_ACTIVE])->orderBy(['id' => SORT_DESC])->limit(20)->active()->all();
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-//    public function getImages()
-//    {
-//        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-//    }
-
-    /**
-     * @return float|int
-     */
-    public function getSum(): float|int
-    {
-        $percentage = ($this->price * $this->percentage) / 100;
-        return $this->price - $percentage;
-    }
-
-    /**
-     * @return \soft\db\ActiveQuery
-     */
-    /*  public function getAssignProductSizes()
-      {
-          return $this->hasMany(AssignProductSize::class, ['product_id' => 'id']);
-      }*/
-
-    /**
-     * @return \soft\db\ActiveQuery
-     */
-//    public function getSizes()
-//    {
-//        return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
-//    }
-
-    /**
-     * @return ActiveQuery
-     */
-//    public function getProductColor()
-//    {
-//        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-//    }
-
-    /**
-     * @return ActiveQuery
-     */
-//    public function getProductCharacters()
-//    {
-//        return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
-//    }
-
-
 }
