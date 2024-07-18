@@ -24,8 +24,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'statusBadge:raw',
         'home_page:bool',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+    ],
 ]) ?>

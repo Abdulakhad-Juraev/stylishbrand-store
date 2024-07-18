@@ -12,10 +12,10 @@ use common\modules\product\models\search\SubCategorySearch;
 /* @var $searchModel SubCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Category ' . $model->name;
-$this->addBreadCrumb('Category', ['category/index']);
+$this->title = 'Kategoriyalar ' . $model->name;
+$this->addBreadCrumb('Kategoriyalar', ['category/index']);
 $this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
-$this->addBreadCrumb('Sub Category');
+$this->addBreadCrumb('Quyi kategoriyalar');
 $this->registerAjaxCrudAssets();
 
 
@@ -40,7 +40,6 @@ $this->registerAjaxCrudAssets();
         [
             'class' => StatusColumn::class,
         ],
-        'created_at',
         'actionColumn' => [
             'controller' => 'sub-category',
             'viewOptions' => [

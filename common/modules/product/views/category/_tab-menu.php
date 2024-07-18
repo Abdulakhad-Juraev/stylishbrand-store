@@ -21,7 +21,7 @@ use common\modules\product\models\Category;
             'icon' => 'question-circle,far',
         ],
         [
-            'label' => 'Sub Kategoriya',
+            'label' => 'Quyi kategoriyalar',
             'url' => ['/product-manager/category/sub-category', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],

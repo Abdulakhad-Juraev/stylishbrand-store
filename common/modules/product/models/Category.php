@@ -99,6 +99,7 @@ class Category extends \soft\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'status' => Yii::t('app', 'Status'),
             'image' => Yii::t('app', 'Image'),
+            'home_page' => Yii::t('app', 'Asosiy sahida ko\'rsatish'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),

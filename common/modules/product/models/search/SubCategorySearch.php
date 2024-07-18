@@ -31,7 +31,7 @@ class SubCategorySearch extends SubCategory
             $params = Yii::$app->request->queryParams;
         }
         if($query == null){
-            $query = SubCategory::find();
+            $query = SubCategory::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -56,6 +56,8 @@ class SubCategorySearch extends SubCategory
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

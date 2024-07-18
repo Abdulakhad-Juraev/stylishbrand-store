@@ -14,7 +14,7 @@ class BannerSearch extends Banner
     {
         return [
             [['id', 'count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at','type'], 'integer'],
-            [['image', 'button_url'], 'safe'],
+            [['image', 'button_url','title'], 'safe'],
         ];
     }
 
@@ -31,7 +31,7 @@ class BannerSearch extends Banner
             $params = Yii::$app->request->queryParams;
         }
         if($query == null){
-            $query = Banner::find();
+            $query = Banner::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -59,7 +59,8 @@ class BannerSearch extends Banner
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'button_url', $this->button_url]);
+            ->andFilterWhere(['like', 'button_url', $this->button_url])
+            ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

@@ -9,7 +9,7 @@ use soft\grid\StatusColumn;
 /* @var $searchModel common\modules\banner\models\search\BannerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Banners');
+$this->title = Yii::t('app', 'Banerlar');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
@@ -32,17 +32,17 @@ $this->registerAjaxCrudAssets();
         'title',
         'count',
         [
-            'attribute' => 'button_url',
-            'filter' => Category::map(),
-            'value' => function (Banner $model) {
-                return $model->category->name ?? '';
-            }
-        ],
-        [
             'attribute' => 'type',
             'filter' => Banner::types(),
             'value' => function (Banner $model) {
                 return $model->getTypeName() ?? '';
+            }
+        ],
+        [
+            'attribute' => 'button_url',
+            'filter' => Category::map(),
+            'value' => function (Banner $model) {
+                return $model->category->name ?? '';
             }
         ],
         ['class' => StatusColumn::class],

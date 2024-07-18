@@ -18,7 +18,6 @@ use soft\widget\kartik\Form;
     'form' => $form,
     'attributes' => [
         'name',
-
         'status:status',
     ]
 ]); ?>

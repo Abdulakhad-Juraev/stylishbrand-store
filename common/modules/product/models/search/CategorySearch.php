@@ -31,7 +31,7 @@ class CategorySearch extends Category
             $params = Yii::$app->request->queryParams;
         }
         if($query == null){
-            $query = Category::find();
+            $query = Category::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -56,6 +56,7 @@ class CategorySearch extends Category
             'updated_at' => $this->updated_at,
         ]);
 
+        $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

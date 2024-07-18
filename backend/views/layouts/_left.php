@@ -10,11 +10,11 @@ $menuItems = [
         'url' => ['/site/index'],
         'icon' => 'home',
     ],
-    [
+    /*[
         'label' => "Foydalanuvchilar",
         'url' => ['/user-manager/user/index'],
         'icon' => 'users',
-    ],
+    ],*/
     [
         'label' => "Banner",
         'url' => ['/banner-manager/banner/index'],

@@ -2,12 +2,13 @@
 
 
 /* @var $this soft\web\View */
+
 /* @var $model common\modules\banner\models\Banner */
 
 use common\modules\banner\models\Banner;
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Banners'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Banerlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -29,12 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'type',
             'value' => function (Banner $model) {
-                    return $model->getTypeName() ?? '';
+                return $model->getTypeName() ?? '';
             }
         ],
         'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+    ],
 ]) ?>

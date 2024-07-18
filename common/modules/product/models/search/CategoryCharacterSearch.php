@@ -14,6 +14,7 @@ class CategoryCharacterSearch extends CategoryCharacter
     {
         return [
             [['id', 'category_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'safe']
         ];
     }
 
@@ -23,14 +24,14 @@ class CategoryCharacterSearch extends CategoryCharacter
         return Model::scenarios();
     }
 
-    public function search($query=null, $defaultPageSize = 20, $params=null)
+    public function search($query = null, $defaultPageSize = 20, $params = null)
     {
 
-        if($params === null){
+        if ($params === null) {
             $params = Yii::$app->request->queryParams;
         }
-        if($query == null){
-            $query = CategoryCharacter::find();
+        if ($query == null) {
+            $query = CategoryCharacter::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -55,6 +56,8 @@ class CategoryCharacterSearch extends CategoryCharacter
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

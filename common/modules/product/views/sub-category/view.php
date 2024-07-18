@@ -25,9 +25,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $model->category->name ?? '';
             }
         ],
-        'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+        'statusBadge:raw',],
 ]) ?>
