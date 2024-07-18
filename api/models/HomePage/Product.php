@@ -2,7 +2,6 @@
 
 namespace api\models\HomePage;
 
-use api\models\HomePage\ProductImage;
 use soft\db\ActiveQuery;
 
 class Product extends \common\modules\product\models\Product
@@ -19,7 +18,6 @@ class Product extends \common\modules\product\models\Product
         }
 
         return [
-//            'id',
             'slug',
             'name',
             'description',

@@ -1,10 +1,8 @@
 <?php
 
-namespace api\models\HomePage;
+namespace api\models\ProductDetail;
+class ProductColor extends \common\modules\product\models\ProductColor
 
-use soft\helpers\Url;
-
-class Category extends \common\modules\product\models\Category
 {
     /**
      * @return array|string[]
@@ -19,18 +17,9 @@ class Category extends \common\modules\product\models\Category
 
         return [
             'id',
+            'color',
             'name',
-            'imageUrl',
         ];
-
-
     }
 
-    /**
-     * @return mixed|string|null
-     */
-    public function getImageUrl()
-    {
-        return Url::withHostInfo(parent::getImageUrl());
-    }
 }

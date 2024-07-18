@@ -2,6 +2,7 @@
 
 namespace api\controllers;
 
+use api\models\Social;
 use api\utils\MessageConst;
 use api\models\HomePage\Banner;
 use api\models\HomePage\Category;
@@ -121,4 +122,15 @@ class BannerController extends ApiBaseController
         return $this->success($products, MessageConst::GET_SUCCESS);
     }
 
+    /**
+     * @return array
+     */
+    public function actionSocial(): array
+    {
+        $socials = Social::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->active()
+            ->all();
+        return $this->success($socials, MessageConst::GET_SUCCESS);
+    }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace api\models\HomePage;
+namespace ban;
 
+use soft\db\ActiveQuery;
 use soft\helpers\Url;
 
 class Category extends \common\modules\product\models\Category
@@ -20,7 +21,7 @@ class Category extends \common\modules\product\models\Category
         return [
             'id',
             'name',
-            'imageUrl',
+            'image' => 'imageUrl',
         ];
 
 
@@ -33,4 +34,18 @@ class Category extends \common\modules\product\models\Category
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCharacters()
+    {
+        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
+    }
+
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['category_id' => 'id']);
+    }
+
 }

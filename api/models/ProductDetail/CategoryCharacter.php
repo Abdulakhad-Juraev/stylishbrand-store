@@ -1,10 +1,9 @@
 <?php
 
-namespace api\models\HomePage;
+namespace api\models\ProductDetail;
 
-use soft\helpers\Url;
 
-class Category extends \common\modules\product\models\Category
+class CategoryCharacter extends \common\modules\product\models\CategoryCharacter
 {
     /**
      * @return array|string[]
@@ -20,17 +19,15 @@ class Category extends \common\modules\product\models\Category
         return [
             'id',
             'name',
-            'imageUrl',
+            'productCharacters'
         ];
 
 
     }
 
-    /**
-     * @return mixed|string|null
-     */
-    public function getImageUrl()
+    public function getProductCharacters()
     {
-        return Url::withHostInfo(parent::getImageUrl());
+        return $this->hasMany(ProductCharacter::class, ['category_character_id' => 'id']);
     }
+
 }

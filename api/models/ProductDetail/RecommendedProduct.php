@@ -1,8 +1,7 @@
 <?php
 
-namespace api\models;
-
-use api\models\ProductImage;
+namespace api\models\ProductDetail;
+use api\models\CategoryPage\AssignProductSize;
 use soft\db\ActiveQuery;
 
 class RecommendedProduct extends Product
@@ -19,22 +18,15 @@ class RecommendedProduct extends Product
         }
 
         return [
-//            'id',
             'slug',
             'name',
-            'description',
             'category_id',
-            'sub_category_id',
-            'percentage',
-            'published_at',
-            'expired_at',
+            'categoryName' => function (Product $model) {
+                return $model->category->name ?? '';
+            },
+            'sizes',
             'price',
             'discount_price' => 'sum',
-            'brand_id',
-            'content',
-            'country_id',
-            'is_stock',
-            'most_popular',
             'image',
         ];
     }
@@ -45,22 +37,6 @@ class RecommendedProduct extends Product
     public function getImage()
     {
         return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getImages()
-    {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return float|int
-     */
-    public function getSum(): float|int
-    {
-        return ($this->price * $this->percentage) / 100;
     }
 
     /**
@@ -78,21 +54,4 @@ class RecommendedProduct extends Product
     {
         return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getProductColor()
-    {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getProductCharacters()
-    {
-        return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
-    }
-
 }

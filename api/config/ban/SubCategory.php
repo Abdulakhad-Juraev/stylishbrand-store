@@ -1,7 +1,7 @@
 <?php
 
-namespace api\models;
-class ProductSize extends \common\modules\product\models\ProductSize
+namespace ban;
+class SubCategory extends \common\modules\product\models\SubCategory
 {
     /**
      * @return array|string[]
@@ -18,6 +18,9 @@ class ProductSize extends \common\modules\product\models\ProductSize
             'id',
             'name',
         ];
+
+
     }
+
 
 }

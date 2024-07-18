@@ -1,6 +1,6 @@
 <?php
 
-namespace api\models;
+namespace ban;
 class ProductCharacter extends \common\modules\product\models\ProductCharacter
 
 {
@@ -18,17 +18,7 @@ class ProductCharacter extends \common\modules\product\models\ProductCharacter
         return [
             'id',
             'title',
-            'title',
-            'category_character_id',
-            'categoryCharacter',
             'with_check_icon',
         ];
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategoryCharacter()
-    {
-        return $this->hasOne(CategoryCharacter::class, ['id' => 'category_character_id']);
     }
 }

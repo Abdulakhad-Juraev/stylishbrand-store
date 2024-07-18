@@ -1,10 +1,15 @@
 <?php
+/**
+ * @author uluGbek <muhammadjonovulugbek98@gmail.com>
+ * @link https://t.me/U_Muhammadjonov
+ * @date 03-May-24, 11:42
+ */
 
-namespace api\models\HomePage;
+namespace ban;
 
 use soft\helpers\Url;
 
-class Category extends \common\modules\product\models\Category
+class ContactInfo extends \common\models\ContactInfo
 {
     /**
      * @return array|string[]
@@ -19,10 +24,11 @@ class Category extends \common\modules\product\models\Category
 
         return [
             'id',
-            'name',
+            'phone',
+            'support_phone',
             'imageUrl',
+            'support_description',
         ];
-
 
     }
 

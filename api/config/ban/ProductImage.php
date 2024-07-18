@@ -1,12 +1,11 @@
 <?php
 
-namespace api\models;
+namespace ban;
 
 use common\models\User;
 use common\modules\product\models\Product;
 use soft\db\ActiveQuery;
 use soft\helpers\Url;
-use Yii;
 
 /**
  * This is the model class for table "product_image".

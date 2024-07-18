@@ -64,6 +64,9 @@ $menuItems = [
                 'url' => ['/product-manager/country/index'],
                 'icon' => 'globe',
             ],
+            [
+                'label' => 'Ijtimoiy tarmoq', 'url' => ['/social/index'], 'icon' => 'share-alt',
+            ],
             ]
     ],
     [

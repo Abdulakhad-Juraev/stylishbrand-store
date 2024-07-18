@@ -1,6 +1,6 @@
 <?php
 
-namespace api\models;
+namespace ban;
 class ProductColor extends \common\modules\product\models\ProductColor
 
 {

@@ -2,15 +2,11 @@
 
 namespace api\models\CategoryPage;
 
-use api\models\CategoryCharacter;
-use api\models\CategoryPage\Product;
-use api\models\SubCategory;
 use soft\helpers\Url;
-use soft\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\db\ActiveRecord;
 
-class Category extends \common\modules\product\models\Category
+class       Category extends \common\modules\product\models\Category
 {
     /**
      * @return array|string[]
@@ -54,12 +50,9 @@ class Category extends \common\modules\product\models\Category
     }
 
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getCharacters()
+    public function getSubCategories()
     {
-        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
+        return $this->hasMany(SubCategory::class, ['category_id' => 'id']);
     }
 
     public function getProducts()

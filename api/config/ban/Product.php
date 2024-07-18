@@ -1,8 +1,7 @@
 <?php
 
-namespace api\models;
+namespace ban;
 
-use api\models\ProductImage;
 use soft\db\ActiveQuery;
 
 class Product extends \common\modules\product\models\Product
@@ -44,7 +43,7 @@ class Product extends \common\modules\product\models\Product
      */
     public function getImage()
     {
-        return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
+        return $this->hasOne(\api\models\ProductDetail\ProductImage::class, ['product_id' => 'id']);
     }
 
     /**
@@ -52,23 +51,16 @@ class Product extends \common\modules\product\models\Product
      */
     public function getImages()
     {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+        return $this->hasMany(\api\models\ProductDetail\ProductImage::class, ['product_id' => 'id']);
     }
 
-    /**
-     * @return float|int
-     */
-    public function getSum(): float|int
-    {
-        return ($this->price * $this->percentage) / 100;
-    }
 
     /**
      * @return \soft\db\ActiveQuery
      */
     public function getAssignProductSizes()
     {
-        return $this->hasMany(AssignProductSize::class, ['product_id' => 'id']);
+        return $this->hasMany(\api\models\ProductDetail\AssignProductSize::class, ['product_id' => 'id']);
     }
 
     /**
@@ -76,7 +68,7 @@ class Product extends \common\modules\product\models\Product
      */
     public function getSizes()
     {
-        return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
+        return $this->hasMany(\api\models\ProductDetail\ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
 
     /**
@@ -84,7 +76,7 @@ class Product extends \common\modules\product\models\Product
      */
     public function getProductColor()
     {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+        return $this->hasMany(\api\models\ProductDetail\ProductImageColor::class, ['product_id' => 'id']);
     }
 
     /**
@@ -92,16 +84,8 @@ class Product extends \common\modules\product\models\Product
      */
     public function getProductCharacters()
     {
-        return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
+        return $this->hasMany(\api\models\ProductDetail\ProductCharacter::class, ['product_id' => 'id']);
     }
 
 
-    public static function getRecommendedProducts($product)
-    {
-        return Product::find()
-            ->select(['id'])
-            ->where(['brand_id' => $product->brand_id])
-            ->active()
-            ->all();
-    }
 }

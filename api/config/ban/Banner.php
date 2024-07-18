@@ -1,12 +1,13 @@
 <?php
 
-namespace api\models;
+namespace ban;
 
+use common\modules\banner\traits\BannerTypeTrait;
 use soft\helpers\Url;
-use soft\db\ActiveQuery;
 
-class Category extends \common\modules\product\models\Category
+class Banner extends \common\modules\banner\models\Banner
 {
+    use BannerTypeTrait;
     /**
      * @return array|string[]
      */
@@ -20,11 +21,11 @@ class Category extends \common\modules\product\models\Category
 
         return [
             'id',
-            'name',
-            'image' => 'imageUrl',
+            'title',
+            'description',
+            'imageUrl',
+            'button_url',
         ];
-
-
     }
 
     /**
@@ -35,17 +36,5 @@ class Category extends \common\modules\product\models\Category
         return Url::withHostInfo(parent::getImageUrl());
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getCharacters()
-    {
-        return $this->hasMany(CategoryCharacter::class, ['category_id' => 'id']);
-    }
-
-    public function getProducts()
-    {
-        return $this->hasMany(Product::class, ['category_id' => 'id']);
-    }
 
 }

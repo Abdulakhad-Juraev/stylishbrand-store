@@ -1,13 +1,7 @@
 <?php
-/**
- * @author uluGbek <muhammadjonovulugbek98@gmail.com>
- * @link https://t.me/U_Muhammadjonov
- * @date 05-Apr-24, 10:19
- */
 
-namespace api\models;
-
-class Challenge extends \common\models\Challenge
+namespace api\models\ProductDetail;
+class ProductSize extends \common\modules\product\models\ProductSize
 {
     /**
      * @return array|string[]
@@ -22,10 +16,8 @@ class Challenge extends \common\models\Challenge
 
         return [
             'id',
-            'title',
-            'description',
-            'telegram_url'
+            'name',
         ];
-
     }
+
 }

@@ -18,25 +18,14 @@ class Product extends \common\modules\product\models\Product
         }
 
         return [
-//            'id',
             'slug',
             'name',
-//            'description',
             'category_id',
             'categoryName' => function ($model) {
                 return $model->category->name ?? '';
             },
-//            'sub_category_id',
-//            'percentage',
-//            'published_at',
-//            'expired_at',
             'price',
             'discount_price' => 'sum',
-//            'brand_id',
-//            'content',
-//            'country_id',
-//            'is_stock',
-//            'most_popular',
             'image',
         ];
     }
@@ -47,22 +36,6 @@ class Product extends \common\modules\product\models\Product
     public function getImage()
     {
         return $this->hasOne(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getImages()
-    {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return float|int
-     */
-    public function getSum(): float|int
-    {
-        return ($this->price * $this->percentage) / 100;
     }
 
     /**
@@ -81,29 +54,4 @@ class Product extends \common\modules\product\models\Product
         return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
 
-    /**
-     * @return ActiveQuery
-     */
-    public function getProductColor()
-    {
-        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getProductCharacters()
-    {
-        return $this->hasMany(ProductCharacter::class, ['product_id' => 'id']);
-    }
-
-
-    public static function getRecommendedProducts($product)
-    {
-        return Product::find()
-            ->select(['id'])
-            ->where(['brand_id' => $product->brand_id])
-            ->active()
-            ->all();
-    }
 }

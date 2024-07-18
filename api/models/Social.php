@@ -2,13 +2,10 @@
 
 namespace api\models;
 
-use common\modules\banner\traits\BannerTypeTrait;
 use soft\helpers\Url;
-use soft\db\ActiveQuery;
 
-class Banner extends \common\modules\banner\models\Banner
+class Social extends \common\models\Social
 {
-    use BannerTypeTrait;
     /**
      * @return array|string[]
      */
@@ -22,12 +19,12 @@ class Banner extends \common\modules\banner\models\Banner
 
         return [
             'id',
-            'title',
-            'description',
+            'url',
             'imageUrl',
-            'button_url',
         ];
+
     }
+
 
     /**
      * @return mixed|string|null
@@ -36,6 +33,4 @@ class Banner extends \common\modules\banner\models\Banner
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
-
-
 }

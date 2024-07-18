@@ -1,7 +1,9 @@
 <?php
 
-namespace api\models;
-class SubCategory extends \common\modules\product\models\SubCategory
+namespace ban;
+
+
+class Brand extends \common\modules\product\models\Brand
 {
     /**
      * @return array|string[]
@@ -18,9 +20,5 @@ class SubCategory extends \common\modules\product\models\SubCategory
             'id',
             'name',
         ];
-
-
     }
-
-
 }

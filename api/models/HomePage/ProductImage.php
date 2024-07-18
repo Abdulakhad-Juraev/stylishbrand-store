@@ -2,10 +2,6 @@
 
 namespace api\models\HomePage;
 
-use api\models\ProductColor;
-use common\models\User;
-use common\modules\product\models\Product;
-use soft\db\ActiveQuery;
 use soft\helpers\Url;
 use Yii;
 
@@ -21,9 +17,6 @@ use Yii;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
- *
- * @property User $createdBy
- * @property User $updatedBy
  */
 class ProductImage extends \common\modules\product\models\ProductImage
 {

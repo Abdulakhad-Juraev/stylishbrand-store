@@ -1,9 +1,8 @@
 <?php
 
-namespace api\models;
+namespace ban;
 
-
-class Brand extends \common\modules\product\models\Brand
+class CategoryCharacter extends \common\modules\product\models\CategoryCharacter
 {
     /**
      * @return array|string[]
@@ -19,6 +18,15 @@ class Brand extends \common\modules\product\models\Brand
         return [
             'id',
             'name',
+            'productCharacters'
         ];
+
+
     }
+
+    public function getProductCharacters()
+    {
+        return $this->hasMany(ProductCharacter::class, ['category_character_id' => 'id']);
+    }
+
 }

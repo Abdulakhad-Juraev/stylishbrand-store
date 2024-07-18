@@ -3,15 +3,11 @@
 namespace api\controllers;
 
 
-use api\models\AssignProductSize;
-use api\models\Product;
-use api\models\ProductColor;
-use api\models\ProductImage;
-use api\models\RecommendedProduct;
-use api\utils\MessageConst;
 use Yii;
-use yii\data\ActiveDataProvider;
+use api\models\ProductDetail\Product;
+use api\utils\MessageConst;
 use yii\web\NotFoundHttpException;
+use api\models\ProductDetail\RecommendedProduct;
 
 class ProductController extends ApiBaseController
 {
@@ -20,139 +16,67 @@ class ProductController extends ApiBaseController
         'collectionEnvelope' => 'items',
     ];
 
-
     /**
      * @throws NotFoundHttpException
      */
     public function actionDetail($slug)
     {
-        $product = Product::findOne(['slug' => $slug]);
-        Product::setFields([
-            'slug',
-            'name',
-            'description',
-            'category_id',
-            'categoryName' => function (Product $model) {
-                return $model->category->name ?? '';
-            },
-            'sub_category_id',
-            'sub_category_id' => function ($model) {
-                return $model->subCategory->name ?? '';
-            },
-            'percentage',
-            'published_at',
-            'expired_at',
-            'price',
-            'priceFormat' => function ($model) {
-                return as_sum($model->price);
-            },
-            'discount_price' => 'sum',
-            'brand_id',
-            'brand_id' => function ($model) {
-                return $model->brand->name ?? '';
-            },
-            'content',
-            'country_id',
-            'country_id' => function ($model) {
-                return $model->country->name ?? '';
-            },
-            'is_stock',
-            'most_popular',
-            'image',
-            'images',
-            'sizes',
-            'productColor',
-            'productCharacters',
-        ]);
 
-        $recommendedProducts = RecommendedProduct::find()
-            ->where(['brand_id' => $product->brand_id])
-            ->all();
-        RecommendedProduct::setFields([
-            "slug",
-            "name",
-            'category_id',
-            'category_id' => function (Product $model) {
-                return $model->category->name ?? '';
-            },
-            'percentage',
-            'price',
-            'discount_price' => 'sum',
-            'image',
-            'sizes',
-        ]);
-        $data = [
-            'product' => $product,
-            'recommendedProducts' => $recommendedProducts,
-        ];
+        $product = Product::findOne(['slug' => $slug]);
 
         if ($product === null) {
             throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
         }
-
-
-        return $this->success($data, MessageConst::GET_SUCCESS);
+        $data = [
+            'products' => $product,
+            'recommendedProducts' => $this->recProduct($product)
+        ];
+        return $this->success([$data], MessageConst::GET_SUCCESS);
     }
 
 
-    public function actionFavorites()
+    /**
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionFavorites(): array
     {
         $slugs = Yii::$app->request->get('slug');
-        $recommendedProducts = Product::find()
-            ->where(['in', 'slug', $slugs])
-            ->all();
+        if (empty($slugs)) {
+            throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
+        }
+
         Product::setFields([
             "slug",
             "name",
             'category_id',
-            'categoryName' => function (Product $model) {
+            'categoryName' => function ($model) {
                 return $model->category->name ?? '';
             },
-            'percentage',
             'price',
             'discount_price' => 'sum',
             'image',
         ]);
 
-        if ($recommendedProducts === null) {
-            throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
-        }
+        $products = Product::find()
+            ->where(['in', 'slug', $slugs])
+            ->all();
 
-
-        return $this->success($recommendedProducts, MessageConst::GET_SUCCESS);
+        return $this->success($products, MessageConst::GET_SUCCESS);
     }
-
 
     /**
+     * @param $product
      * @return array
      */
-    public function actionIndex()
+    private function recProduct($product): array
     {
-        $products = Product::find()->orderBy(['id' => SORT_ASC])->active();
-
-        $productsDataProvider = new ActiveDataProvider([
-            'query' => $products
-        ]);
-        return $this->success($productsDataProvider, MessageConst::GET_SUCCESS);
+        return RecommendedProduct::find()
+            ->andWhere(['brand_id' => $product->brand_id])
+            ->andWhere(['!=', 'id', $product->id])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(4)
+            ->all();
     }
-
-
-    /**
-     * @return array
-     */
-    public function actionMostPopular(): array
-    {
-        Product::setFields([
-            'slug',
-            'name',
-            'price',
-            'category_id',
-        ]);
-
-        $category = Product::find()->andWhere(['most_popular' => Product::STATUS_ACTIVE])->orderBy(['id' => SORT_ASC])->active()->all();
-
-        return $this->success($category, MessageConst::GET_SUCCESS);
-    }
-
 
 }

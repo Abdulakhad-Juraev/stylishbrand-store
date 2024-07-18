@@ -1,7 +1,7 @@
 <?php
 
-namespace api\models;
-class CategoryCharacter extends \common\modules\product\models\CategoryCharacter
+namespace api\models\CategoryPage;
+class SubCategory extends \common\modules\product\models\SubCategory
 {
     /**
      * @return array|string[]

@@ -1,11 +1,8 @@
 <?php
 
-namespace api\models;
-
-use soft\helpers\Url;
-use soft\db\ActiveQuery;
-
-class AssignProductSize extends \common\modules\product\models\AssignProductSize
+//namespace api\models;
+namespace ban;
+class ProductSize extends \common\modules\product\models\ProductSize
 {
     /**
      * @return array|string[]
@@ -20,6 +17,8 @@ class AssignProductSize extends \common\modules\product\models\AssignProductSize
 
         return [
             'id',
+            'name',
         ];
     }
+
 }

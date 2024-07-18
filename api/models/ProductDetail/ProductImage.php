@@ -1,15 +1,11 @@
 <?php
-/**
- * @author uluGbek <muhammadjonovulugbek98@gmail.com>
- * @link https://t.me/U_Muhammadjonov
- * @date 03-May-24, 11:42
- */
 
-namespace api\models;
+namespace api\models\ProductDetail;
 
 use soft\helpers\Url;
 
-class ContactInfo extends \common\models\ContactInfo
+
+class ProductImage extends \common\modules\product\models\ProductImage
 {
     /**
      * @return array|string[]
@@ -23,13 +19,8 @@ class ContactInfo extends \common\models\ContactInfo
         }
 
         return [
-            'id',
-            'phone',
-            'support_phone',
-            'imageUrl',
-            'support_description',
+            'imageUrl'
         ];
-
     }
 
     /**

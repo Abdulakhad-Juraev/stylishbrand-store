@@ -1,17 +1,16 @@
 <?php
 
-namespace common\models;
+namespace common\modules\banner\models;
 
-use mohorev\file\UploadImageBehavior;
+use common\modules\user\models\User;
 use Yii;
 
 /**
- * This is the model class for table "social".
+ * This is the model class for table "menu".
  *
  * @property int $id
- * @property string|null $url
  * @property string|null $image
- * @property int|null $status
+ * @property string|null $phone
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $created_at
@@ -20,18 +19,16 @@ use Yii;
  * @property User $createdBy
  * @property User $updatedBy
  */
-class Social extends \soft\db\ActiveRecord
+class Menu extends \soft\db\ActiveRecord
 {
     //<editor-fold desc="Parent" defaultstate="collapsed">
-
-    const BASE_ORIGINAL_URL = '/uploads/podcasts/original';
 
     /**
     * {@inheritdoc}
     */
     public static function tableName()
     {
-        return 'social';
+        return 'menu';
     }
 
     /**
@@ -40,11 +37,8 @@ class Social extends \soft\db\ActiveRecord
     public function rules()
     {
         return [
-
-            [['url'], 'required'],
-            [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['url'], 'string', 'max' => 255],
-            [['image'], 'file'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['image', 'phone'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -58,17 +52,6 @@ class Social extends \soft\db\ActiveRecord
         return [
             'yii\behaviors\TimestampBehavior',
             'yii\behaviors\BlameableBehavior',
-            'image' => [
-                'class' => UploadImageBehavior::class,
-                'attribute' => 'image',
-                'scenarios' => ['default'],
-                'path' => '@frontend/web/uploads/images/social/{id}',
-                'url' => '/uploads/images/social/{id}',
-                'deleteOriginalFile' => true,
-                'thumbs' => [
-                    'preview' => ['width' => 1440],
-                ],
-            ],
         ];
     }
 
@@ -78,14 +61,13 @@ class Social extends \soft\db\ActiveRecord
     public function labels()
     {
         return [
-            'id' => 'ID',
-            'url' => 'Url Manzili',
-            'image' => 'Rasm',
-//            'status' => 'Xolati',
-//            'created_by' => 'Kiritildi',
-//            'updated_by' => 'Updated By',
-//            'created_at' => 'Kiritilgan vaqti',
-//            'updated_at' => 'Tahrirlangan vaqti',
+            'id' => Yii::t('app', 'ID'),
+            'image' => Yii::t('app', 'Image'),
+            'phone' => Yii::t('app', 'Phone'),
+            'created_by' => Yii::t('app', 'Created By'),
+            'updated_by' => Yii::t('app', 'Updated By'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
     //</editor-fold>
@@ -109,12 +91,4 @@ class Social extends \soft\db\ActiveRecord
     }
     
     //</editor-fold>
-
-    /**
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
-    }
 }
