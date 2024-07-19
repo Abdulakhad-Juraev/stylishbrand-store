@@ -15,9 +15,9 @@ use common\modules\product\models\search\CategoryCharacterSearch;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Category ' . $model->name;
-$this->addBreadCrumb('Category', ['category/index']);
-$this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
-$this->addBreadCrumb('Sub Category');
+$this->addBreadCrumb('Mahsulotlar', ['product/index']);
+$this->addBreadCrumb($model->name, ['product/view', 'id' => $model->id]);
+$this->addBreadCrumb('Qo\'shimcha malumotlar');
 $this->registerAjaxCrudAssets();
 
 

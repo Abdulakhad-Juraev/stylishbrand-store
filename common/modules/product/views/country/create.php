@@ -5,7 +5,7 @@
 /* @var $model common\modules\product\models\Country */
 
 $this->title = Yii::t('site', 'Create a new');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Countries'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Davlatlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

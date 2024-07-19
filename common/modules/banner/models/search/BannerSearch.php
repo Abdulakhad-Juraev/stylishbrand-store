@@ -50,7 +50,6 @@ class BannerSearch extends Banner
         $query->andFilterWhere([
             'id' => $this->id,
             'type' => $this->type,
-            'count' => $this->count,
             'status' => $this->status,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -60,6 +59,7 @@ class BannerSearch extends Banner
 
         $query->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'button_url', $this->button_url])
+            ->andFilterWhere(['like', 'count', $this->count])
             ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;

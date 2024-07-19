@@ -2,6 +2,7 @@
 
 namespace api\controllers;
 
+use api\models\Menu;
 use api\models\Social;
 use api\utils\MessageConst;
 use api\models\HomePage\Banner;
@@ -132,5 +133,16 @@ class BannerController extends ApiBaseController
             ->active()
             ->all();
         return $this->success($socials, MessageConst::GET_SUCCESS);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionMenu(): array
+    {
+        $menu = Menu::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->one();
+        return $this->success($menu, MessageConst::GET_SUCCESS);
     }
 }

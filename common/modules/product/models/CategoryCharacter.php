@@ -84,9 +84,9 @@ class CategoryCharacter extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'category_id' => Yii::t('app', 'Category ID'),
+            'category_id' => Yii::t('app', 'Kategoriyasi'),
             'name' => Yii::t('app', 'Name'),
-            'status' => Yii::t('app', 'Status'),
+            'status' => Yii::t('app', 'Xolati'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),

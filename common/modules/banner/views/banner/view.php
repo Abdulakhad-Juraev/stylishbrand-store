@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => ['image', ['width' => '40px']]
         ],
         'count',
-        'button_url',
+        'button_url:url',
         [
             'attribute' => 'type',
             'value' => function (Banner $model) {

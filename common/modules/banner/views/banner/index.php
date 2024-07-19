@@ -38,13 +38,7 @@ $this->registerAjaxCrudAssets();
                 return $model->getTypeName() ?? '';
             }
         ],
-        [
-            'attribute' => 'button_url',
-            'filter' => Category::map(),
-            'value' => function (Banner $model) {
-                return $model->category->name ?? '';
-            }
-        ],
+        'button_url:url',
         ['class' => StatusColumn::class],
         'actionColumn' => [
             'viewOptions' => [

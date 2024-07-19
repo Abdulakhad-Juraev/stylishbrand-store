@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\modules\product\models\Brand */
 
 $this->title = Yii::t('site', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Brands'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Brendlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

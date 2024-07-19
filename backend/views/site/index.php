@@ -12,6 +12,6 @@ $user = Yii::$app->user;
 
 <div class="row">
     <div class="col-md-12">
-        <?= $this->render('_daily_registrants') ?>
+<!--        --><?php //= $this->render('_daily_registrants') ?>
     </div>
 </div>

@@ -21,7 +21,7 @@ use common\modules\product\models\Category;
             'icon' => 'question-circle,far',
         ],
         [
-            'label' => 'Order Item',
+            'label' => 'Buyurtma Ma\'lumotlari',
             'url' => ['/order-manager/order/order-item', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],

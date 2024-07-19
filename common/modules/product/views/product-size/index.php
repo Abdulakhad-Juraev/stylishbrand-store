@@ -8,7 +8,7 @@ use soft\grid\StatusColumn;
 /* @var $searchModel common\modules\product\models\search\ProductSizeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Product Sizes');
+$this->title = Yii::t('app', 'O\'lchamlar');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>

@@ -71,9 +71,9 @@ class Order extends \soft\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'order_type' => Yii::t('app', 'Order Type'),
-            'payment_type' => Yii::t('app', 'Payment Type'),
-            'total_price' => Yii::t('app', 'Total Price'),
+            'order_type' => Yii::t('app', 'Zakaz xo\'lati'),
+            'payment_type' => Yii::t('app', 'To\'lov turi'),
+            'total_price' => Yii::t('app', 'Ummumiy summa'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),

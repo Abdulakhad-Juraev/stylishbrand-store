@@ -5,7 +5,7 @@
 /* @var $model common\modules\product\models\ProductSize */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Sizes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'O\'lchamlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -15,8 +15,5 @@ $this->params['breadcrumbs'][] = $this->title;
         'id',
         'name',
         'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+    ],
 ]) ?>

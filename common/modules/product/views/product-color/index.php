@@ -7,7 +7,7 @@ use soft\grid\StatusColumn;
 /* @var $searchModel common\modules\product\models\search\ProductColorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Product Colors');
+$this->title = Yii::t('app', 'Ranglar');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
@@ -23,7 +23,13 @@ $this->registerAjaxCrudAssets();
     ],
     'columns' => [
         'name',
-//        'color',
+        [
+            'attribute' => 'color',
+            'format' => 'raw',
+            'value' => function ($model) {
+                return "<div style='width: 30px; height: 20px; background-color: {$model->color};'></div>";
+            },
+        ],
         ['class' => StatusColumn::class],
         'actionColumn' => [
             'viewOptions' => [

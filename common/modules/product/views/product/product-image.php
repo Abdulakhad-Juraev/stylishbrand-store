@@ -14,9 +14,9 @@ use soft\grid\StatusColumn;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Product Size ' . $model->name;
-$this->addBreadCrumb('Category', ['category/index']);
-$this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
-$this->addBreadCrumb('Sub Category');
+$this->addBreadCrumb('Mahsulotlar', ['product/index']);
+$this->addBreadCrumb($model->name, ['product/view', 'id' => $model->id]);
+$this->addBreadCrumb('Rasm va Rang');
 $this->registerAjaxCrudAssets();
 
 
@@ -37,16 +37,18 @@ $this->registerAjaxCrudAssets();
     ],
     'columns' => [
         [
-            'attribute' => 'color_id',
-            'value' => function ($model) {
-                return $model->color->name ?? '';
-            }
-        ],
-        [
             'attribute' => 'imageUrl',
             'label' => "Rasm",
             'format' => ['image', ['width' => '40px']]
         ],
+        [
+            'attribute' => 'color_id',
+            'filter'=>\common\modules\product\models\ProductColor::map(),
+            'value' => function ($model) {
+                return $model->color->name ?? '';
+            }
+        ],
+
         ['class' => StatusColumn::class],
         'actionColumn' => [
             'controller' => 'product-image',

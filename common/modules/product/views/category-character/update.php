@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\modules\product\models\CategoryCharacter */
 
 $this->title = Yii::t('site', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category Characters'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kategoriya xususiyatlari'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -121,7 +121,9 @@ class CategoryController extends SoftController
     public function actionSubCategory($id): string
     {
         $model = $this->findModel($id);
+
         $searchModel = new SubCategorySearch();
+
         $dataProvider = $searchModel->search($model->getSubCategories());
 
         return $this->render('sub-category', [

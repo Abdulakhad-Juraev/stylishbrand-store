@@ -13,6 +13,8 @@ use Yii;
  *
  * @property int $id
  * @property int|null $status
+ * @property int|null $size
+ * @property int|null $name
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $created_at

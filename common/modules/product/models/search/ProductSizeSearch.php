@@ -14,6 +14,7 @@ class ProductSizeSearch extends ProductSize
     {
         return [
             [['id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['name'],'safe']
         ];
     }
 
@@ -55,6 +56,7 @@ class ProductSizeSearch extends ProductSize
             'updated_at' => $this->updated_at,
         ]);
 
+        $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

@@ -13,8 +13,8 @@ class OrderItemSearch extends OrderItem
     public function rules()
     {
         return [
-            [['id', 'order_id', 'product_id', 'count', 'price', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['total_price'], 'number'],
+            [['id', 'order_id','count', 'price', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['total_price','product'], 'number'],
         ];
     }
 
@@ -50,15 +50,18 @@ class OrderItemSearch extends OrderItem
         $query->andFilterWhere([
             'id' => $this->id,
             'order_id' => $this->order_id,
-            'product_id' => $this->product_id,
-            'count' => $this->count,
-            'price' => $this->price,
-            'total_price' => $this->total_price,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+        $query
+            ->andFilterWhere(['like', 'total_price', $this->total_price])
+            ->andFilterWhere(['like', 'price', $this->price])
+            ->andFilterWhere(['like', 'count', $this->count])
+            ->andFilterWhere(['like', 'price', $this->price])
+//            ->andFilterWhere(['like', 'product_id', $this->product_id])
+        ;
 
         return $dataProvider;
     }

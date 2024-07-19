@@ -31,7 +31,7 @@ class CategoryCharacterSearch extends CategoryCharacter
             $params = Yii::$app->request->queryParams;
         }
         if ($query == null) {
-            $query = CategoryCharacter::find()->joinWith('translation');
+            $query = CategoryCharacter::find();
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -46,7 +46,7 @@ class CategoryCharacterSearch extends CategoryCharacter
         if (!$this->validate()) {
             return $dataProvider;
         }
-
+        $query->joinWith('translations');
         $query->andFilterWhere([
             'id' => $this->id,
             'category_id' => $this->category_id,
@@ -57,7 +57,7 @@ class CategoryCharacterSearch extends CategoryCharacter
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'category_character_lang.name', $this->name]);
 
         return $dataProvider;
     }

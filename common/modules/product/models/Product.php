@@ -119,8 +119,8 @@ class Product extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'slug' => Yii::t('app', 'Slug'),
-            'category_id' => Yii::t('app', 'Kategoriya'),
-            'sub_category_id' => Yii::t('app', 'Pod Kategoriya'),
+            'category_id' => Yii::t('app', 'Kategoriyasi'),
+            'sub_category_id' => Yii::t('app', 'Quyi kategoriyasi'),
             'percentage' => Yii::t('app', 'Foiz %'),
             'published_at' => Yii::t('app', 'Elon qilish sanasi'),
             'expired_at' => Yii::t('app', 'Olib tashlash vaqti'),

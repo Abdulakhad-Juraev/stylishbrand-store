@@ -1,5 +1,6 @@
 <?php
 
+use kartik\color\ColorInput;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\Form;
@@ -17,13 +18,19 @@ use soft\widget\kartik\Form;
     'form' => $form,
     'attributes' => [
         'name',
-//        'color',
+        'color' => [
+            'type' => Form::INPUT_WIDGET,
+            'widgetClass' => ColorInput::class,
+            'options' => [
+                'options' => [
+                    'class' => 'input_class'
+                ],
+            ],
+        ],
         'status:status',
+
     ]
 ]);
-$form->field($model, 'color', [
-    'template' => "{input}"
-])->input('color', ['class' => "input_class"])
 ?>
 <div class="form-group">
     <?= Html::submitButton(Yii::t('site', 'Save'), ['visible' => !$this->isAjax]) ?>

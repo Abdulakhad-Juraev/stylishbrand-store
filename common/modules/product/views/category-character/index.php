@@ -8,7 +8,7 @@ use soft\grid\StatusColumn;
 /* @var $searchModel common\modules\product\models\search\CategoryCharacterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Category Characters');
+$this->title = Yii::t('app', 'Kategoriya xususiyatlari');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>

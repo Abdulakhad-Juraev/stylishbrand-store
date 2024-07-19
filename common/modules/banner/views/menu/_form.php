@@ -1,14 +1,13 @@
 <?php
 
-use common\modules\banner\models\Banner;
-use common\modules\product\models\Category;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\file\SingleImageFileInput;
 use soft\widget\kartik\Form;
+use yii\widgets\MaskedInput;
 
 /* @var $this soft\web\View */
-/* @var $model common\modules\banner\models\Banner */
+/* @var $model common\modules\banner\models\Menu */
 
 ?>
 
@@ -19,8 +18,14 @@ use soft\widget\kartik\Form;
     'model' => $model,
     'form' => $form,
     'attributes' => [
-        'title',
-        'description',
+        'phone' => [
+            'type' => Form::INPUT_WIDGET,
+            'widgetClass' => MaskedInput::class,
+            'options' => [
+                'mask' => '+999-99-999-99-99', // Adjust the mask as needed
+            ],
+            'label' => Yii::t('app', 'Phone'),
+        ],
         'image:widget' => [
             'widgetClass' => SingleImageFileInput::class,
 
@@ -28,16 +33,6 @@ use soft\widget\kartik\Form;
                 'initialPreviewUrl' => $model->imageUrl
             ]
         ],
-        'count:number',
-        'button_url',
-        'type:dropdownList' => [
-            'items' => Banner::types(),
-            'options' => [
-                'prompt' => 'Tanlang...'
-            ]
-        ],
-        'status:status',
-
     ]
 ]); ?>
 <div class="form-group">

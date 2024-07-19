@@ -25,22 +25,22 @@ if (!array_key_exists($activeLanguage, $params['languages'])) {
                         class="fas fa-home"></i> Bosh sahifa</a>
         </li>
 
+<!--
+        <?php /*foreach ($languages as $key => $label): */?>
 
-        <?php foreach ($languages as $key => $label): ?>
-
-            <?php if ($activeLanguage == $key): ?>
+            <?php /*if ($activeLanguage == $key): */?>
 
                 <li class="nav-item active">
-                    <a class="nav-link"> <i class="fas fa-check"></i> <?= $label ?></a>
+                    <a class="nav-link"> <i class="fas fa-check"></i> <?php /*= $label */?></a>
                 </li>
 
-            <?php else: ?>
-<!--                <li class="nav-item active">-->
-<!--                    <a href="--><?php //= Url::current(['lang' => $key]) ?><!--" class="nav-link text-info">--><?php //= $label ?><!--</a>-->
+            <?php /*else: */?>
+                <li class="nav-item active">-->
+<!--                    <a href="--><?php /*//= Url::current(['lang' => $key]) */?><!--" class="nav-link text-info">--><?php /*//= $label */?><!--</a>-->
 <!--                </li>-->
-            <?php endif ?>
+            <?php /*endif */?>
 
-        <?php endforeach; ?>
+        <?php /*endforeach; */?>
 
     </ul>
 

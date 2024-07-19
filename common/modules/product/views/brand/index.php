@@ -8,7 +8,7 @@ use soft\grid\StatusColumn;
 /* @var $searchModel common\modules\product\models\search\BrandSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Brands');
+$this->title = Yii::t('app', 'Brendlar');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>

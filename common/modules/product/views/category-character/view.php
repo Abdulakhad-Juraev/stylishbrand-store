@@ -4,8 +4,8 @@
 /* @var $this soft\web\View */
 /* @var $model common\modules\product\models\CategoryCharacter */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Category Characters'), 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Kategoriya xususiyatlari'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

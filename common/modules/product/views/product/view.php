@@ -42,9 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
               'published_at:datetime',
               'expired_at:datetime',
               'statusBadge:raw',
-              'is_stock',
-'created_at',
-'createdBy.fullname',
-'updated_at',
-'updatedBy.fullname'        ],
+              'is_stock:bool',
+     ],
     ]) ?>

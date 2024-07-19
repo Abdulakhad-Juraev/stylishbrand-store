@@ -30,7 +30,6 @@ $this->registerAjaxCrudAssets();
             ],
             'url:url',
             [ 'class' => StatusColumn::class, ],
-            'created_at',
             'actionColumn' => [
                 'viewOptions' => [
                     'role' => 'modal-remote',

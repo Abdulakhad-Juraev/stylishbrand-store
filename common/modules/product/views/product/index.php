@@ -35,13 +35,13 @@ $this->registerAjaxCrudAssets();
         ],
         'price:sum',
         'percentage',
-        [
-            'attribute' => 'sub_category_id',
-            'filter' => SubCategory::map(),
-            'value' => function (Product $model) {
-                return $model->subCategory->name ?? '';
-            }
-        ],
+//        [
+//            'attribute' => 'sub_category_id',
+//            'filter' => SubCategory::map(),
+//            'value' => function (Product $model) {
+//                return $model->subCategory->name ?? '';
+//            }
+//        ],
         [
             'attribute' => 'country_id',
             'filter' => Country::map(),
@@ -51,7 +51,7 @@ $this->registerAjaxCrudAssets();
         ],
         'published_at:datetime',
         'expired_at:datetime',
-        'is_stock',
+//        'is_stock',
         [
             'class' => StatusColumn::class
         ],

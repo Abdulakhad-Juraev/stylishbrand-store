@@ -20,9 +20,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => ['image', ['width' => '40px']]
         ],
         'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'
     ],
 ]) ?>

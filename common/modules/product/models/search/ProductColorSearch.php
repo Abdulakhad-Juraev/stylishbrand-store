@@ -14,7 +14,7 @@ class ProductColorSearch extends ProductColor
     {
         return [
             [['id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['color'], 'safe'],
+            [['color','name'], 'safe'],
         ];
     }
 
@@ -31,7 +31,7 @@ class ProductColorSearch extends ProductColor
             $params = Yii::$app->request->queryParams;
         }
         if($query == null){
-            $query = ProductColor::find();
+            $query = ProductColor::find()->joinWith('translation');
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -56,7 +56,8 @@ class ProductColorSearch extends ProductColor
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'color', $this->color]);
+        $query->andFilterWhere(['like', 'color', $this->color])
+        ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

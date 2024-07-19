@@ -6,7 +6,7 @@ use common\modules\banner\models\Menu;
 /* @var $searchModel common\modules\banner\models\search\MenuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Menus');
+$this->title = Yii::t('app', 'Menyu');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
 ?>
@@ -22,13 +22,13 @@ $this->registerAjaxCrudAssets();
             ]
         ],
         'columns' => [
-                    'id',
-            'image',
+
+            [
+                'attribute' => 'imageUrl',
+                'label' => "Rasm",
+                'format' => ['image', ['width' => '40px']]
+            ],
             'phone',
-            'created_by',
-            'updated_by',
-            //'created_at',
-            //'updated_at',
             'actionColumn' => [
                 'viewOptions' => [
                     'role' => 'modal-remote',

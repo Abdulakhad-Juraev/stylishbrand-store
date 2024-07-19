@@ -21,18 +21,18 @@ $this->registerAjaxCrudAssets();
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
-            'modal' => true,
+            'modal' => false,
         ]
     ],
     'columns' => [
-        [
-            'class' => ViewLinkColumn::class,
-            'attribute' => 'user_id',
-            'filter' => User::map(),
-            'value' => function (Order $model) {
-                return $model->user->username ?? '';
-            }
-        ],
+//        [
+//            'class' => ViewLinkColumn::class,
+//            'attribute' => 'user_id',
+//            'filter' => User::map(),
+//            'value' => function (Order $model) {
+//                return $model->user->username ?? '';
+//            }
+//        ],
         [
             'attribute' => 'order_type',
             'filter' => Order::orderTypes(),
@@ -48,17 +48,17 @@ $this->registerAjaxCrudAssets();
             }
         ],
         'total_price:sum',
-        [
-            'class' => StatusColumn::class
-        ],
+//        [
+//            'class' => StatusColumn::class
+//        ],
 
         'actionColumn' => [
-            'viewOptions' => [
-                'role' => 'modal-remote',
-            ],
-            'updateOptions' => [
-                'role' => 'modal-remote',
-            ],
+//            'viewOptions' => [
+//                'role' => 'modal-remote',
+//            ],
+//            'updateOptions' => [
+//                'role' => 'modal-remote',
+//            ],
         ],
     ],
 ]); ?>

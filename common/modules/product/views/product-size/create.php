@@ -5,7 +5,7 @@
 /* @var $model common\modules\product\models\ProductSize */
 
 $this->title = Yii::t('site', 'Create a new');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Sizes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'O\'lchamlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

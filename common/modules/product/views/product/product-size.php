@@ -4,19 +4,20 @@
 use common\modules\product\models\AssignProductSize;
 use common\modules\product\models\Product;
 use common\modules\product\models\search\AssignProductSizeSearch;
+use common\modules\product\models\search\ProductSizeSearch;
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
 
 
 /* @var $model Product */
 /* @var $this soft\web\View */
-/* @var $searchModel AssignProductSizeSearch */
+/* @var $searchModel ProductSizeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Product Size ' . $model->name;
-$this->addBreadCrumb('Category', ['category/index']);
-$this->addBreadCrumb($model->name, ['category/view', 'id' => $model->id]);
-$this->addBreadCrumb('Sub Category');
+$this->title = 'O\'lchamlar ' . $model->name;
+$this->addBreadCrumb('Mahsulotlar', ['product/index']);
+$this->addBreadCrumb($model->name, ['product/view', 'id' => $model->id]);
+$this->addBreadCrumb('O\'lchamlar');
 $this->registerAjaxCrudAssets();
 
 
@@ -38,7 +39,8 @@ $this->registerAjaxCrudAssets();
     'columns' => [
         [
             'attribute' => 'size',
-            'value' => function (AssignProductSize $model) {
+            'label' => 'O\'lchamlar',
+            'value' => function ($model) {
                 return $model->sizes->name ?? '';
             }
         ],
@@ -48,13 +50,13 @@ $this->registerAjaxCrudAssets();
         ],
 
         'actionColumn' => [
-    'controller' => 'assign-product-size',
-    'viewOptions' => [
-        'role' => 'modal-remote',
-    ],
-    'updateOptions' => [
-        'role' => 'modal-remote',
-    ],
-],
+            'controller' => 'assign-product-size',
+            'viewOptions' => [
+                'role' => 'modal-remote',
+            ],
+            'updateOptions' => [
+                'role' => 'modal-remote',
+            ],
+        ],
     ],
 ]); ?>

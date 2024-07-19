@@ -13,8 +13,8 @@ class ProductImageSearch extends ProductImage
     public function rules()
     {
         return [
-            [['id', 'color_id', 'product_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['image'], 'safe'],
+            [['id', 'product_id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['image','color_id'], 'safe'],
         ];
     }
 
@@ -49,7 +49,6 @@ class ProductImageSearch extends ProductImage
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'color_id' => $this->color_id,
             'product_id' => $this->product_id,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -57,7 +56,7 @@ class ProductImageSearch extends ProductImage
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'image', $this->image]);
+        $query->andFilterWhere(['like', 'color_id', $this->color_id]);
 
         return $dataProvider;
     }

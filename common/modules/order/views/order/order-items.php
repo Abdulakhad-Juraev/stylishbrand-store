@@ -13,10 +13,10 @@ use soft\grid\StatusColumn;
 /* @var $searchModel OrderItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Category ' . $model->id;
-$this->addBreadCrumb('Category', ['category/index']);
-$this->addBreadCrumb($model->id, ['category/view', 'id' => $model->id]);
-$this->addBreadCrumb('Sub Category');
+$this->title = 'Buyurtma ' . $model->id;
+$this->addBreadCrumb('Buyurtma', ['order/index']);
+$this->addBreadCrumb($model->id, ['order/view', 'id' => $model->id]);
+$this->addBreadCrumb('Buyurtma Ma\'lumotlari');
 $this->registerAjaxCrudAssets();
 
 
@@ -36,7 +36,7 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
-        'order_id',
+//        'order_id',
         [
             'attribute' => 'product_id',
             'value' => function (OrderItem $model) {

@@ -14,6 +14,7 @@ class ProductCharacterSearch extends ProductCharacter
     {
         return [
             [['id', 'category_character_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -45,10 +46,10 @@ class ProductCharacterSearch extends ProductCharacter
         if (!$this->validate()) {
             return $dataProvider;
         }
-
+        $query->joinWith('translation');
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_character_id' => $this->category_character_id,
+//            'category_character_id' => $this->category_character_id,
             'status' => $this->status,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -56,6 +57,7 @@ class ProductCharacterSearch extends ProductCharacter
             'updated_at' => $this->updated_at,
         ]);
 
+        $query->andFilterWhere(['like', 'product_character_lang.title', $this->title]);
         return $dataProvider;
     }
 }

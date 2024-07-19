@@ -9,7 +9,6 @@ use yii\data\ActiveDataProvider;
 
 class ProductSearch extends Product
 {
-
     public function rules()
     {
         return [

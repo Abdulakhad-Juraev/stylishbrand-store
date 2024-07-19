@@ -1,13 +1,11 @@
 <?php
 
-namespace api\models\HomePage;
+namespace api\models;
 
-use common\modules\banner\traits\BannerTypeTrait;
 use soft\helpers\Url;
 
-class Banner extends \common\modules\banner\models\Banner
+class Menu extends \common\modules\banner\models\Menu
 {
-    use BannerTypeTrait;
     /**
      * @return array|string[]
      */
@@ -21,13 +19,12 @@ class Banner extends \common\modules\banner\models\Banner
 
         return [
             'id',
-            'title',
-            'description',
+            'phone',
             'imageUrl',
-            'button_url',
-            'buttonUrl',
         ];
+
     }
+
 
     /**
      * @return mixed|string|null
@@ -35,8 +32,5 @@ class Banner extends \common\modules\banner\models\Banner
     public function getImageUrl()
     {
         return Url::withHostInfo(parent::getImageUrl());
-    }
-    public function getButtonUrl(){
-        return Url::withHostInfo('/api/category/page-list?category_id='.$this->button_url);
     }
 }

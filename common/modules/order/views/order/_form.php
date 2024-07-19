@@ -18,12 +18,12 @@ use soft\widget\kartik\Form;
     'model' => $model,
     'form' => $form,
     'attributes' => [
-        'user_id:dropdownList' => [
-            'items' => User::map(),
-            'options' => [
-                'prompt' => 'Tanlang...'
-            ]
-        ],
+//        'user_id:dropdownList' => [
+//            'items' => User::map(),
+//            'options' => [
+//                'prompt' => 'Tanlang...'
+//            ]
+//        ],
         'order_type:dropdownList' => [
             'items' => Order::orderTypes(),
             'options' => [

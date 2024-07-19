@@ -7,7 +7,7 @@
 use soft\widget\bs4\DetailView;
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Colors'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ranglar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,10 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
               'id', 
               'name',
-//              'color',
+            [
+                'attribute' => 'color',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "<div style='width: 20px; height: 20px; background-color: {$model->color};'></div>";
+                },
+            ],
               'statusBadge:raw',
-'created_at',
-'createdBy.fullname',
-'updated_at',
-'updatedBy.fullname'        ],
+        ],
     ]) ?>

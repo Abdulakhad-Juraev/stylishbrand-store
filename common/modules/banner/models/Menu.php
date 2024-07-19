@@ -3,6 +3,7 @@
 namespace common\modules\banner\models;
 
 use common\modules\user\models\User;
+use mohorev\file\UploadImageBehavior;
 use Yii;
 
 /**
@@ -38,7 +39,8 @@ class Menu extends \soft\db\ActiveRecord
     {
         return [
             [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['image', 'phone'], 'string', 'max' => 255],
+            [['phone'], 'string', 'max' => 255],
+            [['image'], 'file'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -52,6 +54,17 @@ class Menu extends \soft\db\ActiveRecord
         return [
             'yii\behaviors\TimestampBehavior',
             'yii\behaviors\BlameableBehavior',
+            'image' => [
+                'class' => UploadImageBehavior::class,
+                'attribute' => 'image',
+                'scenarios' => ['default'],
+                'path' => '@frontend/web/uploads/images/menu/{id}',
+                'url' => '/uploads/images/menu/{id}',
+                'deleteOriginalFile' => true,
+                'thumbs' => [
+                    'preview' => ['width' => 1440],
+                ],
+            ],
         ];
     }
 
@@ -91,4 +104,12 @@ class Menu extends \soft\db\ActiveRecord
     }
     
     //</editor-fold>
+
+    /**
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
+    }
 }

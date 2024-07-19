@@ -26,7 +26,7 @@ use common\modules\product\models\Category;
             'icon' => 'tasks,fas',
         ],
         [
-            'label' => 'Kategoriya Xarakteristikasi',
+            'label' => 'Kategoriya xususiyatlari',
             'url' => ['/product-manager/category/character', 'id' => $model->id],
             'icon' => 'tasks,fas',
         ],

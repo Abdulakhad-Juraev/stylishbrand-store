@@ -9,7 +9,6 @@ use common\modules\order\models\Order;
 
 class OrderSearch extends Order
 {
-
     public function rules()
     {
         return [
@@ -51,7 +50,6 @@ class OrderSearch extends Order
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'total_price' => $this->total_price,
             'status' => $this->status,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -60,7 +58,8 @@ class OrderSearch extends Order
         ]);
 
         $query->andFilterWhere(['like', 'order_type', $this->order_type])
-            ->andFilterWhere(['like', 'payment_type', $this->payment_type]);
+            ->andFilterWhere(['like', 'payment_type', $this->payment_type])
+            ->andFilterWhere(['like', 'total_price', $this->total_price]);
 
         return $dataProvider;
     }

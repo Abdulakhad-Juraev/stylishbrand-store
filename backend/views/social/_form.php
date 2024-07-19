@@ -20,7 +20,6 @@ use soft\widget\kartik\FormGrid;
     'attributes' => [
         'url',
         'status:status',
-
     ]
 ]); ?>
 

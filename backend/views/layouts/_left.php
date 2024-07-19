@@ -37,8 +37,6 @@ $menuItems = [
     ],
 
 
-
-
     [
         'label' => "Qo'shimcha Ma'lumotlar",
         'icon' => 'stream',
@@ -67,7 +65,10 @@ $menuItems = [
             [
                 'label' => 'Ijtimoiy tarmoq', 'url' => ['/social/index'], 'icon' => 'share-alt',
             ],
-            ]
+            [
+                'label' => 'Menyu', 'url' => ['/banner-manager/menu/index'], 'icon' => 'bars',
+            ],
+        ]
     ],
     [
         'label' => "Sozlamalar",

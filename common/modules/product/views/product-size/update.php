@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\modules\product\models\ProductSize */
 
 $this->title = Yii::t('site', 'Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Product Sizes'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'O\'lchamlar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

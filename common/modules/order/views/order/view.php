@@ -13,13 +13,19 @@ $this->params['breadcrumbs'][] = $this->title;
     'model' => $model,
     'attributes' => [
         'id',
-        'user_id',
-        'order_type',
-        'payment_type',
+        [
+          'attribute'=>'order_type',
+          'value'=>function ($model) {
+              return $model->orderTypeName ?? '';
+          }
+        ],
+        [
+            'attribute'=>'payment_type',
+            'value'=>function ($model) {
+                return $model->typeName ?? '';
+            }
+        ],
         'total_price:sum',
         'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+         ],
 ]) ?>

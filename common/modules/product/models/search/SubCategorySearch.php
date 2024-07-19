@@ -24,14 +24,14 @@ class SubCategorySearch extends SubCategory
         return Model::scenarios();
     }
 
-    public function search($query=null, $defaultPageSize = 20, $params=null)
+    public function search($query = null, $defaultPageSize = 20, $params = null)
     {
 
-        if($params === null){
+        if ($params === null) {
             $params = Yii::$app->request->queryParams;
         }
-        if($query == null){
-            $query = SubCategory::find()->joinWith('translation');
+        if ($query == null) {
+            $query = SubCategory::find();
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -57,7 +57,8 @@ class SubCategorySearch extends SubCategory
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->joinWith('translations');
+        $query->andFilterWhere(['like', 'sub_category_lang.name', $this->name]);
 
         return $dataProvider;
     }

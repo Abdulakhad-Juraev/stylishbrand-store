@@ -41,7 +41,7 @@ class ProductColor extends \soft\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','color'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['color'], 'string', 'max' => 255],
             [['status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
@@ -85,7 +85,7 @@ class ProductColor extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'color' => Yii::t('app', 'Color'),
+            'color' => Yii::t('app', 'Rang'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
