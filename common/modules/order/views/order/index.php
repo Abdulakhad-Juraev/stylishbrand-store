@@ -25,6 +25,11 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
+        [
+            'class' => ViewLinkColumn::class,
+            'attribute' => 'fullname',
+        ],
+        'phone',
 //        [
 //            'class' => ViewLinkColumn::class,
 //            'attribute' => 'user_id',

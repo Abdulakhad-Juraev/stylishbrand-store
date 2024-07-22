@@ -17,7 +17,10 @@ use soft\helpers\Html;
 $this->title = Yii::t('app', 'Products');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerAjaxCrudAssets();
+
+
 ?>
+
 <?= GridView::widget([
     'id' => 'crud-datatable',
     'dataProvider' => $dataProvider,
@@ -29,6 +32,7 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
+        'id',
         [
             'class' => ViewLinkColumn::class,
             'attribute' => 'name',

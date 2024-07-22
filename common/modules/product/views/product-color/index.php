@@ -18,7 +18,7 @@ $this->registerAjaxCrudAssets();
     'toolbarTemplate' => '{create}{refresh}',
     'toolbarButtons' => [
         'create' => [
-            'modal' => true,
+            'modal' => false,
         ]
     ],
     'columns' => [
@@ -35,9 +35,9 @@ $this->registerAjaxCrudAssets();
             'viewOptions' => [
                 'role' => 'modal-remote',
             ],
-            'updateOptions' => [
-                'role' => 'modal-remote',
-            ],
+//            'updateOptions' => [
+//                'role' => 'modal-remote',
+//            ],
         ],
     ],
 ]); ?>

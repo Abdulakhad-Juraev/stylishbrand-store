@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'model' => $model,
     'attributes' => [
         'id',
+        'fullname',
+        'phone',
         [
           'attribute'=>'order_type',
           'value'=>function ($model) {

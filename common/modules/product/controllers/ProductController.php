@@ -47,11 +47,20 @@ class ProductController extends SoftController
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
+        $currentTime = time();
         $dataProvider = $searchModel->search();
-
+//        $allProducts = Product::find()
+//            ->andWhere(['<=', 'expired_at', $currentTime])
+//            ->active()
+//            ->all();
+//        foreach ($allProducts as $product) {
+//            $product->status = Product::STATUS_INACTIVE;
+//            $product->save(false);
+//        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+//            'all' => $allProducts,
         ]);
     }
 

@@ -41,7 +41,9 @@ class CategoryController extends ApiBaseController
         $category = Category::findActiveModel(!empty($params['category_id']));
 
         $query = $category->getProducts();
-
+        $query
+            ->andWhere(['<=', 'published_at', time()])
+            ->andWhere(['>=', 'expired_at', time()]);
         $this->applyFilters($query, $params);
 
         $dataProvider = new ActiveDataProvider([

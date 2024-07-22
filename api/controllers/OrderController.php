@@ -2,8 +2,7 @@
 
 namespace api\controllers;
 
-
-use api\models\Order;
+use common\modules\order\models\Order;
 use common\modules\order\models\OrderItem;
 use Yii;
 use api\models\ProductDetail\Product;
@@ -27,18 +26,24 @@ class OrderController extends ApiBaseController
     {
         $allData = json_decode(Yii::$app->request->getRawBody(), true);
 
-        $order = new Order();
 
         if ($allData && $allData['products']) {
 
-            $order->save();
+            $order = new Order();
+
+                $order->fullname = $allData['fullname'];
+                $order->phone = $allData['phone'];
+                $order->order_type = strval(Order::$waited);
+                $order->payment_type = strval(Order::$type_cash);
+
+                $order->save();
+
 
             foreach ($allData['products'] as $item) {
 
                 $product = Product::findOne($item['product_id']);
 
                 $orderItem = new OrderItem();
-
                 $orderItem->order_id = $order->id;
                 $orderItem->product_id = $item['product_id'];
                 $orderItem->count = 1;

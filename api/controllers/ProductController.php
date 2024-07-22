@@ -72,6 +72,8 @@ class ProductController extends ApiBaseController
     private function recProduct($product): array
     {
         return RecommendedProduct::find()
+            ->andWhere(['<=', 'published_at', time()])
+            ->andWhere(['>=', 'expired_at', time()])
             ->andWhere(['brand_id' => $product->brand_id])
             ->andWhere(['!=', 'id', $product->id])
             ->orderBy(['id' => SORT_DESC])

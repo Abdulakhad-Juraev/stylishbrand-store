@@ -13,6 +13,8 @@ use Yii;
  *
  * @property int $id
  * @property int|null $user_id
+ * @property string|null $fullname
+ * @property string|null $phone
  * @property string|null $order_type
  * @property string|null $payment_type
  * @property float|null $total_price
@@ -45,7 +47,7 @@ class Order extends \soft\db\ActiveRecord
         return [
             [['user_id', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['total_price'], 'number'],
-            [['order_type', 'payment_type'], 'string', 'max' => 255],
+            [['order_type', 'payment_type','fullname','phone'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -70,7 +72,8 @@ class Order extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'full_name' => Yii::t('app', 'Mijoz ismi'),
+            'phone' => Yii::t('app', 'Tel raqam'),
             'order_type' => Yii::t('app', 'Zakaz xo\'lati'),
             'payment_type' => Yii::t('app', 'To\'lov turi'),
             'total_price' => Yii::t('app', 'Ummumiy summa'),

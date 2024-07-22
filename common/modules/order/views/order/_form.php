@@ -5,6 +5,7 @@ use common\modules\user\models\User;
 use soft\helpers\Html;
 use soft\widget\kartik\ActiveForm;
 use soft\widget\kartik\Form;
+use yii\widgets\MaskedInput;
 
 /* @var $this soft\web\View */
 /* @var $model common\modules\order\models\Order */
@@ -24,6 +25,15 @@ use soft\widget\kartik\Form;
 //                'prompt' => 'Tanlang...'
 //            ]
 //        ],
+    'fullname',
+        'phone' => [
+            'type' => Form::INPUT_WIDGET,
+            'widgetClass' => MaskedInput::class,
+            'options' => [
+                'mask' => '+999-99-999-99-99', // Adjust the mask as needed
+            ],
+            'label' => Yii::t('app', 'Phone'),
+        ],
         'order_type:dropdownList' => [
             'items' => Order::orderTypes(),
             'options' => [

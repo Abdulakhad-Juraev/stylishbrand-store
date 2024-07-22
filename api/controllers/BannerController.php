@@ -54,7 +54,15 @@ class BannerController extends ApiBaseController
             'discount_price' => 'sum',
             'image',
         ]);
-        $product = Product::find()->andWhere(['most_popular' => Product::STATUS_ACTIVE])->orderBy(['id' => SORT_DESC])->limit(20)->active()->all();
+
+        $product = Product::find()
+            ->andWhere(['most_popular' => Product::STATUS_ACTIVE])
+            ->andWhere(['<=', 'published_at', time()])
+            ->andWhere(['>=', 'expired_at', time()])
+            ->limit(20)
+            ->orderBy(['id' => SORT_DESC])
+            ->active()
+            ->all();
         return $this->success($product, MessageConst::GET_SUCCESS);
     }
 
@@ -143,6 +151,18 @@ class BannerController extends ApiBaseController
         $menu = Menu::find()
             ->orderBy(['id' => SORT_DESC])
             ->one();
-        return $this->success($menu, MessageConst::GET_SUCCESS);
+
+        Category::setFields([
+            'id',
+            'name',
+        ]);
+        $category = Category::find()
+            ->andWhere(['in_menu' => Category::STATUS_ACTIVE])
+            ->orderBy(['id' => SORT_DESC])
+            ->active()
+            ->all();
+        return $this->success(['menuInfo' => $menu, 'categories' => $category], MessageConst::GET_SUCCESS);
     }
+
+
 }
