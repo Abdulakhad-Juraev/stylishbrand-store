@@ -1,4 +1,4 @@
-#SHukurullo Domla Media Platform
+#stylishbrand-store 
 
 • Author: [Ulugbek](https://github.com/Ulugbek-Muhammadjonov) <br>
 • Telegram: [@U_Muhammadjonov](https://t.me/@U_Muhammadjonov) <br>
