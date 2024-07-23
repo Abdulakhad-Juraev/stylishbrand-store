@@ -32,7 +32,6 @@ $this->registerAjaxCrudAssets();
         ]
     ],
     'columns' => [
-        'id',
         [
             'class' => ViewLinkColumn::class,
             'attribute' => 'name',

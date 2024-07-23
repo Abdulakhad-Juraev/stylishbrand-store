@@ -72,7 +72,7 @@ class Order extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'full_name' => Yii::t('app', 'Mijoz ismi'),
+            'fullname' => Yii::t('app', 'Mijoz ismi'),
             'phone' => Yii::t('app', 'Tel raqam'),
             'order_type' => Yii::t('app', 'Zakaz xo\'lati'),
             'payment_type' => Yii::t('app', 'To\'lov turi'),
