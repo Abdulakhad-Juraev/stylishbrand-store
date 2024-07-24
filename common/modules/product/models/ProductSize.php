@@ -95,7 +95,13 @@ class ProductSize extends \soft\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    
+    /**
+     * @return ActiveQuery
+     */
+    public function getSize(): ActiveQuery
+    {
+        return $this->hasOne(ProductSize::class, ['id' => 'size_id']);
+    }
     //</editor-fold>
 
     /**

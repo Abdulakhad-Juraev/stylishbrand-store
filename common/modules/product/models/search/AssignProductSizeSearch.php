@@ -54,9 +54,9 @@ class AssignProductSizeSearch extends AssignProductSize
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
+        $query->joinWith('sizes');
         $query->andFilterWhere(['like', 'product_id', $this->product_id])
-            ->andFilterWhere(['like', 'size_id', $this->size_id]);
+            ->andFilterWhere(['like', 'product_size.name', $this->size_id]);
 
         return $dataProvider;
     }

@@ -4,13 +4,14 @@
 use common\modules\product\models\AssignProductSize;
 use common\modules\product\models\Product;
 use common\modules\product\models\search\AssignProductSizeSearch;
+use common\modules\product\models\search\ProductImageSearch;
 use soft\grid\GridView;
 use soft\grid\StatusColumn;
 
 
 /* @var $model Product */
 /* @var $this soft\web\View */
-/* @var $searchModel AssignProductSizeSearch */
+/* @var $searchModel ProductImageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Product Size ' . $model->name;
@@ -43,7 +44,6 @@ $this->registerAjaxCrudAssets();
         ],
         [
             'attribute' => 'color_id',
-            'filter'=>\common\modules\product\models\ProductColor::map(),
             'value' => function ($model) {
                 return $model->color->name ?? '';
             }

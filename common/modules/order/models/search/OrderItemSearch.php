@@ -9,14 +9,13 @@ use common\modules\product\models\Product; // Ensure the correct namespace
 
 class OrderItemSearch extends OrderItem
 {
-    public $product;
 
     public function rules()
     {
         return [
             [['id', 'order_id', 'count', 'price', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['total_price'], 'number'],
-            [['product_id', 'product'], 'safe'],
+            [['product_id'], 'safe'],
         ];
     }
 
@@ -31,7 +30,7 @@ class OrderItemSearch extends OrderItem
             $params = Yii::$app->request->queryParams;
         }
         if ($query === null) {
-            $query = OrderItem::find()->joinWith('product');
+            $query = OrderItem::find();
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -62,17 +61,11 @@ class OrderItemSearch extends OrderItem
             ->andFilterWhere(['like', 'count', $this->count]);
 
         // Ensure 'product' relation and 'name' column match your database
-        $query->andFilterWhere(['like', 'product.name', $this->product]);
+        $query->joinWith('product.translations');
+        $query->andFilterWhere(['like', 'product_lang.name', $this->product_id]);
 
         return $dataProvider;
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProduct()
-    {
-        return $this->hasOne(Product::className(), ['id' => 'product_id']);
-    }
 }
 

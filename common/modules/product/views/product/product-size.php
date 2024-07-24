@@ -11,7 +11,7 @@ use soft\grid\StatusColumn;
 
 /* @var $model Product */
 /* @var $this soft\web\View */
-/* @var $searchModel ProductSizeSearch */
+/* @var $searchModel AssignProductSize */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'O\'lchamlar ' . $model->name;
@@ -38,7 +38,7 @@ $this->registerAjaxCrudAssets();
     ],
     'columns' => [
         [
-            'attribute' => 'size',
+            'attribute' => 'size_id',
             'label' => 'O\'lchamlar',
             'value' => function ($model) {
                 return $model->sizes->name ?? '';

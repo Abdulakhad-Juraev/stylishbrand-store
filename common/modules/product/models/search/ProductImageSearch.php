@@ -55,8 +55,8 @@ class ProductImageSearch extends ProductImage
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'color_id', $this->color_id]);
+        $query->joinWith('color.translations');
+        $query->andFilterWhere(['like', 'product_color_lang.name', $this->color_id]);
 
         return $dataProvider;
     }
