@@ -73,7 +73,7 @@ if (is_integer($model->expired_at))
     'pluginOptions' => [
         'allowClear' => true
     ],
-]);
+])->label('O\'lchamlar');
 ?>
 
 <div class="form-group">

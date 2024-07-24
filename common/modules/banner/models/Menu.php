@@ -76,7 +76,7 @@ class Menu extends \soft\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'image' => Yii::t('app', 'Image'),
-            'phone' => Yii::t('app', 'Phone'),
+            'phone' => Yii::t('app', 'Tel raqam'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),
