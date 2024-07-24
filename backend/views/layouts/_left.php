@@ -70,6 +70,7 @@ $menuItems = [
             ],
         ]
     ],
+   /*
     [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
@@ -81,7 +82,9 @@ $menuItems = [
         'label' => t('clear_cache'), 'url' => ['/site/cache-flush'], 'icon' => 'broom',
 
     ],
-];
+   */
+
+    ];
 
 ?>
 
