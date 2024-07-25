@@ -43,5 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
               'expired_at:datetime',
               'statusBadge:raw',
               'is_stock:bool',
+            'most_popular:bool',
      ],
     ]) ?>

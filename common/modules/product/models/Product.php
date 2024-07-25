@@ -127,7 +127,7 @@ class Product extends ActiveRecord
             'status' => Yii::t('app', 'Xolat'),
             'is_stock' => Yii::t('app', 'Mavjud'),
             'price' => Yii::t('app', 'Narxi'),
-            'most_popular' => Yii::t('app', 'most_popular'),
+            'most_popular' => Yii::t('app', 'Mashhur mahsulot'),
             'country_id' => Yii::t('app', 'Davlat'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),

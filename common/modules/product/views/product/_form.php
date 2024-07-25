@@ -59,6 +59,7 @@ if (is_integer($model->expired_at))
         'expired_at:datetime',
         'is_stock:status',
         'status:status',
+        'most_popular:checkbox',
 
     ]
 ]); ?>
