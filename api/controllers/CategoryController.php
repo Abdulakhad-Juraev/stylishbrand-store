@@ -36,9 +36,12 @@ class CategoryController extends ApiBaseController
      */
     public function actionPageList(): array
     {
+
         $params = Yii::$app->request->queryParams;
 
-        $category = Category::findActiveModel(!empty($params['category_id']));
+        $category_id = Yii::$app->request->get('category_id');
+
+        $category = Category::findActiveModel($category_id);
 
         $query = $category->getProducts();
         $query
