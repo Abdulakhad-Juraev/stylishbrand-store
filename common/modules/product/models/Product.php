@@ -66,7 +66,7 @@ class Product extends ActiveRecord
         return [
             [['name', 'description', 'price'], 'string'],
             [['name', 'description'], 'required'],
-            [['category_id', 'sub_category_id', 'is_stock', 'most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sub_category_id', 'brand_id','is_stock', 'most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],
             [['product_sizes'], 'safe'],
@@ -127,6 +127,7 @@ class Product extends ActiveRecord
             'status' => Yii::t('app', 'Xolat'),
             'is_stock' => Yii::t('app', 'Mavjud'),
             'price' => Yii::t('app', 'Narxi'),
+            'brand_id' => Yii::t('app', 'Brand'),
             'most_popular' => Yii::t('app', 'Mashhur mahsulot'),
             'country_id' => Yii::t('app', 'Davlat'),
             'created_by' => Yii::t('app', 'Created By'),
@@ -282,9 +283,9 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getBrands()
+    public function getBrand(): ActiveQuery
     {
-        return $this->hasMany(Brand::class, ['id' => 'brand_id'])->via('productBrands');
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
     }
 
     /**

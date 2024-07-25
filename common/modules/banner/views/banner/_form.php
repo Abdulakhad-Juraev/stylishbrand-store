@@ -28,6 +28,15 @@ use soft\widget\kartik\Form;
                 'initialPreviewUrl' => $model->imageUrl
             ]
         ],
+
+        'mobile_image:widget' => [
+            'widgetClass' => SingleImageFileInput::class,
+
+            'options' => [
+                'initialPreviewUrl' => $model->getMobileImageUrl()
+            ]
+        ],
+
         'count:number',
         'button_url',
         'type:dropdownList' => [

@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $title
  * @property string|null $description
  * @property string|null $image
+ * @property string|null $mobile_image
  * @property int|null $count
  * @property string|null $button_url
  * @property int|null $status
@@ -50,7 +51,7 @@ class Banner extends \soft\db\ActiveRecord
         return [
             [['title', 'description'], 'string'],
             [['title', 'description'], 'required'],
-            [['image'], 'image', 'maxSize' => 1024 * 1024 * 10],
+            [['image','mobile_image'], 'image', 'maxSize' => 1024 * 1024 * 10],
             [['count', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at', 'type'], 'integer'],
             [['button_url'], 'string', 'max' => 1024],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
@@ -82,6 +83,17 @@ class Banner extends \soft\db\ActiveRecord
                     'preview' => ['width' => 1440],
                 ],
             ],
+            'mobile_image' => [
+                'class' => UploadImageBehavior::class,
+                'attribute' => 'mobile_image',
+                'scenarios' => ['default'],
+                'path' => '@frontend/web/uploads/images/banner/mobile-image/{id}',
+                'url' => '/uploads/images/banner/mobile-image/{id}',
+                'deleteOriginalFile' => true,
+                'thumbs' => [
+                    'preview' => ['width' => 1440],
+                ],
+            ],
         ];
     }
 
@@ -102,6 +114,7 @@ class Banner extends \soft\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'image' => Yii::t('app', 'Image'),
+            'mobile_image' => Yii::t('app', 'Mobil rasm'),
             'count' => Yii::t('app', 'Tartib raqami'),
             'button_url' => Yii::t('app', 'Sahifaga'),
             'status' => Yii::t('app', 'Xolat'),
@@ -146,4 +159,11 @@ class Banner extends \soft\db\ActiveRecord
         return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
     }
 
+    /**
+     * @return string
+     */
+    public function getMobileImageUrl()
+    {
+        return $this->getBehavior('mobile_image')->getThumbUploadUrl('mobile_image', 'preview');
+    }
 }

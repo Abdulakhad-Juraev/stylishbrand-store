@@ -38,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->subCategory->name ?? '';
                 }
             ],
+            [
+                'attribute' => 'brand_id',
+                'value' => function (\common\modules\product\models\Product $model) {
+           return $model->brand->name;
+                }
+            ],
               'percentage',
               'published_at:datetime',
               'expired_at:datetime',

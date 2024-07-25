@@ -1,5 +1,6 @@
 <?php
 
+use common\modules\product\models\Brand;
 use common\modules\product\models\Category;
 use common\modules\product\models\Country;
 use common\modules\product\models\ProductSize;
@@ -50,6 +51,12 @@ if (is_integer($model->expired_at))
         ],
         'country_id:dropdownList' => [
             'items' => Country::map(),
+            'options' => [
+                'prompt' => 'Tanlang...'
+            ]
+        ],
+        'brand_id:dropdownList' => [
+            'items' => Brand::map(),
             'options' => [
                 'prompt' => 'Tanlang...'
             ]

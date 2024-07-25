@@ -23,7 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'attribute' => 'imageUrl',
             'label' => "Rasm",
-            'format' => ['image', ['width' => '40px']]
+            'format' => ['image', ['width' => '60px','height' => '40']]
+        ],
+        [
+            'attribute' => 'mobileImageUrl',
+            'label' => "Mobile rasm",
+            'format' => ['image', ['width' => '60px','height' => '40']]
         ],
         'count',
         'button_url:url',
