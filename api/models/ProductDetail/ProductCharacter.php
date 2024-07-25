@@ -18,7 +18,8 @@ class ProductCharacter extends \common\modules\product\models\ProductCharacter
 
         return [
             'id',
-            'title'
+            'title',
+            'with_check_icon',
 //            'categoryCharacter'
         ];
     }
