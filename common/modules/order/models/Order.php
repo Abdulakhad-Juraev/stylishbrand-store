@@ -36,7 +36,7 @@ class Order extends \soft\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Order';
+        return 'order';
     }
 
     /**
