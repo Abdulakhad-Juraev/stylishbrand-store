@@ -33,6 +33,7 @@ class ProductController extends ApiBaseController
         $data = [
             'products' => $product,
             'characters' => $this->getCharacters($product),
+            'recommendedProducts' => $this->recProduct($product)
         ];
         return $this->success([$data], MessageConst::GET_SUCCESS);
     }

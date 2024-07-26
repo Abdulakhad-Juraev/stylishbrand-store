@@ -68,6 +68,7 @@ $menuItems = [
             [
                 'label' => 'Menyu', 'url' => ['/banner-manager/menu/index'], 'icon' => 'bars',
             ],
+            ['label' => 'Tarjimalar', 'url' => ['/translation-manager/default/index'], 'icon' => 'language'],
         ]
     ],
    /*
