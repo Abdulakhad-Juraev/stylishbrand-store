@@ -18,6 +18,7 @@ class Product extends \common\modules\product\models\Product
         }
 
         return [
+            'id',
             'slug',
             'name',
             'description',
@@ -50,7 +51,7 @@ class Product extends \common\modules\product\models\Product
             'productColors',
 //            'categoryCharacter',
 //            'productCharacters',
-            'categoryCharacters'
+//            'categoryCharacters'
         ];
     }
 
@@ -109,5 +110,4 @@ class Product extends \common\modules\product\models\Product
     {
         return $this->hasMany(CategoryCharacter::class, ['id' => 'category_character_id'])->via('productCharacters');
     }
-
 }

@@ -30,9 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         ],
         'statusBadge:raw',
-        'with_check_icon',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+        'with_check_icon:bool',
+        ],
 ]) ?>

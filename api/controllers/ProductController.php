@@ -3,6 +3,8 @@
 namespace api\controllers;
 
 
+use api\models\ProductDetail\CategoryCharacter;
+use api\models\ProductDetail\ProductCharacter;
 use Yii;
 use api\models\ProductDetail\Product;
 use api\utils\MessageConst;
@@ -27,9 +29,10 @@ class ProductController extends ApiBaseController
         if ($product === null) {
             throw new NotFoundHttpException(MessageConst::NOT_FOUND_MESSAGE);
         }
+
         $data = [
             'products' => $product,
-            'recommendedProducts' => $this->recProduct($product)
+            'characters' => $this->getCharacters($product),
         ];
         return $this->success([$data], MessageConst::GET_SUCCESS);
     }
@@ -81,4 +84,35 @@ class ProductController extends ApiBaseController
             ->all();
     }
 
+    /**
+     * @param $product
+     * @return array
+     */
+    private function getCharacters($product): array
+    {
+        $productCharacterIds = ProductCharacter::find()
+            ->select('category_character_id')
+            ->andWhere(['in', 'product_id', $product->id])
+            ->column();
+
+
+        $cat = CategoryCharacter::find()
+            ->where(['in', 'id', $productCharacterIds])
+            ->all();
+
+        $productAllCharacters = array();
+
+        foreach ($cat as $item) {
+            $productAllCharacters[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'product_char' => ProductCharacter::find()
+                    ->andWhere(['product_id' => $product->id])
+                    ->andWhere(['category_character_id' => $item->id])
+                    ->all(),
+            ];
+
+        }
+        return $productAllCharacters;
+    }
 }

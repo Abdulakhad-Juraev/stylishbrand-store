@@ -20,6 +20,12 @@ class ProductCharacter extends \common\modules\product\models\ProductCharacter
             'id',
             'title',
             'with_check_icon',
+//            'categoryCharacterId'=>function ($model) {
+//               return $model->categoryCharacter->id;
+//            },
+//            'categoryCharacterName'=>function ($model) {
+//                return $model->categoryCharacter->name;
+//            },
 //            'categoryCharacter'
         ];
     }

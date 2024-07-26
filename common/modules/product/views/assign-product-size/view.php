@@ -26,8 +26,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'value' => $model->sizes->name ?? '',
         ],
         'statusBadge:raw',
-        'created_at',
-        'createdBy.fullname',
-        'updated_at',
-        'updatedBy.fullname'],
+        ],
 ]) ?>

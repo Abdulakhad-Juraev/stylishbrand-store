@@ -65,8 +65,8 @@ class AssignProductSize extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'product_id' => Yii::t('app', 'Product ID'),
-            'size_id' => Yii::t('app', 'Size ID'),
+            'product_id' => Yii::t('app', 'Mahsulot'),
+            'size_id' => Yii::t('app', 'O\'lchamlar'),
             'status' => Yii::t('app', 'Status'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),

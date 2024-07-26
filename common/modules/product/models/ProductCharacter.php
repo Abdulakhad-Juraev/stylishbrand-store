@@ -86,9 +86,10 @@ class ProductCharacter extends \soft\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'category_character_id' => Yii::t('app', 'Category Character ID'),
+            'category_character_id' => Yii::t('app', 'Xususiyatlar kategoriyasi'),
+            'product_id' => Yii::t('app', 'Mahsulot'),
             'status' => Yii::t('app', 'Status'),
-            'with_check_icon' => Yii::t('app', 'with_check_icon'),
+            'with_check_icon' => Yii::t('app', 'Belgi qo\'shish'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),

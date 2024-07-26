@@ -31,22 +31,22 @@ class OrderController extends ApiBaseController
 
             $order = new Order();
 
-                $order->fullname = $allData['fullname'];
-                $order->phone = $allData['phone'];
-                $order->order_type = strval(Order::$waited);
-                $order->payment_type = strval(Order::$type_cash);
+            $order->fullname = $allData['fullname'];
+            $order->phone = $allData['phone'];
+            $order->order_type = strval(Order::$waited);
+            $order->payment_type = strval(Order::$type_cash);
 
-                $order->save();
+            $order->save();
 
 
             foreach ($allData['products'] as $item) {
 
-                $product = Product::findOne($item['product_id']);
+                $product = Product::findOne($item['slug']);
 
                 $orderItem = new OrderItem();
                 $orderItem->order_id = $order->id;
                 $orderItem->product_id = $item['product_id'];
-                $orderItem->count = 1;
+                $orderItem->count = OrderItem::STATUS_ACTIVE;
                 $orderItem->price = $product->price;
                 $orderItem->total_price = ($product->price * $orderItem->count);
                 $orderItem->save();

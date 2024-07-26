@@ -19,7 +19,7 @@ class CategoryCharacter extends \common\modules\product\models\CategoryCharacter
         return [
             'id',
             'name',
-            'productCharacters'
+//            'productCharacters'
         ];
 
 
@@ -29,5 +29,4 @@ class CategoryCharacter extends \common\modules\product\models\CategoryCharacter
     {
         return $this->hasMany(ProductCharacter::class, ['category_character_id' => 'id']);
     }
-
 }

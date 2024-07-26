@@ -3,4 +3,6 @@ namespace api\utils;
 interface MessageConst {
      const NOT_FOUND_MESSAGE = "Ma'lumot topilmadi!";
      const GET_SUCCESS = "Mana ma'lumotlar";
+
+     const SAVED_MESSAGE = "Ma'lumotlar saqlandi";
 }

@@ -80,7 +80,7 @@ class ProductImage extends \soft\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'color_id' => Yii::t('app', 'Ranglar'),
             'image' => Yii::t('app', 'Image'),
-            'product_id' => Yii::t('app', 'Product ID'),
+            'product_id' => Yii::t('app', 'Mahsulot'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
             'created_at' => Yii::t('app', 'Created At'),
