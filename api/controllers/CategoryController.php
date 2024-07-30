@@ -25,7 +25,7 @@ class CategoryController extends ApiBaseController
     /**
      * @return array
      */
-    public function actionIndex()
+    public function actionIndex(): array
     {
         return $this->success(Category::find()->orderBy(['id' => SORT_DESC, 'sort_order' => SORT_ASC])->active()->all(), MessageConst::GET_SUCCESS);
     }
@@ -37,83 +37,68 @@ class CategoryController extends ApiBaseController
     public function actionPageList(): array
     {
 
-        $params = Yii::$app->request->queryParams;
+//        $params = Yii::$app->request->queryParams;
 
         $category_id = Yii::$app->request->get('category_id');
+        $subCategoryIds = Yii::$app->request->get('subcategory_id');
+        $searchKey = Yii::$app->request->get('search_key');
+        $is_stock = Yii::$app->request->get('is_stock');
+
+        $size_id = Yii::$app->request->get('size_id');
+        $brand_id = Yii::$app->request->get('brand_id');
+        $color_id = Yii::$app->request->get('color_id');
+        $min_price = Yii::$app->request->get('min_price');
+        $max_price = Yii::$app->request->get('min_price');
 
         $category = Category::findActiveModel($category_id);
 
         $query = $category->getProducts();
+
         $query
             ->andWhere(['<=', 'published_at', time()])
             ->andWhere(['>=', 'expired_at', time()]);
-        $this->applyFilters($query, $params);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
 
-        $data = [
-            'products' => $dataProvider,
-            'subCategories' => $category->subCategories,
-            'interestingCategories' => $category->getInterestingCategories($params['category_id']),
-            'filters' => $this->getFilters($query->column()),
-        ];
-        return $this->success($data, MessageConst::GET_SUCCESS);
-    }
-
-    /**
-     * @param $query
-     * @param $params
-     * @return void
-     */
-    private function applyFilters($query, $params): void
-    {
-        if (!empty($params['search_key'])) {
+        if (!empty($searchKey)) {
             $query->joinWith('translations')
-                ->andFilterWhere(['like', 'product_lang.name', $params['search_key']]);
+                ->andFilterWhere(['like', 'product_lang.name', $searchKey]);
         }
 
-        if (!empty($params['subcategory_id'])) {
-            $query->andWhere(['in', 'sub_category_id', $params['subcategory_id']]);
+        if (!empty($subCategoryIds)) {
+            $query->andWhere(['in', 'sub_category_id', $subCategoryIds]);
         }
 
-        if (!empty($params['is_stock'])) {
+        if (!empty($is_stock)) {
             $query->andFilterWhere(['is_stock' => true]);
         }
 
-        if (!empty($params['size_id'])) {
+        if (!empty($size_id)) {
             $query
                 ->joinWith('assignProductSizes')
-                ->andWhere(['in', 'assign_product_size.size_id', $params['size_id']]);
+                ->andWhere(['in', 'assign_product_size.size_id', $size_id]);
         }
-        if (!empty($params['brand_id'])) {
-            $query->andWhere(['in', 'brand_id', $params['brand_id']]);
+        if (!empty($brand_id)) {
+            $query->andWhere(['in', 'brand_id', $brand_id]);
         }
 
-        if (!empty($params['color_id'])) {
+        if (!empty($color_id)) {
             $query->joinWith('productsByColor')
-                ->andWhere(['in', 'product_image.color_id', $params['color_id']]);
+                ->andWhere(['in', 'product_image.color_id', $color_id]);
         }
 
-        if (!empty($params['min_price'])) {
-            $query->andFilterWhere(['>=', 'price', $params['min_price']]);
+        if (!empty($min_price)) {
+            $query->andFilterWhere(['>=', 'price', $min_price]);
         }
 
-        if (!empty($params['max_price'])) {
-            $query->andFilterWhere(['<=', 'price', $params['max_price']]);
+        if (!empty($max_price)) {
+            $query->andFilterWhere(['<=', 'price', $max_price]);
         }
-    }
 
-    /**
-     * @param $productsId
-     * @return array
-     */
-    private function getFilters($productsId): array
-    {
+        $productIds = $query->column();
+
         $productSizeAssignSizeIds = AssignProductSize::find()
             ->select(['size_id'])
-            ->andWhere(['in', 'product_id', $productsId])
+            ->andWhere(['in', 'product_id', $productIds])
             ->column();
 
         $sizes = ProductSize::find()
@@ -123,7 +108,7 @@ class CategoryController extends ApiBaseController
 
         $brandIds = Product::find()
             ->select(['brand_id'])
-            ->andWhere(['in', 'id', $productsId])
+            ->andWhere(['in', 'id', $productIds])
             ->column();
 
         $brands = Brand::find()
@@ -132,7 +117,7 @@ class CategoryController extends ApiBaseController
 
         $productImage = ProductImage::find()
             ->select('color_id')
-            ->andWhere(['in', 'product_id', $productsId])
+            ->andWhere(['in', 'product_id', $productIds])
             ->column();
 
         $colors = ProductColor::find()
@@ -141,18 +126,28 @@ class CategoryController extends ApiBaseController
 
         $prices = Product::find()
             ->select(['min_price' => 'MIN(price)', 'max_price' => 'MAX(price)'])
-            ->andWhere(['in', 'id', $productsId])
+            ->andWhere(['in', 'id', $productIds])
             ->asArray()
             ->one();
 
-        return [
-            'sizes' => $sizes,
-            'brands' => $brands,
-            'colors' => $colors,
-            'productPrices' => [
-                'min' => $prices['min_price'],
-                'max' => $prices['max_price'],
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
+        $data = [
+            'products' => $dataProvider,
+            'subCategories' => $category->subCategories,
+            'interestingCategories' => $category->getInterestingCategories($category_id),
+            'filter' => [
+                'sizes' => $sizes,
+                'brands' => $brands,
+                'colors' => $colors,
+                'productPrices' => [
+                    'min' => $prices['min_price'],
+                    'max' => $prices['max_price'],
+                ],
             ],
         ];
+        return $this->success($data, MessageConst::GET_SUCCESS);
     }
 }

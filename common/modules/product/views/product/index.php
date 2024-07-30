@@ -1,5 +1,6 @@
 <?php
 
+use common\modules\product\models\Category;
 use common\modules\product\models\Country;
 use common\modules\product\models\Product;
 use common\modules\product\models\search\ProductSearch;
@@ -38,13 +39,13 @@ $this->registerAjaxCrudAssets();
         ],
         'price:sum',
         'percentage',
-//        [
-//            'attribute' => 'sub_category_id',
-//            'filter' => SubCategory::map(),
-//            'value' => function (Product $model) {
-//                return $model->subCategory->name ?? '';
-//            }
-//        ],
+        [
+            'attribute' => 'category_id',
+            'filter' =>Category::map(),
+            'value' => function (Product $model) {
+                return $model->category->name ?? '';
+            }
+        ],
         [
             'attribute' => 'country_id',
             'filter' => Country::map(),

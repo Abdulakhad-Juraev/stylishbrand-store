@@ -2,6 +2,7 @@
 
 namespace api\models\CategoryPage;
 
+use common\modules\product\models\ProductImage;
 use soft\db\ActiveQuery;
 
 class Product extends \common\modules\product\models\Product
@@ -54,4 +55,9 @@ class Product extends \common\modules\product\models\Product
         return $this->hasMany(ProductSize::class, ['id' => 'size_id'])->via('assignProductSizes');
     }
 
+
+    public function getProductsByColor()
+    {
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
+    }
 }

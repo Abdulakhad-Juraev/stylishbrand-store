@@ -2,6 +2,7 @@
 
 namespace api\models\CategoryPage;
 
+use soft\db\ActiveQuery;
 use soft\helpers\Url;
 use yii\db\Expression;
 use yii\db\ActiveRecord;
@@ -11,7 +12,7 @@ class       Category extends \common\modules\product\models\Category
     /**
      * @return array|string[]
      */
-    public function fields()
+    public function fields(): array
     {
         $key = self::generateFieldParam();
 
@@ -27,19 +28,19 @@ class       Category extends \common\modules\product\models\Category
     }
 
     /**
-     * @return mixed|string|null
+     * @return string|null
      */
-    public function getImageUrl()
+    public function getImageUrl(): ?string
     {
         return Url::withHostInfo(parent::getImageUrl());
     }
 
 
     /**
-     * @param $category_id
+     * @param $categoryId
      * @return array|ActiveRecord[]
      */
-    public function getInterestingCategories($categoryId)
+    public function getInterestingCategories($categoryId): array
     {
         return Category::find()
             ->andWhere(['!=', 'id', $categoryId])
@@ -50,13 +51,14 @@ class       Category extends \common\modules\product\models\Category
     }
 
 
-    public function getSubCategories()
+    public function getSubCategories(): ActiveQuery
     {
         return $this->hasMany(SubCategory::class, ['category_id' => 'id']);
     }
 
-    public function getProducts()
+    public function getProducts(): ActiveQuery
     {
         return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
+
 }

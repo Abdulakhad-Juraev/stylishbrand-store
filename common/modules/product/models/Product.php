@@ -224,10 +224,10 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getProductsByColor()
-    {
-        return $this->hasMany(ProductImage::class, ['color_id' => 'id']);
-    }
+//    public function getProductsByColor()
+//    {
+//        return $this->hasMany(ProductImage::class, ['color_id' => 'id']);
+//    }
 
     /**
      * @return ActiveQuery
