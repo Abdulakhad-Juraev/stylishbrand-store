@@ -66,7 +66,7 @@ class Product extends ActiveRecord
     {
         return [
             [['name', 'description', 'price'], 'string'],
-            [['name', 'description'], 'required'],
+            [['name', 'description','price'], 'required'],
             [['category_id', 'sub_category_id', 'brand_id','is_stock', 'most_popular', 'country_id', 'percentage', 'status', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['published_at', 'expired_at'], 'safe'],
             [['slug'], 'string', 'max' => 1024],

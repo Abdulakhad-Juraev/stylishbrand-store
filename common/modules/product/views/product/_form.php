@@ -35,7 +35,7 @@ if (is_integer($model->expired_at))
     'form' => $form,
     'attributes' => [
         'name',
-        'price',
+        'price:number',
         'description',
         'category_id:dropdownList' => [
             'items' => Category::map(),
