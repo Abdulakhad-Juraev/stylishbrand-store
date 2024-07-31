@@ -15,7 +15,7 @@ class OrderItemSearch extends OrderItem
         return [
             [['id', 'order_id', 'count', 'price', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['total_price'], 'number'],
-            [['product_id'], 'safe'],
+            [['product_id','color','size'], 'safe'],
         ];
     }
 
@@ -58,6 +58,8 @@ class OrderItemSearch extends OrderItem
         $query
             ->andFilterWhere(['like', 'total_price', $this->total_price])
             ->andFilterWhere(['like', 'price', $this->price])
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'size', $this->size])
             ->andFilterWhere(['like', 'count', $this->count]);
 
         // Ensure 'product' relation and 'name' column match your database
