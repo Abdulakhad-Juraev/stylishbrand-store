@@ -47,9 +47,9 @@ class OrderController extends ApiBaseController
                 $orderItem->order_id = $order->id;
                 $orderItem->product_id = $item['product_id'];
                 $orderItem->count = OrderItem::STATUS_ACTIVE;
-                $orderItem->price = $product->price;
-                $orderItem->color = $item['color'];
-                $orderItem->size = $item['size'];
+                $orderItem->price = $product->price ?? '';
+                $orderItem->color = $item['color'] ?? '';
+                $orderItem->size = $item['size'] ?? '';
                 $orderItem->total_price = ($product->price * $orderItem->count);
                 $orderItem->save();
             }
