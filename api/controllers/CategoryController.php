@@ -48,7 +48,7 @@ class CategoryController extends ApiBaseController
         $brand_id = Yii::$app->request->get('brand_id');
         $color_id = Yii::$app->request->get('color_id');
         $min_price = Yii::$app->request->get('min_price');
-        $max_price = Yii::$app->request->get('min_price');
+        $max_price = Yii::$app->request->get('max_price');
 
         $category = Category::findActiveModel($category_id);
 

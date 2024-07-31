@@ -2,7 +2,6 @@
 
 namespace api\models\CategoryPage;
 
-use common\modules\product\models\ProductImage;
 use soft\db\ActiveQuery;
 
 class Product extends \common\modules\product\models\Product

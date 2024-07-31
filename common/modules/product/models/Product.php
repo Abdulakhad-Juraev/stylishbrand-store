@@ -9,6 +9,7 @@ use soft\behaviors\TimestampConvertorBehavior;
 use soft\db\ActiveQuery;
 use soft\db\ActiveRecord;
 use soft\helpers\ArrayHelper;
+use soft\helpers\Url;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -295,5 +296,12 @@ class Product extends ActiveRecord
     {
         $percentage = ($this->price * $this->percentage) / 100;
         return $this->price - $percentage;
+    }
+    /**
+     * @return string|null
+     */
+    public function getImageUrl()
+    {
+        return $this->getBehavior('image')->getThumbUploadUrl('image', 'preview');
     }
 }
