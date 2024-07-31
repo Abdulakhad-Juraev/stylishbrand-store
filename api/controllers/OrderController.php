@@ -41,7 +41,7 @@ class OrderController extends ApiBaseController
 
             foreach ($allData['products'] as $item) {
 
-                $product = Product::findOne($item['slug']);
+                $product = Product::findOne($item['product_id']);
 
                 $orderItem = new OrderItem();
                 $orderItem->order_id = $order->id;
