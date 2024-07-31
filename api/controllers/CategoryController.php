@@ -94,7 +94,7 @@ class CategoryController extends ApiBaseController
 
         if (!empty($max_price)) {
             $query
-                ->orderBy(['price'=>SORT_DESC])
+                ->orderBy(['price'=>SORT_ASC])
                 ->andWhere(['<=', 'price', $max_price]);
         }
 
