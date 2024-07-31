@@ -14,6 +14,8 @@ use common\modules\product\models\Product;
  * @property int $product_id
  * @property int|null $count
  * @property int|null $price
+ * @property string|null $size
+ * @property string|null $color
  * @property float|null $total_price
  * @property int|null $created_by
  * @property int|null $updated_by
@@ -46,6 +48,7 @@ class OrderItem extends \soft\db\ActiveRecord
             [['order_id', 'product_id'], 'required'],
             [['order_id', 'product_id', 'count', 'price', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['total_price'], 'number'],
+            [['color','size'], 'string'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
@@ -74,6 +77,8 @@ class OrderItem extends \soft\db\ActiveRecord
             'order_id' => Yii::t('app', 'Order ID'),
             'product_id' => Yii::t('app', 'Mahsulot'),
             'count' => Yii::t('app', 'Soni'),
+            'color' => Yii::t('app', 'Ranglar'),
+            'size' => Yii::t('app', 'O\'lchamlar'),
             'price' => Yii::t('app', 'Narxi'),
             'total_price' => Yii::t('app', 'Ummumiy summa'),
             'created_by' => Yii::t('app', 'Created By'),
