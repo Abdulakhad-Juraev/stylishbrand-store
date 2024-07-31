@@ -24,6 +24,8 @@ $this->registerAjaxCrudAssets();
         'columns' => [
             'order_id',
             'product_id',
+            'size',
+            'color',
             'count',
             'price',
             'total_price',

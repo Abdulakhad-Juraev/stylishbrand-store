@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
                    return $model->product->name ?? '';
             },
         ],
+        'size',
+        'color',
         'count',
         'price',
         'total_price',

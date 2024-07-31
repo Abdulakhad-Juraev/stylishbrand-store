@@ -17,6 +17,8 @@ use soft\widget\kartik\Form;
     'form' => $form,
     'attributes' => [
         'product_id',
+        'size',
+        'color',
         'count',
         'price',
         'total_price',
