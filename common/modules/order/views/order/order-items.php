@@ -43,6 +43,8 @@ $this->registerAjaxCrudAssets();
                 return $model->product->name ?? '';
             },
         ],
+        'size',
+        'color',
         'count',
         'price',
         'total_price',
