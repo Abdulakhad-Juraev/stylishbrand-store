@@ -87,11 +87,15 @@ class CategoryController extends ApiBaseController
         }
 
         if (!empty($min_price)) {
-            $query->andFilterWhere(['>=', 'price', $min_price]);
+            $query
+                ->orderBy(['price'=>SORT_ASC])
+                ->andWhere(['>=', 'price', $min_price]);
         }
 
         if (!empty($max_price)) {
-            $query->andFilterWhere(['<=', 'price', $max_price]);
+            $query
+                ->orderBy(['price'=>SORT_DESC])
+                ->andWhere(['<=', 'price', $max_price]);
         }
 
         $productIds = $query->column();
