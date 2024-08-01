@@ -18,6 +18,7 @@ class RecommendedProduct extends Product
         }
 
         return [
+            'id',
             'slug',
             'name',
             'category_id',
