@@ -18,6 +18,7 @@ class Product extends \common\modules\product\models\Product
         }
 
         return [
+            'id',
             'slug',
             'name',
             'description',
