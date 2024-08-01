@@ -43,6 +43,7 @@ class BannerController extends ApiBaseController
     public function actionMostPopularProducts(): array
     {
         Product::setFields([
+            'id',
             'slug',
             'name',
             'category_id',
@@ -79,6 +80,7 @@ class BannerController extends ApiBaseController
             ->one();
 
         Product::setFields([
+            'id',
             'slug',
             'name',
             'category_id',
@@ -112,6 +114,7 @@ class BannerController extends ApiBaseController
             ->one();
 
         Product::setFields([
+            'id',
             'slug',
             'name',
             'category_id',

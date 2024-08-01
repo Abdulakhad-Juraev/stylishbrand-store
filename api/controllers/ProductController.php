@@ -51,6 +51,7 @@ class ProductController extends ApiBaseController
         }
 
         Product::setFields([
+            'id',
             "slug",
             "name",
             'category_id',
