@@ -21,7 +21,7 @@ class OrderController extends SoftController
     {
         $searchModel = new OrderSearch();
         $dataProvider = $searchModel->search();
-
+        $dataProvider->query->orderBy(['id' => SORT_DESC]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
